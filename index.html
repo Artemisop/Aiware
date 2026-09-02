@@ -238,7 +238,6 @@
     <div class="container">
         <div class="main-content">
             
-            <!-- ПАНЕЛЬ УПРАВЛЕНИЯ ТЕПЕРЬ ОТКРЫВАЕТСЯ КАК ОТДЕЛЬНАЯ ВКЛАДКА -->
             <div id="adminPanel" class="admin-panel-box" style="display: none;">
                 <h3 id="panelCreateTitle" style="color: #ff416c; margin-top: 0; font-size: 14px;">Панель управления: Создать публикацию</h3>
                 <div id="creatorPostSection">
@@ -292,8 +291,9 @@
 
             <div id="forumMainContent">
                 <div class="box">
-                    <div class="box-header">
+                    <div class="box-header" style="display: flex; justify-content: space-between; align-items: center;">
                         <span>📢 Общий чат сообщества</span>
+                        <button class="user-action-btn" id="clearChatBtn" onclick="clearChat()" style="display: none; margin: 0;">Очистить чат</button>
                     </div>
                     <div class="box-content shoutbox-messages" id="shoutboxContainer"></div>
                     <div class="shoutbox-input-container">
@@ -358,7 +358,6 @@
 </div>
 
 <div id="authModal" class="auth-overlay" style="display: none;">
-    <!-- Окно авторизации оставлено без изменений -->
     <div class="auth-box">
         <div class="auth-header" id="authModalTitle">Авторизация</div>
         <div class="auth-error" id="authErrorBox" style="display: none;">
@@ -494,7 +493,6 @@
         }
     });
 
-    // Функция, которая открывает ТОЛЬКО панель управления (скрывая форум)
     function showAdminPanel() {
         document.getElementById('showcaseSection').style.display = 'none';
         document.getElementById('shopSection').style.display = 'none';
@@ -609,7 +607,6 @@
         window.scrollTo(0, 0);
     }
 
-    // Здесь скрываем админ-панель и возвращаем категории форума
     function showForumMain() {
         document.getElementById('showcaseSection').style.display = 'none';
         document.getElementById('shopSection').style.display = 'none';
@@ -617,9 +614,9 @@
         
         document.getElementById('topicListSection').style.display = 'none';
         document.getElementById('topicViewSection').style.display = 'none';
-        document.getElementById('adminPanel').style.display = 'none'; // Скрываем панель управления
+        document.getElementById('adminPanel').style.display = 'none'; 
         
-        document.getElementById('forumMainContent').style.display = 'block'; // Показываем чат и форум
+        document.getElementById('forumMainContent').style.display = 'block'; 
         updateRealtimeData();
         renderChatMessages();
     }
@@ -699,7 +696,6 @@
 
         let canAccessPanel = ['creator', 'headadmin', 'admin', 'moderator'].includes(role);
         
-        // Убрали принудительное отображение панели здесь, только обновляем ее данные
         if (canAccessPanel) {
             if (['creator', 'headadmin'].includes(role)) {
                 document.getElementById('creatorPostSection').style.display = 'block';
@@ -709,6 +705,15 @@
                 document.getElementById('panelCreateTitle').innerText = 'Панель модерации: Управление пользователями';
             }
             renderAdminUsersTable();
+        }
+
+        let clearBtn = document.getElementById('clearChatBtn');
+        if (clearBtn) {
+            if (['creator', 'headadmin', 'admin', 'moderator'].includes(role)) {
+                clearBtn.style.display = 'block';
+            } else {
+                clearBtn.style.display = 'none';
+            }
         }
 
         let roleBadge = '';
@@ -1142,7 +1147,19 @@
     function triggerContextualBotReply(userText) {
         let randomBots = ['Vortex_99', 'xX_Skillet_Xx', 'Bender_Rodr', 'Killa_Inst'];
         let botName = randomBots[Math.floor(Math.random() * randomBots.length)];
-        let replyText = `Я использую кастомный оверлей шейдеров, выглядит очень круто, ${currentUser}!`;
+        
+        let replies = [
+            `Я использую кастомный оверлей шейдеров, выглядит очень круто, ${currentUser}!`,
+            `Согласен, ${currentUser}. Главное — настроить конфиг под себя.`,
+            `${currentUser}, а ты какие чамсы юзаешь? Я предпочитаю неоновые.`,
+            `Кто-нибудь тестил обнову? ${currentUser}, ты уже качал?`,
+            `Да, визуалы тут топ. Не банит уже пару месяцев.`,
+            `Привет, ${currentUser}! Как успехи с настройкой радара?`,
+            `Интересная мысль! Надо будет проверить в катке.`,
+            `Ахах, ну да, ${currentUser}. Софт решает.`,
+            `Поддерживаю! Вчера с этими настройками апнул ранк.`
+        ];
+        let replyText = replies[Math.floor(Math.random() * replies.length)];
 
         let messages = JSON.parse(localStorage.getItem('AIware_chat')) || [];
         messages.push({ author: botName, text: replyText });
@@ -1150,6 +1167,53 @@
 
         localStorage.setItem('AIware_chat', JSON.stringify(messages));
         if (document.getElementById('forumWrapper').style.display === 'block') {
+            renderChatMessages();
+        }
+    }
+
+    function simulateLiveChat() {
+        if (document.getElementById('forumWrapper').style.display !== 'block') return;
+        if (Math.random() > 0.35) return;
+
+        let randomBots = ['Vortex_99', 'xX_Skillet_Xx', 'Bender_Rodr', 'Killa_Inst'];
+        let botName = randomBots[Math.floor(Math.random() * randomBots.length)];
+
+        let randomPhrases = [
+            "Кто пойдет в дуо? С софтом, естественно.",
+            "Админы, когда обнова под новый патч?",
+            "Купил навсегда, вообще не жалею. Софт пушка 🔥",
+            "Парни, скиньте легит конфиг, плиз.",
+            "Чет пинг скачет сегодня, у всех так?",
+            "Заметил, что скелеты иногда багаются на дальних дистанциях.",
+            "Vortex_99, пошли в дискорд?",
+            "Всем ку! Как дела?",
+            "Снова апнул глобала с этим лоадером. Спасибо кодерам!",
+            "А можно цвет радара поменять на фиолетовый?",
+            "Когда скидки на подписку будут?",
+            "Инжект прошел за секунду, каеф."
+        ];
+
+        let text = randomPhrases[Math.floor(Math.random() * randomPhrases.length)];
+
+        let messages = JSON.parse(localStorage.getItem('AIware_chat')) || [];
+        messages.push({ author: botName, text: text });
+        if (messages.length > 200) messages.shift();
+
+        localStorage.setItem('AIware_chat', JSON.stringify(messages));
+        renderChatMessages();
+    }
+
+    function clearChat() {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+        
+        if (!activeUserObj || !['creator', 'headadmin', 'admin', 'moderator'].includes(activeUserObj.role)) {
+            alert('У вас нет прав для очистки чата!');
+            return;
+        }
+
+        if (confirm('Вы уверены, что хотите полностью очистить чат? Это действие нельзя отменить.')) {
+            localStorage.setItem('AIware_chat', JSON.stringify([]));
             renderChatMessages();
         }
     }
@@ -1212,6 +1276,7 @@
     updateRealtimeData();
     renderChatMessages();
     setInterval(updateRealtimeData, 10000);
+    setInterval(simulateLiveChat, 8000); 
 </script>
 </body>
 </html>
