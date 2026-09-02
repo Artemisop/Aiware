@@ -214,11 +214,11 @@
                 <button class="admin-btn" onclick="createPost()">Опубликовать</button>
             </div>
 
-            <!-- Живой чат с кучей разнообразных и живых фраз (споры, мат, обсуждения читов) -->
+            <!-- Живой чат с активными спорами, матом и контекстным ответом на ваши сообщения -->
             <div class="box">
                 <div class="box-header">
                     <span>📢 Чат сообщества (Живое обсуждение)</span>
-                    <span style="font-size: 11px; color: #767682;">Участники спорят и общаются</span>
+                    <span style="font-size: 11px; color: #767682;">Участники реагируют на ваши сообщения</span>
                 </div>
                 <div class="box-content shoutbox-messages" id="shoutboxContainer"></div>
                 <div class="shoutbox-input-container">
@@ -365,7 +365,7 @@
                 { author: 'Killa_Inst', text: 'Та ну нахуй, твой aiware вчера на обходе отлетел, вака не было, но софт крашит каждые 2 катки' },
                 { author: 'Bender_Rodr', text: 'Сам ты отлетел, руки прями выпрями, у меня всё работает заебись' },
                 { author: 'Zxc_Dead_Insid', text: 'челы, у меня вак бан прилетел после вашей херни, пиздаболы ебаные' },
-                { author: 'CyberGHOST', text: 'Zxc_Dead_Insid, потому что играть без мозггов надо в легит режиме, а не крутиться как долбоёб по реюжу' }
+                { author: 'CyberGHOST', text: 'Zxc_Dead_Insid, потому что играть без мозггов надо в легит режиме, а не крутиться как долбоёб по рейжу' }
             ]));
         }
     }
@@ -574,9 +574,70 @@
         input.value = '';
         localStorage.setItem('aiware_chat', JSON.stringify(messages));
         renderChatMessages();
+
+        // Участники мгновенно и контекстно отвечают на ваше сообщение через 1-2 секунды!
+        setTimeout(() => {
+            triggerContextualBotReply(text);
+        }, 1200);
     }
 
-    // Множество разнообразных фраз для имитации живого общения, споров, матов и обсуждения софта
+    // Функция генерации контекстного ответа участников чата на ваше сообщение
+    function triggerContextualBotReply(userText) {
+        let randomBots = ['Vortex_99', 'xX_Skillet_Xx', 'Bender_Rodr', 'Killa_Inst', 'Snegovik', 'DarkPhoenix', 'Cipsyy', 'NukeMaster', 'Zxc_Dead_Insid', 'CyberGHOST'];
+        let botName = randomBots[Math.floor(Math.random() * randomBots.length)];
+        let lowerText = userText.toLowerCase();
+        let replyText = "";
+
+        if (lowerText.includes('привет') || lowerText.includes('здаров') || lowerText.includes('хай')) {
+            let replies = [
+                `Здаров, ${currentUser}! Калдуешь над софтом тоже?`,
+                `Ку, броу. Как сам? Чё по читам слышно?`,
+                `Здорово! Очередной новичок в чате, глядишь и доглобала доиграешься)`
+            ];
+            replyText = replies[Math.floor(Math.random() * replies.length)];
+        } else if (lowerText.includes('чит') || lowerText.includes('soft') || lowerText.includes('софт') || lowerText.includes('aiware')) {
+            let replies = [
+                `@${currentUser}, дак тут же самый лучший легит на рынке, чё ты сомневаешься`,
+                `Слышь, ${currentUser}, ты главное конфиг нормальный поставь, а то отлетишь с нубярским сетапом`,
+                `@${currentUser} полностью прав, софт пушка, сам юзаю неделю уже`
+            ];
+            replyText = replies[Math.floor(Math.random() * replies.length)];
+        } else if (lowerText.includes('бан') || lowerText.includes('вак') || lowerText.includes('detekt')) {
+            let replies = [
+                `Не пизди, ${currentUser}, вака нет если без тупого рейжа катать!`,
+                `@${currentUser}, бля, ну а хули ты хотел с паблик инжектором играть? Сам виноват`,
+                `У меня друг с этой обходом месяц гоняет, ${currentUser}, никто его не банил`
+            ];
+            replyText = replies[Math.floor(Math.random() * replies.length)];
+        } else if (lowerText.includes('хуй') || lowerText.includes('сука') || lowerText.includes('ебать') || lowerText.includes('блять') || lowerText.includes('пизд')) {
+            let replies = [
+                `Чё ты разорался, ${currentUser}, потише выражения выбирай епта`,
+                `Слышь, ${currentUser}, чё ты тут матом раскидывался, умный самый чтоль? 😂`,
+                `Ууу, ${currentUser} токсик пошел, баньте его нахуй`
+            ];
+            replyText = replies[Math.floor(Math.random() * replies.length)];
+        } else {
+            let generalReplies = [
+                `@${currentUser}, чё ты имеешь в виду под этим? Поясни за слова`,
+                `Интересное мнение, ${currentUser}, но я всё равно считаю по-другому`,
+                `Хах, ${currentUser} выдал базу, согласен с ним полностью`,
+                `Да ладно тебе, ${currentUser}, тут половина форума сама не знает чё пишет`,
+                `@${currentUser}, лучше помоги с конфигом, а не пиши всякую хуйню`
+            ];
+            replyText = generalReplies[Math.floor(Math.random() * generalReplies.length)];
+        }
+
+        let messages = JSON.parse(localStorage.getItem('aiware_chat')) || [];
+        messages.push({ author: botName, text: replyText });
+        if (messages.length > 50) messages.shift();
+
+        localStorage.setItem('aiware_chat', JSON.stringify(messages));
+        if (document.getElementById('forumWrapper').style.display === 'block') {
+            renderChatMessages();
+        }
+    }
+
+    // Множество рандомных фоновых фраз (споры, мат, обсуждения читов) для непрерывной жизни чата
     function simulateRandomChat() {
         let randomBots = ['Vortex_99', 'xX_Skillet_Xx', 'Bender_Rodr', 'Killa_Inst', 'Snegovik', 'DarkPhoenix', 'Cipsyy', 'NukeMaster', 'Zxc_Dead_Insid', 'CyberGHOST'];
         let randomDialogues = [
@@ -615,6 +676,7 @@
         }
     }
 
+    // Фоновые сообщения появляются каждые 6 секунд
     setInterval(simulateRandomChat, 6000);
 
     function createPost() {
