@@ -63,7 +63,7 @@
     header { background-color: #121217; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #23232c; }
     .header-left { display: flex; align-items: center; gap: 30px; }
     .logo { font-size: 22px; color: #dc5b5b; font-weight: bold; letter-spacing: 1px; text-decoration: none;}
-    .nav-links { display: flex; gap: 20px; }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
     .nav-links a { color: #9f9fa8; text-decoration: none; font-size: 14px; cursor: pointer; }
     .nav-links a:hover { color: #ffffff; }
     .user-nav { display: flex; gap: 15px; font-size: 14px; align-items: center; color: #d0d0d6; }
@@ -137,6 +137,17 @@
     .auth-submit-btn:hover { background: #2e2e3b; color: #fff; }
     .auth-switch-link { color: #6e8bc3; cursor: pointer; text-decoration: none; }
     .auth-switch-link:hover { text-decoration: underline; }
+
+    /* Меню профиля (выпадающее) */
+    .user-profile-wrapper { position: relative; display: inline-block; }
+    .user-profile-btn { display: flex; align-items: center; gap: 8px; cursor: pointer; background: #16161c; padding: 6px 12px; border-radius: 4px; border: 1px solid #23232c; }
+    .user-profile-btn:hover { border-color: #6e8bc3; }
+    .profile-dropdown-menu { display: none; position: absolute; right: 0; top: 42px; background: #16161c; border: 1px solid #23232c; border-radius: 6px; padding: 12px; width: 200px; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.5); text-align: left; }
+    .profile-dropdown-menu p { margin: 0 0 8px 0; font-size: 12px; color: #9f9fa8; }
+    .profile-dropdown-menu .profile-username { color: #fff; font-weight: bold; font-size: 13px; margin-bottom: 10px; border-bottom: 1px solid #23232c; padding-bottom: 6px; }
+    .profile-dropdown-menu hr { border: 0; border-top: 1px solid #23232c; margin: 8px 0; }
+    .profile-logout-btn { background: #dc5b5b; color: white; border: none; width: 100%; padding: 6px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; }
+    .profile-logout-btn:hover { background: #c54a4a; }
 </style>
 </head>
 <body>
@@ -207,6 +218,7 @@
             <div class="nav-links">
                 <a href="#" onclick="showHome()">Главная</a>
                 <a href="#" onclick="showShop()">Магазин</a>
+                <a href="#" id="loaderTab" style="display: none; color: #dc5b5b; font-weight: bold;" onclick="downloadLoader()">Скачать лоадер</a>
             </div>
         </div>
         <div class="user-nav" id="userNavContainer"></div>
@@ -225,7 +237,7 @@
                 <button class="admin-btn" onclick="createPost()">Опубликовать</button>
             </div>
 
-            <!-- Живой чат с активными спорами, матом и контекстным ответом на ваши сообщения -->
+            <!-- Живой чат -->
             <div class="box">
                 <div class="box-header">
                     <span>📢 Чат сообщества (Живое обсуждение)</span>
@@ -382,6 +394,45 @@
 
     initStorage();
 
+    /* Управление меню профиля и лоадером */
+    function toggleProfileMenu() {
+        let menu = document.getElementById('profileDropdownMenu');
+        if (menu) {
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+    }
+
+    window.addEventListener('click', function(e) {
+        if (!e.target.closest('.user-profile-wrapper')) {
+            let menu = document.getElementById('profileDropdownMenu');
+            if (menu) menu.style.display = 'none';
+        }
+    });
+
+    function updateLoaderTab() {
+        let users = JSON.parse(localStorage.getItem('aiware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+        let loaderTab = document.getElementById('loaderTab');
+        if (!loaderTab) return;
+
+        if (activeUserObj && (activeUserObj.role === 'admin' || activeUserObj.hasSubscription)) {
+            loaderTab.style.display = 'inline-block';
+        } else {
+            loaderTab.style.display = 'none';
+        }
+    }
+
+    function downloadLoader() {
+        let users = JSON.parse(localStorage.getItem('aiware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+        if (activeUserObj && (activeUserObj.role === 'admin' || activeUserObj.hasSubscription)) {
+            alert('Загрузка официального лоадера aiware начата! Проверьте папку Загрузки.');
+        } else {
+            alert('У вас нет активной подписки! Сначала приобретите доступ в магазине.');
+            showShop();
+        }
+    }
+
     let currentUser = localStorage.getItem('aiware_user');
     let isRegisterMode = false;
 
@@ -433,23 +484,47 @@
     }
 
     function buyProduct(name, price) {
+        let users = JSON.parse(localStorage.getItem('aiware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+        if (activeUserObj) {
+            activeUserObj.hasSubscription = true;
+            localStorage.setItem('aiware_users', JSON.stringify(users));
+        }
         alert(`Заказ "${name}" на сумму ${price} успешно оформлен! Подписка активирована.`);
+        renderUserNav();
+        updateLoaderTab();
     }
 
     function renderUserNav() {
         let users = JSON.parse(localStorage.getItem('aiware_users')) || [];
         let activeUserObj = users.find(u => u.username === currentUser);
         let role = activeUserObj ? activeUserObj.role : 'user';
+        let hasSub = activeUserObj && (role === 'admin' || activeUserObj.hasSubscription);
 
-        let userNavHtml = `<span>👤 ${currentUser}</span>`;
         if (role === "admin") {
-            userNavHtml += ` <span class="badge-admin">ADMIN</span> <span style="color: #6e8bc3; font-size: 11px;">(Подписка активна)</span>`;
             document.getElementById('adminPanel').style.display = 'block';
         } else {
             document.getElementById('adminPanel').style.display = 'none';
         }
-        userNavHtml += `<span onclick="logout()" style="color: #dc5b5b; font-size: 12px; border: 1px solid #dc5b5b; padding: 2px 6px; border-radius: 3px; cursor:pointer; margin-left: 10px;">Выйти</span>`;
+
+        let userNavHtml = `
+            <div class="user-profile-wrapper">
+                <div class="user-profile-btn" onclick="toggleProfileMenu()">
+                    <span>👤 ${currentUser}</span>
+                    ${role === 'admin' ? '<span class="badge-admin">ADMIN</span>' : ''}
+                    <span style="font-size: 10px; opacity: 0.6;">▼</span>
+                </div>
+                <div id="profileDropdownMenu" class="profile-dropdown-menu">
+                    <div class="profile-username">${currentUser}</div>
+                    <p>Роль: <b>${role.toUpperCase()}</b></p>
+                    <p>Подписка: <span style="color: ${hasSub ? '#48bb78' : '#dc5b5b'}; font-weight: bold;">${hasSub ? 'Активна' : 'Не активна'}</span></p>
+                    <hr>
+                    <button class="profile-logout-btn" onclick="logout()">Выйти</button>
+                </div>
+            </div>
+        `;
         document.getElementById('userNavContainer').innerHTML = userNavHtml;
+        updateLoaderTab();
     }
 
     function openLoginModal() {
@@ -704,7 +779,7 @@
 
         let messages = JSON.parse(localStorage.getItem('aiware_chat')) || [];
         messages.push({ author: botName, text: text });
-        if (messages.length > 200) messages.shift(); // Увеличил лимит сообщений до 200
+        if (messages.length > 200) messages.shift();
 
         localStorage.setItem('aiware_chat', JSON.stringify(messages));
         if (document.getElementById('forumWrapper').style.display === 'block') {
@@ -712,7 +787,6 @@
         }
     }
 
-    // Ускорил генерацию случайных сообщений, чтобы чат был более живым
     setInterval(simulateRandomChat, 3000); 
 
     function createPost() {
@@ -725,7 +799,7 @@
             return;
         }
 
-        let posts = JSON.parse(localStorage.getItem('aiware_posts'));
+        let posts = JSON.parse(localStorage.getItem('aiware_posts')) || [];
         posts.unshift({ id: Date.now(), title: title, content: content, category: category, author: currentUser });
         localStorage.setItem('aiware_posts', JSON.stringify(posts));
 
