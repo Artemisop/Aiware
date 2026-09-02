@@ -94,230 +94,1116 @@
     .forum-stats { display: flex; gap: 30px; font-size: 12px; color: #767682; text-align: left; width: 150px; }
     .stat-val { color: #d0d0d6; display: block; margin-top: 2px; }
     .sidebar-box { margin-bottom: 20px; }
-    .stat-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 10px; border-bottom: 1px dashed #23232c; padding-bottom: 5px; }
-    .stat-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-    .stat-label { color: #767682; }
-    .stat-value { color: #d0d0d6; }
+    .stat-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 10px; border-bottom: 1px dashed #23232c; padding-bottom: 5px;}
+    .stat-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
+    .online-users { color: #d0d0d6; font-size: 13px; margin-bottom: 10px; }
     
-    .breadcrumbs { font-size: 13px; color: #767682; margin-bottom: 15px; }
-    .breadcrumbs span { cursor: pointer; color: #6e8bc3; }
-    .breadcrumbs span:hover { text-decoration: underline; }
-    .btn-create-topic { background: #dc5b5b; color: #fff; border: none; padding: 7px 15px; font-size: 13px; cursor: pointer; border-radius: 3px; font-weight: bold; margin-bottom: 15px; float: right; }
-    .btn-create-topic:hover { background: #c54a4a; }
-    
-    .topic-row { display: flex; padding: 12px 15px; border-bottom: 1px solid #23232c; align-items: center; cursor: pointer; }
-    .topic-row:hover { background: #16161c; }
-    .topic-info { flex: 1; }
-    .topic-title { color: #d0d0d6; font-size: 14px; margin-bottom: 4px; }
-    .topic-meta { font-size: 11px; color: #767682; }
-    .topic-meta span { color: #6e8bc3; }
-    
-    .post-card { display: flex; padding: 15px; border-bottom: 1px solid #23232c; gap: 20px; }
-    .post-author { width: 150px; text-align: center; }
-    .author-avatar { width: 60px; height: 60px; background: #23232c; border-radius: 50%; margin: 0 auto 10px auto; }
-    .author-name { color: #dc5b5b; font-size: 14px; font-weight: bold; margin-bottom: 3px; }
-    .author-role { font-size: 11px; color: #767682; }
-    .post-content { flex: 1; font-size: 13px; color: #d0d0d6; line-height: 1.6; }
-    .post-date { font-size: 11px; color: #767682; margin-bottom: 15px; border-bottom: 1px dashed #23232c; padding-bottom: 5px; }
-    
-    .reply-box { margin-top: 20px; }
-    .reply-textarea { width: 100%; height: 100px; background: #16161c; border: 1px solid #23232c; color: #d0d0d6; padding: 10px; box-sizing: border-box; resize: vertical; margin-bottom: 10px; font-family: inherit; }
+    .badge-creator { background: linear-gradient(135deg, #ff416c, #ff4b2b); color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-left: 6px; }
+    .badge-headadmin { background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-left: 6px; }
+    .badge-admin { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-left: 6px; }
+    .badge-moderator { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-left: 6px; }
+    .badge-cobra { background: #0f172a; color: #22c55e; border: 1px solid #22c55e; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-left: 6px; box-shadow: 0 0 10px rgba(34, 197, 94, 0.6); text-shadow: 0 0 5px rgba(34, 197, 94, 0.8); }
+    .badge-default-user { color: #767682; font-size: 11px; margin-left: 6px; font-style: italic; }
 
-    .role-creator { color: #ff0000; font-weight: bold; }
-    .role-headadmin { color: #ff5500; font-weight: bold; }
-    .role-admin { color: #ffaa00; font-weight: bold; }
-    .role-moderator { color: #00ff00; font-weight: bold; }
-    .role-cobra { color: #ff00ff; font-weight: bold; }
-    .role-sub { color: #ffff00; }
-    .role-user { color: #9f9fa8; }
+    .admin-panel-box { background: #121217; border: 1px solid #ff416c; padding: 15px; border-radius: 4px; margin-bottom: 20px; display: none; }
+    .admin-panel-box input, .admin-panel-box textarea, .admin-panel-box select { background: #16161c; border: 1px solid #23232c; color: #fff; padding: 8px; width: calc(100% - 18px); margin-bottom: 10px; border-radius: 3px; font-family: inherit; }
+    .admin-btn { background: #ff416c; color: white; border: none; padding: 8px 15px; border-radius: 3px; cursor: pointer; font-weight: bold; }
+    .admin-btn:hover { background: #e0355d; }
 
-    #shopSection { display: none; padding: 40px; text-align: center; color: #fff; min-height: 100vh; }
-    .shop-items { display: flex; justify-content: center; gap: 30px; margin-top: 40px; }
-    .shop-item { background: #121217; border: 1px solid #dc5b5b; padding: 30px; width: 250px; border-radius: 8px; }
-    .shop-item h3 { margin-top: 0; color: #dc5b5b; }
-    .shop-btn { background: #dc5b5b; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-top: 20px; }
+    .users-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px; }
+    .users-table th, .users-table td { border: 1px solid #23232c; padding: 8px; text-align: left; color: #c0c0c8; }
+    .users-table th { background: #16161c; color: #6e8bc3; }
+    .user-action-btn { background: #23232c; color: #fff; border: 1px solid #363642; padding: 4px 8px; border-radius: 3px; cursor: pointer; font-size: 11px; margin-right: 4px; margin-bottom: 4px; }
+    .user-action-btn:hover { background: #dc5b5b; border-color: #dc5b5b; }
     
-    .admin-panel-box { background: #121217; border: 1px solid #23232c; padding: 20px; border-radius: 4px; display: none; }
-    .admin-panel-box h3 { margin-top: 0; color: #dc5b5b; border-bottom: 1px solid #23232c; padding-bottom: 10px; }
+    #shopSection { display: none; padding: 40px 50px; max-width: 1200px; margin: 0 auto; }
+    .shop-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; background: #121217; padding: 20px; border: 1px solid #23232c; border-radius: 8px; }
+    .back-forum-btn { background: #dc5b5b; border: none; color: #fff; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.2s; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .back-forum-btn:hover { background: #c54a4a; }
     
+    .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .product-card { background: #121217; border: 1px solid #23232c; border-radius: 6px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+    .product-title { color: #fff; font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+    .product-price { color: #dc5b5b; font-size: 20px; font-weight: bold; margin-bottom: 15px; }
+    .product-desc { font-size: 13px; color: #9f9fa8; margin-bottom: 20px; line-height: 1.4; }
+    .buy-btn { background: #dc5b5b; color: white; border: none; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; text-align: center; }
+    .buy-btn:hover { background: #c54a4a; }
+
+    #topicListSection, #topicViewSection { display: none; }
+    .topic-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #23232c; cursor: pointer; transition: 0.15s; }
+    .topic-item:hover { background: #16161c; }
+    .topic-item:last-child { border-bottom: none; }
+    .topic-title-link { color: #fff; font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+    .topic-meta { font-size: 12px; color: #767682; }
+
     .auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-    .auth-box { background: #121217; border: 1px solid #23232c; width: 350px; border-radius: 6px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    .auth-header { color: #fff; font-size: 18px; font-weight: bold; margin-bottom: 20px; text-align: left; display: flex; justify-content: space-between;}
-    .auth-input-row { margin-bottom: 15px; }
-    .auth-input-row span { display: block; color: #767682; font-size: 12px; margin-bottom: 5px; }
-    .auth-input { width: 100%; background: #16161c; border: 1px solid #23232c; color: #fff; padding: 10px; box-sizing: border-box; font-size: 13px; border-radius: 3px;}
-    .auth-submit-btn { width: 100%; background: #dc5b5b; color: #fff; border: none; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 3px; cursor: pointer; margin-bottom: 15px; }
-    .auth-switch { color: #6e8bc3; font-size: 12px; text-align: center; cursor: pointer; }
-    .auth-switch:hover { text-decoration: underline; }
-    .auth-error { background: #401515; color: #ff6666; border: 1px solid #702020; padding: 10px; font-size: 12px; margin-bottom: 15px; border-radius: 3px; display: none; }
+    .auth-box { background: #121217; border: 1px solid #23232c; width: 450px; border-radius: 4px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+    .auth-header { padding: 15px 20px; font-size: 18px; color: #d0d0d6; border-bottom: 1px solid #23232c; display: flex; justify-content: space-between; align-items: center; }
+    .auth-error { background: #2c1518; border-left: 4px solid #dc5b5b; color: #dc5b5b; padding: 12px 20px; font-size: 13px; display: flex; align-items: center; gap: 10px; }
+    .auth-body { padding: 25px 20px; }
+    .auth-input-row { display: flex; margin-bottom: 15px; align-items: center; justify-content: space-between; }
+    .auth-input-row span { font-size: 13px; color: #9f9fa8; width: 150px; text-align: right; padding-right: 15px; }
+    .auth-input { background: #16161c; border: 1px solid #23232c; color: #fff; padding: 8px 12px; border-radius: 3px; flex: 1; outline: none; font-size: 13px; }
+    .auth-footer-row { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; font-size: 12px; color: #767682; }
+    .auth-submit-btn { background: #23232c; color: #d0d0d6; border: 1px solid #363642; padding: 6px 15px; border-radius: 3px; cursor: pointer; font-weight: bold; }
+    .auth-submit-btn:hover { background: #2e2e3b; color: #fff; }
+    .auth-switch-link { color: #6e8bc3; cursor: pointer; text-decoration: none; }
+    .auth-switch-link:hover { text-decoration: underline; }
 
-    .dropdown { position: relative; display: inline-block; }
-    .dropdown-content { display: none; position: absolute; right: 0; background-color: #121217; min-width: 160px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); z-index: 1; border: 1px solid #23232c; }
-    .dropdown-content a { color: #9f9fa8; padding: 12px 16px; text-decoration: none; display: block; font-size: 13px; }
-    .dropdown-content a:hover { background-color: #16161c; color: #fff; }
-
-    #editProfileModal .auth-box { width: 400px; }
-    
-    .table-admin { width: 100%; border-collapse: collapse; font-size: 13px; color: #d0d0d6; margin-top: 15px; }
-    .table-admin th, .table-admin td { border: 1px solid #23232c; padding: 8px; text-align: left; }
-    .table-admin th { background: #16161c; color: #6e8bc3; font-weight: normal; }
-    .action-btn { background: #23232c; border: none; color: #d0d0d6; padding: 4px 8px; cursor: pointer; font-size: 11px; margin-right: 4px; border-radius: 2px;}
-    .action-btn:hover { background: #3a3a46; color: #fff;}
-    .btn-red { background: #702020; color: #fff; } .btn-red:hover { background: #a03030; }
-    
-    /* Стили для лоадера AIware */
-    .loader-download-section { display: none; text-align: center; padding: 40px; color: #fff; min-height: 100vh; }
-    .loader-box { background: #121217; border: 1px solid #23232c; padding: 40px; max-width: 500px; margin: 0 auto; border-radius: 8px; }
-    .loader-box h2 { color: #dc5b5b; margin-top: 0; }
-    .download-btn { background: #dc5b5b; color: white; padding: 15px 30px; font-size: 16px; border: none; border-radius: 4px; cursor: pointer; margin-top: 20px; font-weight: bold; }
-    
-    /* Post creation */
-    .create-post-form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-    .create-post-form input, .create-post-form select, .create-post-form textarea { background: #16161c; border: 1px solid #23232c; color: #fff; padding: 10px; font-size: 13px; font-family: inherit;}
+    .user-profile-wrapper { position: relative; display: inline-block; }
+    .user-profile-btn { display: flex; align-items: center; gap: 8px; cursor: pointer; background: #16161c; padding: 6px 12px; border-radius: 4px; border: 1px solid #23232c; }
+    .user-profile-btn:hover { border-color: #6e8bc3; }
+    .profile-dropdown-menu { display: none; position: absolute; right: 0; top: 42px; background: #16161c; border: 1px solid #23232c; border-radius: 6px; padding: 12px; width: 210px; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.5); text-align: left; }
+    .profile-dropdown-menu p { margin: 0 0 8px 0; font-size: 12px; color: #9f9fa8; }
+    .profile-dropdown-menu .profile-username { color: #fff; font-weight: bold; font-size: 13px; margin-bottom: 10px; border-bottom: 1px solid #23232c; padding-bottom: 6px; }
+    .profile-dropdown-menu hr { border: 0; border-top: 1px solid #23232c; margin: 8px 0; }
+    .profile-menu-action { background: #23232c; color: white; border: none; width: 100%; padding: 6px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; margin-bottom: 6px; text-align: center; }
+    .profile-menu-action:hover { background: #2e2e3b; }
+    .profile-logout-btn { background: #dc5b5b; color: white; border: none; width: 100%; padding: 6px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; text-align: center; }
+    .profile-logout-btn:hover { background: #c54a4a; }
 </style>
 </head>
 <body>
 
-<header>
-    <div class="header-left">
-        <a href="#" class="logo" onclick="showHome()">AIware</a>
-        <div class="nav-links">
-            <a onclick="showHome()">Главная</a>
-            <a onclick="showForumFromOther()">Форум</a>
-            <a onclick="showShop()">Магазин</a>
-            <a id="loaderTab" onclick="showLoaderPage()" style="display:none; color: #dc5b5b; font-weight: bold;">Скачать Лоадер</a>
-            <a id="adminTab" onclick="openAdminPanelFromHeader()" style="display:none; color: #6e8bc3;">Панель управления</a>
-        </div>
-    </div>
-    <div class="user-nav" id="userNavContainer">
-        <!-- Заполняется через JS -->
-        <a href="#" onclick="openLoginModal()">Войти</a>
-        <a href="#" onclick="openRegisterModal()">Регистрация</a>
-    </div>
-</header>
-
-<!-- Раздел: Главная страница -->
-<div id="showcaseSection" class="showcase-section">
-    <div class="showcase-title">AIware - Visuals Only</div>
+<div class="showcase-section" id="showcaseSection">
     <div class="showcase-preview-box">
-        <h1>НОВЫЙ УРОВЕНЬ</h1>
-        <p style="color: #767682; font-size: 14px; margin-bottom: 30px;">
-            AIware предоставляет только лучшие визуальные функции. Никаких вмешательств в память, абсолютная безопасность и уникальный опыт.
-        </p>
+        <h1>AIware</h1>
         <button class="showcase-btn" onclick="handleTryNowClick()">Войти на форум</button>
     </div>
+    <div class="showcase-title">Возможности визуальной системы</div>
     <div class="features-grid">
         <div class="feature-card">
-            <h3>Безопасность</h3>
-            <p>100% защита от обнаружения. Визуальные функции работают поверх игры.</p>
+            <h3>ESP & Чамсы</h3>
+            <p>Точное отображение позиций соперников, скелетов и кастомных шейдеров моделей.</p>
         </div>
         <div class="feature-card">
-            <h3>Качество</h3>
-            <p>Оптимизировано для максимальной производительности без падения FPS.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Поддержка</h3>
-            <p>Быстрые обновления после патчей игры и круглосуточная поддержка.</p>
+            <h3>Кастомизация визуалов</h3>
+            <p>Продвинутая настройка оверлеев, радара и полностью настраиваемые элементы интерфейса.</p>
         </div>
     </div>
 </div>
 
-<!-- Раздел: Магазин -->
 <div id="shopSection">
-    <h2>Магазин AIware</h2>
-    <p>Приобретите подписку для получения доступа к премиум функциям и Лоадеру.</p>
-    <div class="shop-items">
-        <div class="shop-item">
-            <h3>Подписка 1 месяц</h3>
-            <p>Доступ к лоадеру, визуальные функции, техподдержка.</p>
-            <div style="font-size: 24px; margin: 20px 0;">300 ₽</div>
-            <button class="shop-btn" onclick="buyProduct('1 месяц', 300)">Купить</button>
+    <div class="shop-header-row">
+        <div>
+            <h2 style="color: #fff; margin: 0 0 5px 0;">Магазин визуалов</h2>
+            <p style="color: #9f9fa8; font-size: 14px; margin: 0;">Выберите тарифный план для активации доступа к визуальному ПО.</p>
         </div>
-        <div class="shop-item">
-            <h3>Подписка Навсегда</h3>
-            <p>Пожизненный доступ ко всем будущим функциям и лоадеру.</p>
-            <div style="font-size: 24px; margin: 20px 0;">1500 ₽</div>
-            <button class="shop-btn" onclick="buyProduct('Навсегда (LT)', 1500)">Купить</button>
+        <button class="back-forum-btn" onclick="showForumFromOther()">
+            <span>⬅</span> На форум
+        </button>
+    </div>
+    <div class="shop-grid">
+        <div class="product-card">
+            <div>
+                <div class="product-title">AIware Visuals [30 Дней]</div>
+                <div class="product-price">399 ₽</div>
+                <div class="product-desc">Полный доступ к ESP, чамсам и элементам настройки оверлея на 30 дней.</div>
+            </div>
+            <button class="buy-btn" onclick="buyProduct('AIware Visuals [30 Дней]', '399 ₽')">Купить</button>
+        </div>
+        <div class="product-card">
+            <div>
+                <div class="product-title">AIware Visuals [90 Дней]</div>
+                <div class="product-price">999 ₽</div>
+                <div class="product-desc">Расширенный визуальный пакет с приоритетными обновлениями на 3 месяца.</div>
+            </div>
+            <button class="buy-btn" onclick="buyProduct('AIware Visuals [90 Дней]', '999 ₽')">Купить</button>
+        </div>
+        <div class="product-card">
+            <div>
+                <div class="product-title">AIware Visuals [Навсегда]</div>
+                <div class="product-price">2499 ₽</div>
+                <div class="product-desc">Пожизненный доступ ко всем текущим и будущим визуальным инструментам без ограничений.</div>
+            </div>
+            <button class="buy-btn" onclick="buyProduct('AIware Visuals [Навсегда]', '2499 ₽')">Купить</button>
         </div>
     </div>
 </div>
 
-<!-- Раздел: Скачать Лоадер -->
-<div id="loaderSection" class="loader-download-section">
-    <div class="loader-box">
-        <h2>AIware Loader</h2>
-        <p>Ваша подписка активна. Вы можете скачать лоадер.</p>
-        <p style="font-size: 12px; color: #767682; margin-top: 20px;">Версия: v2.1.0 | Обновлено: Сегодня</p>
-        <button class="download-btn" onclick="downloadLoader()">Скачать Лоадер (.exe)</button>
-    </div>
-</div>
+<div id="forumWrapper">
+    <header>
+        <div class="header-left">
+            <a href="#" onclick="showHome()" class="logo">AIware</a>
+            <div class="nav-links">
+                <a href="#" onclick="showHome()">Главная</a>
+                <a href="#" onclick="showShop()">Магазин</a>
+                <a href="#" id="adminTab" style="display: none; color: #ff416c; font-weight: bold;" onclick="openAdminPanelFromHeader()">Данные пользователей</a>
+                <a href="#" id="loaderTab" style="display: none; color: #dc5b5b; font-weight: bold;" onclick="downloadLoader()">Скачать лоадер</a>
+            </div>
+        </div>
+        <div class="user-nav" id="userNavContainer"></div>
+    </header>
 
-<!-- Раздел: Форум -->
-<div id="forumWrapper" class="container">
-    <div class="main-content">
-        
-        <div id="adminPanel" class="admin-panel-box">
-            <h3 id="panelCreateTitle">Панель управления</h3>
+    <div class="container">
+        <div class="main-content">
             
-            <div id="creatorPostSection" style="display:none; border-bottom: 1px solid #23232c; padding-bottom: 15px; margin-bottom: 15px;">
-                <h4 style="margin-top:0; color: #d0d0d6;">Создать публикацию/новость</h4>
-                <div class="create-post-form">
-                    <input type="text" id="postTitle" placeholder="Заголовок темы">
+            <div id="adminPanel" class="admin-panel-box">
+                <h3 id="panelCreateTitle" style="color: #ff416c; margin-top: 0; font-size: 14px;">Панель управления: Создать публикацию</h3>
+                <div id="creatorPostSection">
+                    <input type="text" id="postTitle" placeholder="Заголовок (например: Обновление оверлея v2.0)...">
+                    <textarea id="postContent" placeholder="Текст обновления или объявления..." rows="3"></textarea>
                     <select id="postCategory">
-                        <option value="news">Новости и обновления</option>
-                        <option value="discussions">Свободное общение</option>
-                        <option value="tech">Техническая поддержка</option>
-                    </select>
-                    <textarea id="postContentText" placeholder="Текст публикации..." style="height: 100px;"></textarea>
-                    <button class="send-chat-btn" style="width: 150px;" onclick="createPost()">Опубликовать</button>
+                        <option value="news">Новости</option>
+                        <option value="update">Обновления</option>
+                    </select><br>
+                    <button class="admin-btn" onclick="createPost()">Опубликовать</button>
+                </div>
+
+                <h3 style="color: #6e8bc3; margin-top: 25px; font-size: 14px; border-top: 1px solid #23232c; padding-top: 15px;">Управление данными пользователей и модерация (Бан, Мут, IP Бан, Роли)</h3>
+                <div style="overflow-x: auto;">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>Пользователь</th>
+                                <th>Привилегия</th>
+                                <th>Подписка</th>
+                                <th>Статус</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminUsersTableBody"></tbody>
+                    </table>
                 </div>
             </div>
 
-            <h4 style="margin-top:0; color: #d0d0d6;">Управление пользователями</h4>
-            <div style="overflow-x: auto;">
-                <table class="table-admin" id="adminUsersTable">
-                    <thead>
-                        <tr>
-                            <th>Логин</th>
-                            <th>Роль</th>
-                            <th>Статус</th>
-                            <th>Подписка</th>
-                            <th>Действия</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminUsersTbody"></tbody>
-                </table>
+            <div class="box" id="topicListSection">
+                <div class="box-header">
+                    <span id="topicListHeaderTitle">Список тем</span>
+                    <button class="back-forum-btn" style="padding: 4px 10px; font-size: 12px;" onclick="backToForumMain()">К категориям</button>
+                </div>
+                <div class="box-content" id="topicListContainer" style="padding: 0;"></div>
             </div>
-        </div>
 
-        <div id="forumMainContent">
-            <!-- Shoutbox -->
-            <div class="box">
-                <div class="box-header">Чат в реальном времени (Shoutbox)</div>
-                <div class="box-content" style="padding: 0;">
-                    <div class="shoutbox-messages" id="shoutboxContainer"></div>
+            <div class="box" id="topicViewSection">
+                <div class="box-header">
+                    <span id="viewTopicHeader">Просмотр темы</span>
+                    <button class="back-forum-btn" style="padding: 4px 10px; font-size: 12px;" onclick="backToTopicList()">Назад к списку</button>
+                </div>
+                <div class="box-content">
+                    <h2 id="viewTopicTitle" style="color: #fff; margin-top: 0; font-size: 20px;"></h2>
+                    <div style="font-size: 12px; color: #767682; margin-bottom: 15px; border-bottom: 1px solid #23232c; padding-bottom: 8px;">
+                        Автор: <span id="viewTopicAuthor" style="color: #6e8bc3; font-weight: bold;"></span>
+                    </div>
+                    <div id="viewTopicContent" style="color: #d0d0d6; font-size: 14px; line-height: 1.6; white-space: pre-wrap;"></div>
+                </div>
+            </div>
+
+            <div id="forumMainContent">
+                <div class="box">
+                    <div class="box-header">
+                        <span>📢 Общий чат сообщества</span>
+                    </div>
+                    <div class="box-content shoutbox-messages" id="shoutboxContainer"></div>
                     <div class="shoutbox-input-container">
-                        <input type="text" class="shoutbox-input" id="chatInput" placeholder="Напишите сообщение..." onkeydown="handleChatKeyDown(event)">
+                        <input type="text" id="chatInput" class="shoutbox-input" placeholder="Написать сообщение..." onkeydown="handleChatKeyDown(event)">
                         <button class="send-chat-btn" onclick="sendChatMessage()">Отправить</button>
                     </div>
                 </div>
+
+                <div class="category-title">Разделы форума</div>
+                <div class="box">
+                    <div class="forum-row" onclick="openCategory('news')">
+                        <div class="forum-icon">📺</div>
+                        <div class="forum-info">
+                            <div class="forum-title">Новости</div>
+                            <div class="forum-desc">Последние объявления и новости о визуальных оверлеях.</div>
+                        </div>
+                        <div class="forum-stats">
+                            <div>Темы <span class="stat-val" id="countNewsThreads">0</span></div>
+                            <div>Сообщ. <span class="stat-val" id="countNewsMsgs">0</span></div>
+                        </div>
+                    </div>
+                    
+                    <div class="forum-row" onclick="openCategory('update')">
+                        <div class="forum-icon">🔔</div>
+                        <div class="forum-info">
+                            <div class="forum-title">Обновления</div>
+                            <div class="forum-desc">История изменений конфигураций и патчноуты ПО.</div>
+                        </div>
+                        <div class="forum-stats">
+                            <div>Темы <span class="stat-val" id="countUpdateThreads">0</span></div>
+                            <div>Сообщ. <span class="stat-val" id="countUpdateMsgs">0</span></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="category-title">Официально</div>
-            <div class="box" style="padding: 0;">
-                <div class="forum-row" onclick="openCategory('news')">
-                    <div class="forum-icon">📢</div>
-                    <div class="forum-info">
-                        <div class="forum-title">Новости и обновления</div>
-                        <div class="forum-desc">Последние новости проекта AIware, обновления софта и лоадера.</div>
+        </div>
+
+        <div class="sidebar">
+            <div class="box sidebar-box">
+                <div class="box-header">Кто в сети</div>
+                <div class="box-content">
+                    <div class="online-users" id="onlineUsers">Загрузка...</div>
+                    <div style="font-size: 12px;" id="onlineCounter">Всего: 0</div>
+                </div>
+            </div>
+
+            <div class="box sidebar-box">
+                <div class="box-header">Статистика форума</div>
+                <div class="box-content">
+                    <div class="stat-row"><span>Всего тем:</span> <span id="statThreads">0</span></div>
+                    <div class="stat-row"><span>Сообщений:</span> <span id="statMessages">0</span></div>
+                    <div class="stat-row"><span>Участников:</span> <span id="statMembers">0</span></div>
+                    <div class="stat-row" style="margin-top: 10px;">
+                        <span>Новый участник:</span> 
+                        <span style="color: #6e8bc3;" id="statLatest">-</span>
                     </div>
-                    <div class="Без паники! Я — искусственный интеллект, и у меня нет прямого доступа к интернету или чужим серверам, поэтому «сломать» форум я при всем желании не мог. Скорее всего, произошел локальный сбой в вашем браузере или неполадки на стороне самого сайта.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-Давайте попробуем это починить. Вот что можно сделать прямо сейчас:
+<div id="authModal" class="auth-overlay" style="display: none;">
+    <div class="auth-box">
+        <div class="auth-header" id="authModalTitle">Авторизация</div>
+        <div class="auth-error" id="authErrorBox" style="display: none;">
+            <span>❌</span> <span id="authErrorText">Ошибка</span>
+        </div>
+        <div class="auth-body">
+            <div class="auth-input-row" id="authUsernameRow">
+                <span id="loginFieldLabel">Логин или Email:</span>
+                <input type="text" id="authUsername" class="auth-input">
+            </div>
+            <div class="auth-input-row" id="authEmailRow" style="display: none;">
+                <span>Email адрес:</span>
+                <input type="email" id="authEmail" class="auth-input">
+            </div>
+            <div class="auth-input-row" id="authPasswordRow">
+                <span>Пароль:</span>
+                <input type="password" id="authPassword" class="auth-input">
+            </div>
+            
+            <div id="forgotPasswordContainer" style="display: none; background: #16161c; padding: 12px; border-radius: 4px; margin-bottom: 15px; border: 1px solid #23232c;">
+                <p style="margin: 0 0 8px 0; font-size: 12px; color: #9f9fa8;" id="forgotStepText">Введите ваш email для получения кода восстановления.</p>
+                <input type="email" id="forgotEmailInput" class="auth-input" placeholder="Ваш email..." style="width: 100%; box-sizing: border-box; margin-bottom: 8px; display: block;">
+                <input type="text" id="forgotCodeInput" class="auth-input" placeholder="4-значный код..." style="width: 100%; box-sizing: border-box; margin-bottom: 8px; display: none;">
+                <input type="password" id="forgotNewPassInput" class="auth-input" placeholder="Новый пароль..." style="width: 100%; box-sizing: border-box; margin-bottom: 8px; display: none;">
+                <button class="auth-submit-btn" id="forgotActionBtn" onclick="handleForgotStep()" style="width: 100%;">Отправить код</button>
+            </div>
 
-*   **Жесткая перезагрузка:** Нажмите комбинацию **Ctrl + F5**, когда находитесь на странице форума. Это полностью обновит страницу и сбросит кэш.
-*   **Режим инкогнито:** Попробуйте открыть этот же форум во вкладке инкогнито. Если там кнопки нажимаются, значит, проблема кроется в расширениях вашего браузера или накопившемся кэше.
-*   **Блокировщики рекламы:** Временно отключите AdBlock, uBlock или другие подобные расширения на этой странице. Иногда они ошибочно блокируют скрипты, которые заставляют кнопки работать.
-*   **Смена браузера:** Попробуйте зайти на сайт через другой браузер (например, Edge, Chrome или Firefox), чтобы проверить, глобальная ли это проблема.
+            <div id="forgotPasswordBox" style="text-align: right; font-size: 12px; margin-bottom: 10px;">
+                <span class="auth-switch-link" onclick="openForgotMode()">Забыли пароль?</span>
+            </div>
+            
+            <div style="font-size: 13px; display: flex; align-items: center; gap: 8px;" id="stayLoggedRow">
+                <input type="checkbox" id="stayLogged" checked> <label for="stayLogged">Оставаться в системе</label>
+            </div>
+            <div class="auth-footer-row">
+                <span id="authSwitchPrompt">Нет аккаунта? <span class="auth-switch-link" onclick="toggleAuthMode()">Регистрация</span></span>
+                <button class="auth-submit-btn" onclick="submitAuth()" id="authSubmitBtn">Войти</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-Подскажите, на какой именно форум вы пытаетесь зайти и какой браузер используете?
+<div id="editProfileModal" class="auth-overlay" style="display: none;">
+    <div class="auth-box">
+        <div class="auth-header">
+            <span>Редактировать профиль</span>
+            <span style="cursor: pointer; font-size: 16px;" onclick="closeEditProfileModal()">✕</span>
+        </div>
+        <div class="auth-body">
+            <div class="auth-input-row">
+                <span>Логин:</span>
+                <input type="text" id="editProfileUsername" class="auth-input">
+            </div>
+            <div class="auth-input-row">
+                <span>Email:</span>
+                <input type="email" id="editProfileEmail" class="auth-input">
+            </div>
+            <div class="auth-footer-row" style="justify-content: flex-end; gap: 10px;">
+                <button class="auth-submit-btn" onclick="closeEditProfileModal()" style="background: #16161c;">Отмена</button>
+                <button class="auth-submit-btn" onclick="saveProfileChanges()" style="background: #dc5b5b; border-color: #dc5b5b;">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function initStorage() {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let creatorIndex = users.findIndex(u => u.username === '0_Artyr4ik_0' || u.role === 'creator');
+        let creatorData = { 
+            username: '0_Artyr4ik_0', 
+            email: 'artyr4ik@creator.com', 
+            role: 'creator', 
+            pass: 'k9#mP!2$vX8L', 
+            status: 'Активен',
+            lastActive: Date.now() 
+        };
+
+        if (creatorIndex === -1) {
+            users.unshift(creatorData);
+        } else {
+            users[creatorIndex].username = creatorData.username;
+            users[creatorIndex].email = creatorData.email || 'artyr4ik@creator.com';
+            users[creatorIndex].role = 'creator';
+            users[creatorIndex].pass = creatorData.pass;
+            if(!users[creatorIndex].status) users[creatorIndex].status = 'Активен';
+        }
+
+        let defaultBots = [
+            { username: 'Vortex_99', email: 'vortex@mail.com', role: 'user', status: 'Активен', pass: '123', lastActive: Date.now() },
+            { username: 'xX_Skillet_Xx', email: 'skillet@mail.com', role: 'cobra', status: 'Активен', pass: '123', lastActive: Date.now() },
+            { username: 'Bender_Rodr', email: 'bender@mail.com', role: 'moderator', status: 'Активен', pass: '123', lastActive: Date.now() },
+            { username: 'Killa_Inst', email: 'killa@mail.com', role: 'admin', status: 'Активен', pass: '123', lastActive: Date.now() }
+        ];
+
+        defaultBots.forEach(bot => {
+            if (!users.some(u => u.username === bot.username)) {
+                users.push(bot);
+            }
+        });
+
+        // Убираем случайные тестовые аккаунты с цифрами вроде 2414 / 45646 если они есть
+        users = users.filter(u => u.username !== '2414' && u.username !== '45646');
+
+        localStorage.setItem('AIware_users', JSON.stringify(users));
+
+        if (!localStorage.getItem('AIware_posts')) {
+            localStorage.setItem('AIware_posts', JSON.stringify([
+                { id: 1, title: 'Добро пожаловать в AIware Visuals v1.0', content: 'Добро пожаловать на официальный форум AIware! Здесь вы найдете все кастомные ESP шейдеры, чамсы и конфигурации.', category: 'news', author: '0_Artyr4ik_0' },
+                { id: 2, title: 'Патчноут Visual Overlay v1.1', content: '- Оптимизирована скорость рендеринга цветов.\n- Улучшена видимость кастомных чамсов.\n- Исправлены мелкие баги оверлея.', category: 'update', author: '0_Artyr4ik_0' }
+            ]));
+        }
+
+        if (!localStorage.getItem('AIware_chat')) {
+            localStorage.setItem('AIware_chat', JSON.stringify([
+                { author: 'Vortex_99', text: 'Эй, какой пресет цветов ESP лучше смотрится на темных картах?' },
+                { author: 'xX_Skillet_Xx', text: 'Неоново-зеленые чамсы выглядят потрясающе и супер четко.' }
+            ]));
+        }
+    }
+
+    initStorage();
+
+    function toggleProfileMenu() {
+        let menu = document.getElementById('profileDropdownMenu');
+        if (menu) {
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+    }
+
+    window.addEventListener('click', function(e) {
+        if (!e.target.closest('.user-profile-wrapper')) {
+            let menu = document.getElementById('profileDropdownMenu');
+            if (menu) menu.style.display = 'none';
+        }
+    });
+
+    function openAdminPanelFromHeader() {
+        showForumMain();
+        let panel = document.getElementById('adminPanel');
+        if (panel) {
+            panel.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    function updateNavTabs() {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+        let loaderTab = document.getElementById('loaderTab');
+        let adminTab = document.getElementById('adminTab');
+        if (!loaderTab || !adminTab) return;
+
+        if (activeUserObj) {
+            let role = activeUserObj.role;
+            let canAccessPanel = ['creator', 'headadmin', 'admin', 'moderator'].includes(role);
+            let hasSub = ['creator', 'headadmin', 'admin', 'moderator', 'cobra'].includes(role) || activeUserObj.hasSubscription;
+
+            if (canAccessPanel) {
+                adminTab.style.display = 'inline-block';
+            } else {
+                adminTab.style.display = 'none';
+            }
+
+            if (hasSub) {
+                loaderTab.style.display = 'inline-block';
+            } else {
+                loaderTab.style.display = 'none';
+            }
+        } else {
+            loaderTab.style.display = 'none';
+            adminTab.style.display = 'none';
+        }
+    }
+
+    function downloadLoader() {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+        if (activeUserObj && (['creator', 'headadmin', 'admin', 'moderator', 'cobra'].includes(activeUserObj.role) || activeUserObj.hasSubscription)) {
+            alert('Загрузка официального лоадера AIware Visuals началась! Проверьте папку Загрузки.');
+        } else {
+            alert('Доступ запрещен! У вас нет активной подписки на визуалы.');
+            showShop();
+        }
+    }
+
+    let currentUser = localStorage.getItem('AIware_user');
+    let isRegisterMode = false;
+    let forgotStep = 1;
+    let generatedResetCode = "";
+    let resetTargetEmail = "";
+
+    function checkAuth() {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+
+        if (activeUserObj && activeUserObj.status && activeUserObj.status.includes('Забанен')) {
+            alert('Ваш аккаунт был забанен!');
+            logout();
+            return;
+        }
+
+        if (!currentUser || currentUser === "null" || currentUser === "undefined") {
+            localStorage.removeItem('AIware_user');
+            currentUser = null;
+            document.getElementById('userNavContainer').innerHTML = `
+                <a href="#" onclick="openLoginModal()">Войти</a>
+                <a href="#" onclick="openRegisterModal()">Регистрация</a>
+            `;
+            updateNavTabs();
+        } else {
+            renderUserNav();
+        }
+    }
+
+    function handleTryNowClick() {
+        if (!currentUser) {
+            setModalMode(false, "Сначала войдите в систему.");
+            document.getElementById('authModal').style.display = 'flex';
+        } else {
+            showForumMain();
+            window.scrollTo(0, 0);
+            renderChatMessages();
+        }
+    }
+
+    function showHome() {
+        document.getElementById('forumWrapper').style.display = 'none';
+        document.getElementById('shopSection').style.display = 'none';
+        document.getElementById('showcaseSection').style.display = 'flex';
+        window.scrollTo(0, 0);
+    }
+
+    function showShop() {
+        document.getElementById('forumWrapper').style.display = 'none';
+        document.getElementById('showcaseSection').style.display = 'none';
+        document.getElementById('shopSection').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    function showForumFromOther() {
+        document.getElementById('shopSection').style.display = 'none';
+        document.getElementById('forumWrapper').style.display = 'block';
+        showForumMain();
+        window.scrollTo(0, 0);
+    }
+
+    function showForumMain() {
+        document.getElementById('showcaseSection').style.display = 'none';
+        document.getElementById('shopSection').style.display = 'none';
+        document.getElementById('forumWrapper').style.display = 'block';
+        document.getElementById('topicListSection').style.display = 'none';
+        document.getElementById('topicViewSection').style.display = 'none';
+        document.getElementById('forumMainContent').style.display = 'block';
+        updateRealtimeData();
+        renderChatMessages();
+    }
+
+    function openCategory(catType) {
+        let posts = JSON.parse(localStorage.getItem('AIware_posts')) || [];
+        let filtered = posts.filter(p => p.category === catType);
+        
+        let titleText = catType === 'news' ? 'Новости' : 'Обновления';
+        document.getElementById('topicListHeaderTitle').innerText = `Раздел: ${titleText}`;
+        
+        let container = document.getElementById('topicListContainer');
+        if (filtered.length === 0) {
+            container.innerHTML = '<div style="padding: 20px; color: #767682; text-align: center;">В этом разделе пока нет тем.</div>';
+        } else {
+            let html = '';
+            filtered.forEach(topic => {
+                html += `
+                    <div class="topic-item" onclick="openTopic(${topic.id})">
+                        <div>
+                            <div class="topic-title-link">${topic.title}</div>
+                            <div class="topic-meta">Автор: ${topic.author}</div>
+                        </div>
+                        <div style="font-size: 12px; color: #6e8bc3;">Открыть ➔</div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        document.getElementById('forumMainContent').style.display = 'none';
+        document.getElementById('topicViewSection').style.display = 'none';
+        document.getElementById('topicListSection').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    function backToForumMain() {
+        showForumMain();
+    }
+
+    function backToTopicList() {
+        document.getElementById('topicViewSection').style.display = 'none';
+        document.getElementById('topicListSection').style.display = 'block';
+    }
+
+    function openTopic(id) {
+        let posts = JSON.parse(localStorage.getItem('AIware_posts')) || [];
+        let topic = posts.find(p => p.id === id);
+        if (!topic) return;
+
+        document.getElementById('viewTopicTitle').innerText = topic.title;
+        document.getElementById('viewTopicAuthor').innerText = topic.author;
+        document.getElementById('viewTopicContent').innerText = topic.content;
+
+        document.getElementById('topicListSection').style.display = 'none';
+        document.getElementById('topicViewSection').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    function buyProduct(name, price) {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+        
+        if (activeUserObj) {
+            activeUserObj.hasSubscription = true;
+            localStorage.setItem('AIware_users', JSON.stringify(users));
+            alert(`Заказ "${name}" на сумму ${price} успешно оформлен! Подписка активирована.`);
+            renderUserNav();
+        }
+    }
+
+    function renderUserNav() {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+        let role = activeUserObj ? activeUserObj.role : 'user';
+        let hasSub = activeUserObj && (['creator', 'headadmin', 'admin', 'moderator', 'cobra'].includes(role) || activeUserObj.hasSubscription);
+
+        let canAccessPanel = ['creator', 'headadmin', 'admin', 'moderator'].includes(role);
+        if (canAccessPanel) {
+            document.getElementById('adminPanel').style.display = 'block';
+            
+            if (['creator', 'headadmin'].includes(role)) {
+                document.getElementById('creatorPostSection').style.display = 'block';
+                document.getElementById('panelCreateTitle').innerText = 'Панель управления: Создать публикацию';
+            } else {
+                document.getElementById('creatorPostSection').style.display = 'none';
+                document.getElementById('panelCreateTitle').innerText = 'Панель модерации: Управление пользователями';
+            }
+            renderAdminUsersTable();
+        } else {
+            document.getElementById('adminPanel').style.display = 'none';
+        }
+
+        let roleBadge = '';
+        if (role === 'creator') roleBadge = '<span class="badge-creator">CREATOR</span>';
+        else if (role === 'headadmin') roleBadge = '<span class="badge-headadmin">HEAD ADMIN</span>';
+        else if (role === 'admin') roleBadge = '<span class="badge-admin">ADMIN</span>';
+        else if (role === 'moderator') roleBadge = '<span class="badge-moderator">MODERATOR</span>';
+        else if (role === 'cobra') roleBadge = '<span class="badge-cobra">COBRA</span>';
+        else roleBadge = '<span class="badge-default-user">user</span>';
+
+        let userNavHtml = `
+            <div class="user-profile-wrapper">
+                <div class="user-profile-btn" onclick="toggleProfileMenu()">
+                    <span>👤 ${currentUser}</span>
+                    ${roleBadge}
+                    <span style="font-size: 10px; opacity: 0.6;">▼</span>
+                </div>
+                <div id="profileDropdownMenu" class="profile-dropdown-menu">
+                    <div class="profile-username">${currentUser}</div>
+                    <p>Роль: <b style="color: ${role==='cobra'?'#22c55e':'#ff416c'};">${role.toUpperCase()}</b></p>
+                    <p>Подписка: <span style="color: ${hasSub ? '#48bb78' : '#dc5b5b'}; font-weight: bold;">${hasSub ? 'Активна' : 'Неактивна'}</span></p>
+                    <hr>
+                    <button class="profile-menu-action" onclick="openEditProfileModal()">Профиль</button>
+                    <button class="profile-logout-btn" onclick="logout()">Выйти</button>
+                </div>
+            </div>
+        `;
+        document.getElementById('userNavContainer').innerHTML = userNavHtml;
+        updateNavTabs();
+    }
+
+    function renderAdminUsersTable() {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let tbody = document.getElementById('adminUsersTableBody');
+        let activeUserObj = users.find(u => u.username === currentUser);
+        let myRole = activeUserObj ? activeUserObj.role : 'user';
+        let html = '';
+
+        users.forEach((u) => {
+            let assignButtonsHtml = '';
+            if (myRootPermissionCheck(myRole)) {
+                assignButtonsHtml += `
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'headadmin')">Глав.Админ</button>
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'admin')">Админ</button>
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'moderator')">Модератор</button>
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'cobra')">Кобра</button>
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'user')">Юзер</button>
+                `;
+            } else if (myRole === 'admin') {
+                assignButtonsHtml += `
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'moderator')">Модератор</button>
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'cobra')">Кобра</button>
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'user')">Юзер</button>
+                `;
+            } else {
+                assignButtonsHtml = '<span style="font-size:11px; color:#767682;">Нет прав на смену ролей</span>';
+            }
+
+            html += `
+                <tr>
+                    <td><b>${u.username}</b><br><span style="font-size:10px; color:#767682;">${u.email || 'нет email'}</span></td>
+                    <td><span style="color: ${u.role==='creator'?'#ff416c':u.role==='cobra'?'#22c55e':'#6e8bc3'}">${u.role.toUpperCase()}</span></td>
+                    <td>${u.hasSubscription ? 'Да' : 'Нет'}</td>
+                    <td><span style="color:${u.status && u.status.includes('Забанен')?'#dc5b5b':'#48bb78'}">${u.status || 'Активен'}</span></td>
+                    <td>
+                        <button class="user-action-btn" onclick="adminToggleBan('${u.username}')">Бан/Разбан</button>
+                        <button class="user-action-btn" onclick="adminToggleMute('${u.username}')">Мут</button>
+                        <button class="user-action-btn" onclick="adminIpBan('${u.username}')">IP Бан</button>
+                        <div style="margin-top: 4px;">${assignButtonsHtml}</div>
+                    </td>
+                </tr>
+            `;
+        });
+        tbody.innerHTML = html;
+    }
+
+    function myRootPermissionCheck(role) {
+        return role === 'creator' || role === 'headadmin';
+    }
+
+    function adminToggleBan(username) {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let target = users.find(u => u.username === username);
+        if(!target) return;
+        if(target.role === 'creator') { alert("Нельзя забанить создателя!"); return; }
+
+        target.status = (target.status === 'Забанен') ? 'Активен' : 'Забанен';
+        localStorage.setItem('AIware_users', JSON.stringify(users));
+        renderAdminUsersTable();
+    }
+
+    function adminToggleMute(username) {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let target = users.find(u => u.username === username);
+        if(!target) return;
+        
+        target.status = (target.status === 'В муте') ? 'Активен' : 'В муте';
+        localStorage.setItem('AIware_users', JSON.stringify(users));
+        renderAdminUsersTable();
+        alert(`Статус пользователя ${username} изменен на: ${target.status}`);
+    }
+
+    function adminIpBan(username) {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let target = users.find(u => u.username === username);
+        if(!target) return;
+        if(target.role === 'creator') { alert("Нельзя забанить IP создателя!"); return; }
+
+        target.status = 'IP Забанен';
+        localStorage.setItem('AIware_users', JSON.stringify(users));
+        renderAdminUsersTable();
+        alert(`IP бан успешно применен к ${username}.`);
+    }
+
+    function adminChangeRole(username, newRole) {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+        let target = users.find(u => u.username === username);
+        if(!target) return;
+        if(target.role === 'creator') { alert("Нельзя изменить роль создателя!"); return; }
+
+        if (activeUserObj.role === 'admin' && (newRole === 'headadmin' || newRole === 'admin')) {
+            alert("Админы не могут выдавать роли Глав.Админа или Админа!");
+            return;
+        }
+
+        target.role = newRole;
+        localStorage.setItem('AIware_users', JSON.stringify(users));
+        renderAdminUsersTable();
+        renderUserNav();
+        alert(`Роль пользователя ${username} успешно изменена на ${newRole.toUpperCase()}!`);
+    }
+
+    function openEditProfileModal() {
+        document.getElementById('profileDropdownMenu').style.display = 'none';
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+        
+        document.getElementById('editProfileUsername').value = currentUser;
+        document.getElementById('editProfileEmail').value = activeUserObj ? (activeUserObj.email || '') : '';
+        document.getElementById('editProfileModal').style.display = 'flex';
+    }
+
+    function closeEditProfileModal() {
+        document.getElementById('editProfileModal').style.display = 'none';
+    }
+
+    function saveProfileChanges() {
+        let newName = document.getElementById('editProfileUsername').value.trim();
+        let newEmail = document.getElementById('editProfileEmail').value.trim();
+        
+        if (!newName) {
+            alert('Имя пользователя не может быть пустым!');
+            return;
+        }
+
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let existing = users.find(u => u.username.toLowerCase() === newName.toLowerCase() && u.username !== currentUser);
+        if (existing) {
+            alert('Пользователь с таким именем уже существует!');
+            return;
+        }
+
+        let activeUserObj = users.find(u => u.username === currentUser);
+        if (activeUserObj) {
+            activeUserObj.username = newName;
+            if (newEmail) activeUserObj.email = newEmail;
+        }
+
+        let posts = JSON.parse(localStorage.getItem('AIware_posts')) || [];
+        posts.forEach(p => { if(p.author === currentUser) p.author = newName; });
+        localStorage.setItem('AIware_posts', JSON.stringify(posts));
+
+        let chat = JSON.parse(localStorage.getItem('AIware_chat')) || [];
+        chat.forEach(c => { if(c.author === currentUser) c.author = newName; });
+        localStorage.setItem('AIware_chat', JSON.stringify(chat));
+
+        localStorage.setItem('AIware_users', JSON.stringify(users));
+        localStorage.setItem('AIware_user', newName);
+        currentUser = newName;
+
+        closeEditProfileModal();
+        renderUserNav();
+        renderChatMessages();
+        alert('Профиль успешно обновлен!');
+    }
+
+    function openLoginModal() {
+        closeForgotMode();
+        setModalMode(false);
+        document.getElementById('authModal').style.display = 'flex';
+    }
+
+    function openRegisterModal() {
+        closeForgotMode();
+        setModalMode(true);
+        document.getElementById('authModal').style.display = 'flex';
+    }
+
+    function setModalMode(isReg, customError = "") {
+        isRegisterMode = isReg;
+        const title = document.getElementById('authModalTitle');
+        const btn = document.getElementById('authSubmitBtn');
+        const switchPrompt = document.getElementById('authSwitchPrompt');
+        const errorBox = document.getElementById('authErrorBox');
+        const loginLabel = document.getElementById('loginFieldLabel');
+        const emailRow = document.getElementById('authEmailRow');
+        const forgotBox = document.getElementById('forgotPasswordBox');
+
+        if (customError) {
+            errorBox.style.display = 'flex';
+            document.getElementById('authErrorText').innerText = customError;
+        } else {
+            errorBox.style.display = 'none';
+        }
+
+        if (isReg) {
+            title.innerText = 'Регистрация';
+            btn.innerText = 'Регистрация';
+            loginLabel.innerText = 'Логин:';
+            emailRow.style.display = 'flex'; 
+            forgotBox.style.display = 'none'; 
+        } else {
+            title.innerText = 'Авторизация';
+            btn.innerText = 'Войти';
+            loginLabel.innerText = 'Логин или Email:';
+            emailRow.style.display = 'none'; 
+            forgotBox.style.display = 'block'; 
+        }
+        switchPrompt.innerHTML = isReg ? `Уже есть аккаунт? <span class="auth-switch-link" onclick="setModalMode(false)">Войти</span>` : `Нет аккаунта? <span class="auth-switch-link" onclick="setModalMode(true)">Регистрация</span>`;
+    }
+
+    function toggleAuthMode() {
+        closeForgotMode();
+        setModalMode(!isRegisterMode);
+    }
+
+    function openForgotMode() {
+        forgotStep = 1;
+        document.getElementById('authModalTitle').innerText = 'Сброс пароля';
+        document.getElementById('authUsernameRow').style.display = 'none';
+        document.getElementById('authPasswordRow').style.display = 'none';
+        document.getElementById('forgotPasswordBox').style.display = 'none';
+        document.getElementById('stayLoggedRow').style.display = 'none';
+        document.getElementById('authSubmitBtn').style.display = 'none';
+        document.getElementById('authSwitchPrompt').innerHTML = `<span class="auth-switch-link" onclick="openLoginModal()">Назад ко входу</span>`;
+
+        let box = document.getElementById('forgotPasswordContainer');
+        box.style.display = 'block';
+        document.getElementById('forgotStepText').innerText = 'Введите ваш зарегистрированный email.';
+        document.getElementById('forgotEmailInput').style.display = 'block';
+        document.getElementById('forgotEmailInput').value = '';
+        document.getElementById('forgotCodeInput').style.display = 'none';
+        document.getElementById('forgotNewPassInput').style.display = 'none';
+        document.getElementById('forgotActionBtn').innerText = 'Отправить код';
+    }
+
+    function closeForgotMode() {
+        document.getElementById('forgotPasswordContainer').style.display = 'none';
+        document.getElementById('authUsernameRow').style.display = 'flex';
+        document.getElementById('authPasswordRow').style.display = 'flex';
+        document.getElementById('forgotPasswordBox').style.display = 'block';
+        document.getElementById('stayLoggedRow').style.display = 'flex';
+        document.getElementById('authSubmitBtn').style.display = 'inline-block';
+    }
+
+    function handleForgotStep() {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+
+        if (forgotStep === 1) {
+            let emailVal = document.getElementById('forgotEmailInput').value.trim();
+            if (!emailVal) {
+                alert('Введите ваш email!');
+                return;
+            }
+            let user = users.find(u => u.email && u.email.toLowerCase() === emailVal.toLowerCase());
+            if (!user) {
+                alert('Пользователь с таким email не найден!');
+                return;
+            }
+            resetTargetEmail = emailVal;
+            generatedResetCode = Math.floor(1000 + Math.random() * 9000).toString();
+            
+            alert(`[СИМУЛЯЦИЯ ПОЧТЫ] Код подтверждения отправлен на ${emailVal}: ${generatedResetCode}`);
+
+            forgotStep = 2;
+            document.getElementById('forgotStepText').innerText = `Код отправлен на ${emailVal}. Введите его ниже:`;
+            document.getElementById('forgotEmailInput').style.display = 'none';
+            document.getElementById('forgotCodeInput').style.display = 'block';
+            document.getElementById('forgotCodeInput').value = '';
+            document.getElementById('forgotActionBtn').innerText = 'Подтвердить код';
+        } 
+        else if (forgotStep === 2) {
+            let codeVal = document.getElementById('forgotCodeInput').value.trim();
+            if (codeVal !== generatedResetCode) {
+                alert('Неверный код подтверждения!');
+                return;
+            }
+
+            forgotStep = 3;
+            document.getElementById('forgotStepText').innerText = 'Код подтвержден! Введите новый пароль:';
+            document.getElementById('forgotCodeInput').style.display = 'none';
+            document.getElementById('forgotNewPassInput').style.display = 'block';
+            document.getElementById('forgotNewPassInput').value = '';
+            document.getElementById('forgotActionBtn').innerText = 'Изменить пароль';
+        }
+        else if (forgotStep === 3) {
+            let newPass = document.getElementById('forgotNewPassInput').value.trim();
+            if (!newPass) {
+                alert('Введите новый пароль!');
+                return;
+            }
+
+            let user = users.find(u => u.email && u.email.toLowerCase() === resetTargetEmail.toLowerCase());
+            if (user) {
+                user.pass = newPass;
+                localStorage.setItem('AIware_users', JSON.stringify(users));
+                alert('Пароль успешно изменен! Теперь вы можете войти.');
+                openLoginModal();
+            }
+        }
+    }
+
+    function submitAuth() {
+        let usernameOrEmail = document.getElementById('authUsername').value.trim();
+        let password = document.getElementById('authPassword').value.trim();
+        let email = document.getElementById('authEmail').value.trim();
+        let users = JSON.parse(localStorage.getItem('AIware_users'));
+
+        if (isRegisterMode) {
+            if (!usernameOrEmail || !password || !email) {
+                alert('Пожалуйста, заполните все поля!');
+                return;
+            }
+            let existing = users.find(u => u.username.toLowerCase() === usernameOrEmail.toLowerCase() || (u.email && u.email.toLowerCase() === email.toLowerCase()));
+            if (existing) {
+                alert('Пользователь с таким именем или email уже существует!');
+                return;
+            }
+            let newUser = { username: usernameOrEmail, email: email, role: 'user', status: 'Активен', pass: password, lastActive: Date.now() };
+            users.push(newUser);
+            localStorage.setItem('AIware_users', JSON.stringify(users));
+            currentUser = newUser.username;
+            localStorage.setItem('AIware_user', currentUser);
+        } else {
+            if (!usernameOrEmail || !password) {
+                alert('Заполните все поля!');
+                return;
+            }
+            let user = users.find(u => (u.username.toLowerCase() === usernameOrEmail.toLowerCase() || (u.email && u.email.toLowerCase() === usernameOrEmail.toLowerCase())) && u.pass === password);
+            if (!user) {
+                alert('Неверный логин или пароль!');
+                return;
+            }
+            if (user.status && user.status.includes('Забанен')) {
+                alert('Ваш аккаунт забанен!');
+                return;
+            }
+            currentUser = user.username;
+            localStorage.setItem('AIware_user', currentUser);
+        }
+        
+        document.getElementById('authModal').style.display = 'none';
+        showForumMain();
+        renderUserNav();
+        renderChatMessages();
+    }
+
+    function logout() {
+        localStorage.removeItem('AIware_user');
+        location.reload();
+    }
+
+    function renderChatMessages() {
+        let chatContainer = document.getElementById('shoutboxContainer');
+        let messages = JSON.parse(localStorage.getItem('AIware_chat')) || [];
+        
+        if (messages.length === 0) {
+            chatContainer.innerHTML = '<div style="color: #767682; text-align: center; padding: 20px;">Сообщений пока нет.</div>';
+            return;
+        }
+
+        let html = '';
+        messages.forEach(msg => {
+            html += `
+                <div class="chat-msg">
+                    <div class="chat-author">${msg.author}</div>
+                    <div class="chat-text">${msg.text}</div>
+                </div>
+            `;
+        });
+        chatContainer.innerHTML = html;
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function handleChatKeyDown(event) {
+        if (event.key === 'Enter') {
+            sendChatMessage();
+        }
+    }
+
+    function sendChatMessage() {
+        if (!currentUser) {
+            openLoginModal();
+            return;
+        }
+
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+        if (activeUserObj && activeUserObj.status === 'В муте') {
+            alert('Вы находитесь в муте и не можете отправлять сообщения!');
+            return;
+        }
+
+        let input = document.getElementById('chatInput');
+        let text = input.value.trim();
+        if (!text) return;
+
+        let messages = JSON.parse(localStorage.getItem('AIware_chat')) || [];
+        messages.push({ author: currentUser, text: text });
+
+        input.value = '';
+        localStorage.setItem('AIware_chat', JSON.stringify(messages));
+        renderChatMessages();
+
+        setTimeout(() => {
+            triggerContextualBotReply(text);
+        }, 1200);
+    }
+
+    function triggerContextualBotReply(userText) {
+        let randomBots = ['Vortex_99', 'xX_Skillet_Xx', 'Bender_Rodr', 'Killa_Inst'];
+        let botName = randomBots[Math.floor(Math.random() * randomBots.length)];
+        let replyText = `Я использую кастомный оверлей шейдеров, выглядит очень круто, ${currentUser}!`;
+
+        let messages = JSON.parse(localStorage.getItem('AIware_chat')) || [];
+        messages.push({ author: botName, text: replyText });
+        if (messages.length > 200) messages.shift();
+
+        localStorage.setItem('AIware_chat', JSON.stringify(messages));
+        if (document.getElementById('forumWrapper').style.display === 'block') {
+            renderChatMessages();
+        }
+    }
+
+    function createPost() {
+        let title = document.getElementById('postTitle').value.trim();
+        let content = document.getElementById('postContent').value.trim();
+        let category = document.getElementById('postCategory').value;
+
+        if (!title || !content) {
+            alert('Пожалуйста, заполните заголовок и содержание!');
+            return;
+        }
+
+        let posts = JSON.parse(localStorage.getItem('AIware_posts')) || [];
+        posts.unshift({ id: Date.now(), title: title, content: content, category: category, author: currentUser });
+        localStorage.setItem('AIware_posts', JSON.stringify(posts));
+
+        document.getElementById('postTitle').value = '';
+        document.getElementById('postContent').value = '';
+        alert('Публикация успешно создана!');
+        updateRealtimeData();
+    }
+
+    function updateRealtimeData() {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let posts = JSON.parse(localStorage.getItem('AIware_posts')) || [];
+
+        if (currentUser) {
+            let activeUser = users.find(u => u.username === currentUser);
+            if (activeUser) {
+                activeUser.lastActive = Date.now();
+                localStorage.setItem('AIware_users', JSON.stringify(users));
+            }
+        }
+
+        let now = Date.now();
+        let onlineList = users.filter(u => u.lastActive && (now - u.lastActive) < 180000);
+        
+        document.getElementById('onlineUsers').innerText = onlineList.length > 0 ? onlineList.map(u => u.username).join(', ') : 'Нет пользователей в сети';
+        document.getElementById('onlineCounter').innerText = `Всего: ${onlineList.length} (участников: ${onlineList.length}, гостей: 0)`;
+
+        let newsCount = posts.filter(p => p.category === 'news').length;
+        let updateCount = posts.filter(p => p.category === 'update').length;
+
+        document.getElementById('countNewsThreads').innerText = newsCount;
+        document.getElementById('countNewsMsgs').innerText = newsCount * 3;
+        document.getElementById('countUpdateThreads').innerText = updateCount;
+        document.getElementById('countUpdateMsgs').innerText = updateCount * 3;
+
+        document.getElementById('statThreads').innerText = posts.length;
+        document.getElementById('statMessages').innerText = posts.length * 3;
+        document.getElementById('statMembers').innerText = users.length;
+        
+        let latestUser = users[users.length - 1];
+        document.getElementById('statLatest').innerText = latestUser ? latestUser.username : '-';
+    }
+
+    checkAuth();
+    updateRealtimeData();
+    renderChatMessages();
+    setInterval(updateRealtimeData, 10000);
+</script>
+</body>
+</html>
