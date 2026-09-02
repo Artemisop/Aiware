@@ -3,9 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aiware - Форум</title>
+<title>aiware</title>
 <style>
-    body { background-color: #0b0b0e; color: #9f9fa8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+    body { background-color: #0b0b0e; color: #9f9fa8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+    
+    /* Экран-приветствие (первое фото) на всю страницу */
+    .landing-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: radial-gradient(circle at 50% 25%, rgba(130, 20, 20, 0.45) 0%, rgba(15, 12, 12, 0.95) 55%, #0b0b0e 100%), #0b0b0e;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+        box-sizing: border-box;
+        padding: 20px;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    .landing-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+    .showcase-preview-box {
+        width: 100%;
+        max-width: 650px;
+        background: #121217;
+        border: 1px solid #361b1b;
+        box-shadow: 0 25px 60px rgba(220, 91, 91, 0.18);
+        border-radius: 8px;
+        padding: 40px 20px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .showcase-preview-box h1 {
+        color: #ffffff;
+        font-size: 42px;
+        letter-spacing: 2px;
+        margin: 0 0 20px 0;
+        font-weight: 800;
+        text-transform: lowercase;
+    }
+    .showcase-btn {
+        background: #ffffff;
+        color: #0b0b0e;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 13px;
+        transition: 0.2s;
+    }
+    .showcase-btn:hover {
+        background: #e0e0e0;
+    }
+    .showcase-title {
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .features-grid {
+        display: flex;
+        gap: 20px;
+        width: 100%;
+        max-width: 650px;
+        text-align: left;
+    }
+    .feature-card {
+        background: #121217;
+        border: 1px solid #23232c;
+        border-radius: 6px;
+        padding: 15px 20px;
+        flex: 1;
+    }
+    .feature-card h3 {
+        color: #fff;
+        font-size: 14px;
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+    .feature-card p {
+        font-size: 11px;
+        color: #767682;
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    /* Основной сайт (форум), который открывается при входе */
+    #mainWebsite {
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    #mainWebsite.visible {
+        opacity: 1;
+    }
+
     header { background-color: #121217; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #23232c; }
     .header-left { display: flex; align-items: center; gap: 30px; }
     .logo { font-size: 22px; color: #dc5b5b; font-weight: bold; letter-spacing: 1px; text-decoration: none;}
@@ -38,91 +137,13 @@
     .stat-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
     .online-users { color: #d0d0d6; font-size: 13px; margin-bottom: 10px; }
     .badge-admin { background: #dc5b5b; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px; }
-    
-    /* Стили красного фона на весь экран */
-    .showcase-section {
-        position: relative;
-        background: radial-gradient(circle at 50% 20%, rgba(130, 20, 20, 0.45) 0%, rgba(15, 12, 12, 0.9) 55%, #0b0b0e 100%), #0b0b0e;
-        padding: 80px 20px 60px 20px;
-        text-align: center;
-        border-bottom: 1px solid #23232c;
-        min-height: 80vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        box-sizing: border-box;
-    }
-    .showcase-preview-box {
-        width: 100%;
-        max-width: 750px;
-        background: #121217;
-        border: 1px solid #361b1b;
-        box-shadow: 0 25px 60px rgba(220, 91, 91, 0.18);
-        border-radius: 8px;
-        padding: 50px 20px;
-        margin-bottom: 40px;
-    }
-    .showcase-preview-box h1 {
-        color: #ffffff;
-        font-size: 48px;
-        letter-spacing: 2px;
-        margin: 0 0 25px 0;
-        font-weight: 800;
-        text-transform: lowercase;
-    }
-    .showcase-btn {
-        background: #ffffff;
-        color: #0b0b0e;
-        border: none;
-        padding: 12px 30px;
-        border-radius: 20px;
-        font-weight: bold;
-        cursor: pointer;
-        font-size: 14px;
-        transition: 0.2s;
-    }
-    .showcase-btn:hover {
-        background: #e0e0e0;
-    }
-    .showcase-title {
-        color: #ffffff;
-        font-size: 22px;
-        font-weight: 500;
-        margin-bottom: 25px;
-    }
-    .features-grid {
-        display: flex;
-        gap: 20px;
-        width: 100%;
-        max-width: 750px;
-        text-align: left;
-    }
-    .feature-card {
-        background: #121217;
-        border: 1px solid #23232c;
-        border-radius: 6px;
-        padding: 20px;
-        flex: 1;
-    }
-    .feature-card h3 {
-        color: #fff;
-        font-size: 15px;
-        margin-top: 0;
-        margin-bottom: 10px;
-    }
-    .feature-card p {
-        font-size: 12px;
-        color: #767682;
-        margin: 0;
-        line-height: 1.5;
-    }
 
     .admin-panel-box { background: #121217; border: 1px solid #dc5b5b; padding: 15px; border-radius: 4px; margin-bottom: 20px; display: none; }
     .admin-panel-box input, .admin-panel-box textarea, .admin-panel-box select { background: #16161c; border: 1px solid #23232c; color: #fff; padding: 8px; width: calc(100% - 18px); margin-bottom: 10px; border-radius: 3px; font-family: inherit; }
     .admin-btn { background: #dc5b5b; color: white; border: none; padding: 8px 15px; border-radius: 3px; cursor: pointer; font-weight: bold; }
     .admin-btn:hover { background: #c54a4a; }
     
+    /* Модальное окно (второе фото с ошибкой) */
     .auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; }
     .auth-box { background: #121217; border: 1px solid #23232c; width: 450px; border-radius: 4px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
     .auth-header { padding: 15px 20px; font-size: 18px; color: #d0d0d6; border-bottom: 1px solid #23232c; display: flex; justify-content: space-between; align-items: center; }
@@ -141,19 +162,8 @@
 </head>
 <body>
 
-<header>
-    <div class="header-left">
-        <a href="index.html" class="logo">aiware</a>
-        <div class="nav-links">
-            <a href="index.html">Участники</a>
-            <a href="store.html">Магазин</a>
-        </div>
-    </div>
-    <div class="user-nav" id="userNavContainer"></div>
-</header>
-
-<!-- Главный красный экран на весь сайт (витрина) -->
-<div class="showcase-section">
+<!-- Экран-заставка (Первое фото на весь экран) -->
+<div id="landingScreen" class="landing-screen">
     <div class="showcase-preview-box">
         <h1>aiware</h1>
         <button class="showcase-btn" onclick="handleTryNowClick()">попробуй сейчас</button>
@@ -171,86 +181,101 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="main-content">
-        <div id="adminPanel" class="admin-panel-box">
-            <h3 style="color: #dc5b5b; margin-top: 0; font-size: 14px;">Панель администратора: Создать публикацию</h3>
-            <input type="text" id="postTitle" placeholder="Заголовок (например, Важное обновление v1.1)...">
-            <textarea id="postContent" placeholder="Текст новости или описания обновления..." rows="3"></textarea>
-            <select id="postCategory">
-                <option value="news">Новости (News)</option>
-                <option value="update">Обновления (Updates)</option>
-            </select><br>
-            <button class="admin-btn" onclick="createPost()">Опубликовать</button>
-        </div>
-
-        <div class="box">
-            <div class="box-header">
-                <span>📢 Чат (Shoutbox)</span>
-                <span>↑↓</span>
-            </div>
-            <div class="box-content shoutbox-messages" id="shoutboxContainer">
-                Сообщений пока нет.
-            </div>
-            <div class="shoutbox-input-container">
-                <input type="text" class="shoutbox-input" placeholder="Что у вас на уме?">
-                <span>😀</span>
-                <span>📣</span>
+<!-- Основной сайт (Форум / Форма) -->
+<div id="mainWebsite">
+    <header>
+        <div class="header-left">
+            <a href="#" onclick="showLanding()" class="logo">aiware</a>
+            <div class="nav-links">
+                <a href="#" onclick="showLanding()">Главная</a>
+                <a href="#" onclick="checkInteraction()">Участники</a>
             </div>
         </div>
+        <div class="user-nav" id="userNavContainer"></div>
+    </header>
 
-        <div class="category-title">Публичные разделы</div>
-        <div class="box">
-            <div class="forum-row" onclick="checkInteraction()">
-                <div class="forum-icon">📺</div>
-                <div class="forum-info">
-                    <div class="forum-title">Новости</div>
-                    <div class="forum-desc">Последние новости, анонсы и важные события форума.</div>
+    <div class="container">
+        <div class="main-content">
+            <div id="adminPanel" class="admin-panel-box">
+                <h3 style="color: #dc5b5b; margin-top: 0; font-size: 14px;">Панель администратора: Создать публикацию</h3>
+                <input type="text" id="postTitle" placeholder="Заголовок (например, Важное обновление v1.1)...">
+                <textarea id="postContent" placeholder="Текст новости или описания обновления..." rows="3"></textarea>
+                <select id="postCategory">
+                    <option value="news">Новости (News)</option>
+                    <option value="update">Обновления (Updates)</option>
+                </select><br>
+                <button class="admin-btn" onclick="createPost()">Опубликовать</button>
+            </div>
+
+            <div class="box">
+                <div class="box-header">
+                    <span>📢 Чат (Shoutbox)</span>
+                    <span>↑↓</span>
                 </div>
-                <div class="forum-stats">
-                    <div>Темы <span class="stat-val" id="countNewsThreads">0</span></div>
-                    <div>Сообщения <span class="stat-val" id="countNewsMsgs">0</span></div>
+                <div class="box-content shoutbox-messages" id="shoutboxContainer">
+                    Сообщений пока нет.
+                </div>
+                <div class="shoutbox-input-container">
+                    <input type="text" class="shoutbox-input" placeholder="Что у вас на уме?">
+                    <span>😀</span>
+                    <span>📣</span>
                 </div>
             </div>
-            
-            <div class="forum-row" onclick="checkInteraction()">
-                <div class="forum-icon">🔔</div>
-                <div class="forum-info">
-                    <div class="forum-title">Обновления</div>
-                    <div class="forum-desc">Логи обновлений и патчноуты софта.</div>
+
+            <div class="category-title">Публичные разделы</div>
+            <div class="box">
+                <div class="forum-row" onclick="checkInteraction()">
+                    <div class="forum-icon">📺</div>
+                    <div class="forum-info">
+                        <div class="forum-title">Новости</div>
+                        <div class="forum-desc">Последние новости, анонсы и важные события форума.</div>
+                    </div>
+                    <div class="forum-stats">
+                        <div>Темы <span class="stat-val" id="countNewsThreads">0</span></div>
+                        <div>Сообщения <span class="stat-val" id="countNewsMsgs">0</span></div>
+                    </div>
                 </div>
-                <div class="forum-stats">
-                    <div>Темы <span class="stat-val" id="countUpdateThreads">0</span></div>
-                    <div>Сообщения <span class="stat-val" id="countUpdateMsgs">0</span></div>
+                
+                <div class="forum-row" onclick="checkInteraction()">
+                    <div class="forum-icon">🔔</div>
+                    <div class="forum-info">
+                        <div class="forum-title">Обновления</div>
+                        <div class="forum-desc">Логи обновлений и патчноуты софта.</div>
+                    </div>
+                    <div class="forum-stats">
+                        <div>Темы <span class="stat-val" id="countUpdateThreads">0</span></div>
+                        <div>Сообщения <span class="stat-val" id="countUpdateMsgs">0</span></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="sidebar">
-        <div class="box sidebar-box">
-            <div class="box-header">Пользователи онлайн</div>
-            <div class="box-content">
-                <div class="online-users" id="onlineUsers">Загрузка...</div>
-                <div style="font-size: 12px;" id="onlineCounter">Всего: 0</div>
+        <div class="sidebar">
+            <div class="box sidebar-box">
+                <div class="box-header">Пользователи онлайн</div>
+                <div class="box-content">
+                    <div class="online-users" id="onlineUsers">Загрузка...</div>
+                    <div style="font-size: 12px;" id="onlineCounter">Всего: 0</div>
+                </div>
             </div>
-        </div>
 
-        <div class="box sidebar-box">
-            <div class="box-header">Статистика форума</div>
-            <div class="box-content">
-                <div class="stat-row"><span>Всего тем:</span> <span id="statThreads">0</span></div>
-                <div class="stat-row"><span>Сообщений:</span> <span id="statMessages">0</span></div>
-                <div class="stat-row"><span>Участников:</span> <span id="statMembers">0</span></div>
-                <div class="stat-row" style="margin-top: 10px;">
-                    <span>Последний участник:</span> 
-                    <span style="color: #6e8bc3;" id="statLatest">-</span>
+            <div class="box sidebar-box">
+                <div class="box-header">Статистика форума</div>
+                <div class="box-content">
+                    <div class="stat-row"><span>Всего тем:</span> <span id="statThreads">0</span></div>
+                    <div class="stat-row"><span>Сообщений:</span> <span id="statMessages">0</span></div>
+                    <div class="stat-row"><span>Участников:</span> <span id="statMembers">0</span></div>
+                    <div class="stat-row" style="margin-top: 10px;">
+                        <span>Последний участник:</span> 
+                        <span style="color: #6e8bc3;" id="statLatest">-</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Модальное окно авторизации (Второе фото с ошибкой) -->
 <div id="authModal" class="auth-overlay" style="display: none;">
     <div class="auth-box">
         <div class="auth-header" id="authModalTitle">Log in</div>
@@ -323,24 +348,31 @@
                 <a href="#" onclick="openRegisterModal()">Register</a>
             `;
         } else {
-            document.getElementById('authModal').style.display = 'none';
             renderUserNav();
         }
     }
 
-    // Обработка кнопки «попробуй сейчас»
+    // Главная логика кнопки «попробуй сейчас» с первого фото:
     function handleTryNowClick() {
         if (!currentUser) {
-            // Если НЕ залогинен — открываем окно входа с ошибкой (как на вашем втором фото)
+            // Если НЕ залогинен — перекидывает на второе фото (модалка с ошибкой)
             setModalMode(false, "You must be logged-in to do that.");
             document.getElementById('authModal').style.display = 'flex';
         } else {
-            // Если залогинен — плавно прокручиваем страницу вниз к форуму/контенту
-            window.scrollTo({
-                top: window.innerHeight,
-                behavior: 'smooth'
-            });
+            // Если залогинен — скрываем экран-заставку и открываем форму сайта
+            document.getElementById('landingScreen').classList.add('hidden');
+            let mainWeb = document.getElementById('mainWebsite');
+            mainWeb.style.display = 'block';
+            setTimeout(() => mainWeb.classList.add('visible'), 10);
         }
+    }
+
+    function showLanding() {
+        document.getElementById('mainWebsite').classList.remove('visible');
+        setTimeout(() => {
+            document.getElementById('mainWebsite').style.display = 'none';
+            document.getElementById('landingScreen').classList.remove('hidden');
+        }, 300);
     }
 
     function checkInteraction() {
@@ -450,7 +482,13 @@
             localStorage.setItem('aiware_user', currentUser);
         }
         document.getElementById('authModal').style.display = 'none';
-        location.reload();
+        
+        // После успешного входа/регистрации сразу пускаем на сайт
+        document.getElementById('landingScreen').classList.add('hidden');
+        let mainWeb = document.getElementById('mainWebsite');
+        mainWeb.style.display = 'block';
+        setTimeout(() => mainWeb.classList.add('visible'), 10);
+        renderUserNav();
     }
 
     function logout() {
