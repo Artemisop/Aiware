@@ -7,7 +7,7 @@
 <style>
     body { background-color: #0b0b0e; color: #9f9fa8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
     
-    /* Верхний блок витрины (как на вашем скриншоте) на весь экран */
+    /* Верхний блок витрины */
     .showcase-section {
         position: relative;
         background: radial-gradient(circle at 50% 20%, rgba(130, 20, 20, 0.45) 0%, rgba(15, 12, 12, 0.9) 55%, #0b0b0e 100%), #0b0b0e;
@@ -50,46 +50,15 @@
         font-size: 14px;
         transition: 0.2s;
     }
-    .showcase-btn:hover {
-        background: #e0e0e0;
-    }
-    .showcase-title {
-        color: #ffffff;
-        font-size: 22px;
-        font-weight: 500;
-        margin-bottom: 25px;
-    }
-    .features-grid {
-        display: flex;
-        gap: 20px;
-        width: 100%;
-        max-width: 750px;
-        text-align: left;
-    }
-    .feature-card {
-        background: #121217;
-        border: 1px solid #23232c;
-        border-radius: 6px;
-        padding: 20px;
-        flex: 1;
-    }
-    .feature-card h3 {
-        color: #fff;
-        font-size: 15px;
-        margin-top: 0;
-        margin-bottom: 10px;
-    }
-    .feature-card p {
-        font-size: 12px;
-        color: #767682;
-        margin: 0;
-        line-height: 1.5;
-    }
+    .showcase-btn:hover { background: #e0e0e0; }
+    .showcase-title { color: #ffffff; font-size: 22px; font-weight: 500; margin-bottom: 25px; }
+    .features-grid { display: flex; gap: 20px; width: 100%; max-width: 750px; text-align: left; }
+    .feature-card { background: #121217; border: 1px solid #23232c; border-radius: 6px; padding: 20px; flex: 1; }
+    .feature-card h3 { color: #fff; font-size: 15px; margin-top: 0; margin-bottom: 10px; }
+    .feature-card p { font-size: 12px; color: #767682; margin: 0; line-height: 1.5; }
 
-    /* Форум изначально скрыт (появляется только после прокрутки/клика) */
-    #forumWrapper {
-        display: none;
-    }
+    /* Форум изначально скрыт */
+    #forumWrapper { display: none; }
 
     header { background-color: #121217; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #23232c; }
     .header-left { display: flex; align-items: center; gap: 30px; }
@@ -104,11 +73,21 @@
     .main-content { flex: 3; }
     .sidebar { flex: 1; }
     .box { background-color: #121217; border: 1px solid #23232c; border-radius: 4px; margin-bottom: 20px; }
-    .box-header { padding: 12px 15px; border-bottom: 1px solid #23232c; font-size: 13px; color: #6e8bc3; display: flex; justify-content: space-between; }
+    .box-header { padding: 12px 15px; border-bottom: 1px solid #23232c; font-size: 13px; color: #6e8bc3; display: flex; justify-content: space-between; align-items: center; }
     .box-content { padding: 15px; }
-    .shoutbox-messages { font-size: 13px; min-height: 150px; }
-    .shoutbox-input-container { display: flex; gap: 10px; background: #16161c; padding: 10px; border-top: 1px solid #23232c;}
-    .shoutbox-input { width: 100%; background: transparent; border: none; color: #fff; outline: none;}
+    
+    /* Стили для ЧАТА */
+    .shoutbox-messages { font-size: 13px; height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+    .chat-msg { background: #16161c; padding: 8px 12px; border-radius: 4px; border-left: 3px solid #dc5b5b; }
+    .chat-msg.ai-msg { border-left-color: #6e8bc3; background: #141721; }
+    .chat-author { font-weight: bold; color: #fff; font-size: 12px; margin-bottom: 2px; }
+    .chat-text { color: #c0c0c8; font-size: 13px; word-break: break-word; }
+    
+    .shoutbox-input-container { display: flex; gap: 10px; background: #16161c; padding: 10px; border-top: 1px solid #23232c; align-items: center;}
+    .shoutbox-input { width: 100%; background: transparent; border: none; color: #fff; outline: none; font-size: 13px;}
+    .send-chat-btn { background: #dc5b5b; color: white; border: none; padding: 6px 14px; border-radius: 3px; cursor: pointer; font-weight: bold; font-size: 12px; }
+    .send-chat-btn:hover { background: #c54a4a; }
+
     .category-title { color: #6e8bc3; font-size: 14px; margin-bottom: 10px; margin-top: 30px; font-weight: normal; }
     .forum-row { display: flex; padding: 15px; border-bottom: 1px solid #23232c; align-items: center; cursor: pointer; }
     .forum-row:last-child { border-bottom: none; }
@@ -129,7 +108,17 @@
     .admin-btn { background: #dc5b5b; color: white; border: none; padding: 8px 15px; border-radius: 3px; cursor: pointer; font-weight: bold; }
     .admin-btn:hover { background: #c54a4a; }
     
-    /* Модальное окно ошибки авторизации */
+    /* Магазин */
+    #shopSection { display: none; padding: 40px 50px; max-width: 1200px; margin: 0 auto; }
+    .shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+    .product-card { background: #121217; border: 1px solid #23232c; border-radius: 6px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; }
+    .product-title { color: #fff; font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+    .product-price { color: #dc5b5b; font-size: 20px; font-weight: bold; margin-bottom: 15px; }
+    .product-desc { font-size: 13px; color: #9f9fa8; margin-bottom: 20px; line-height: 1.4; }
+    .buy-btn { background: #dc5b5b; color: white; border: none; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; text-align: center; }
+    .buy-btn:hover { background: #c54a4a; }
+
+    /* Модальное окно авторизации */
     .auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; }
     .auth-box { background: #121217; border: 1px solid #23232c; width: 450px; border-radius: 4px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
     .auth-header { padding: 15px 20px; font-size: 18px; color: #d0d0d6; border-bottom: 1px solid #23232c; display: flex; justify-content: space-between; align-items: center; }
@@ -148,7 +137,7 @@
 </head>
 <body>
 
-<!-- 1. Главный экран витрины (как на втором вашем изображении) открывается по умолчанию при заходе на сайт -->
+<!-- 1. Главная витрина -->
 <div class="showcase-section" id="showcaseSection">
     <div class="showcase-preview-box">
         <h1>aiware</h1>
@@ -167,14 +156,46 @@
     </div>
 </div>
 
-<!-- 2. Сам Форум (который находится СНИЗУ и появляется при нажатии, если пользователь авторизован) -->
+<!-- 2. Магазин -->
+<div id="shopSection">
+    <h2 style="color: #fff; margin-top: 0;">Магазин подписок</h2>
+    <p style="color: #9f9fa8; font-size: 14px;">Выберите подходящий продукт и срок подписки для активации доступа.</p>
+    <div class="shop-grid">
+        <div class="product-card">
+            <div>
+                <div class="product-title">aiware [30 Days]</div>
+                <div class="product-price">499 ₽</div>
+                <div class="product-desc">Полный доступ ко всем функциям legit & rage, визуальным эффектам и обновлениям на 30 дней.</div>
+            </div>
+            <button class="buy-btn" onclick="buyProduct('aiware [30 Days]', '499 ₽')">Купить</button>
+        </div>
+        <div class="product-card">
+            <div>
+                <div class="product-title">aiware [90 Days]</div>
+                <div class="product-price">1199 ₽</div>
+                <div class="product-desc">Выгодный пакет подписки на 3 месяцев с приоритетной поддержкой в чате.</div>
+            </div>
+            <button class="buy-btn" onclick="buyProduct('aiware [90 Days]', '1199 ₽')">Купить</button>
+        </div>
+        <div class="product-card">
+            <div>
+                <div class="product-title">aiware [Lifetime]</div>
+                <div class="product-price">2999 ₽</div>
+                <div class="product-desc">Пожизненныйдоступ ко всем текущим и будущим функциям софта без ограничений.</div>
+            </div>
+            <button class="buy-btn" onclick="buyProduct('aiware [Lifetime]', '2999 ₽')">Купить</button>
+        </div>
+    </div>
+</div>
+
+<!-- 3. Форум -->
 <div id="forumWrapper">
     <header>
         <div class="header-left">
             <a href="#" onclick="showHome()" class="logo">aiware</a>
             <div class="nav-links">
                 <a href="#" onclick="showHome()">Главная</a>
-                <a href="#">Участники</a>
+                <a href="#" onclick="showShop()">Магазин</a>
             </div>
         </div>
         <div class="user-nav" id="userNavContainer"></div>
@@ -193,18 +214,16 @@
                 <button class="admin-btn" onclick="createPost()">Опубликовать</button>
             </div>
 
+            <!-- Живой чат с симуляцией споров участников, матов и обсуждения читов -->
             <div class="box">
                 <div class="box-header">
-                    <span>📢 Чат (Shoutbox)</span>
-                    <span>↑↓</span>
+                    <span>📢 Чат сообщества (Живое обсуждение)</span>
+                    <span style="font-size: 11px; color: #767682;">Участники спорят о софте</span>
                 </div>
-                <div class="box-content shoutbox-messages" id="shoutboxContainer">
-                    Сообщений пока нет.
-                </div>
+                <div class="box-content shoutbox-messages" id="shoutboxContainer"></div>
                 <div class="shoutbox-input-container">
-                    <input type="text" class="shoutbox-input" placeholder="Что у вас на уме?">
-                    <span>😀</span>
-                    <span>📣</span>
+                    <input type="text" id="chatInput" class="shoutbox-input" placeholder="Написать сообщение..." onkeydown="handleChatKeyDown(event)">
+                    <button class="send-chat-btn" onclick="sendChatMessage()">Отправить</button>
                 </div>
             </div>
 
@@ -261,7 +280,7 @@
     </div>
 </div>
 
-<!-- Модальное окно ошибки (второе фото) -->
+<!-- Модальное окно авторизации -->
 <div id="authModal" class="auth-overlay" style="display: none;">
     <div class="auth-box">
         <div class="auth-header" id="authModalTitle">Log in</div>
@@ -313,10 +332,35 @@
             users[adminIndex].email = adminData.email;
             users[adminIndex].pass = adminData.pass;
         }
+
+        // Добавим рандомных ботов-участников для живости
+        let defaultBots = [
+            { username: 'Vortex_99', role: 'user', lastActive: Date.now() },
+            { username: 'xX_Skillet_Xx', role: 'user', lastActive: Date.now() },
+            { username: 'Bender_Rodr', role: 'user', lastActive: Date.now() },
+            { username: 'Killa_Inst', role: 'user', lastActive: Date.now() },
+            { username: 'Snegovik', role: 'user', lastActive: Date.now() }
+        ];
+
+        defaultBots.forEach(bot => {
+            if (!users.some(u => u.username === bot.username)) {
+                users.push(bot);
+            }
+        });
+
         localStorage.setItem('aiware_users', JSON.stringify(users));
 
         if (!localStorage.getItem('aiware_posts')) {
             localStorage.setItem('aiware_posts', JSON.stringify([]));
+        }
+
+        if (!localStorage.getItem('aiware_chat')) {
+            localStorage.setItem('aiware_chat', JSON.stringify([
+                { author: 'Vortex_99', text: 'Пацаны, какой чит сейчас реально без детекта?', isAi: false },
+                { author: 'xX_Skillet_Xx', text: 'Да aiware же имба, епта, вы чё гоните, третий месяц катаю и нулевой бан', isAi: false },
+                { author: 'Killa_Inst', text: 'Та ну нахуй, твой aiware вчера на обходе отлетел, вака не было, но софт крашит', isAi: false },
+                { author: 'Bender_Rodr', text: 'Сам ты отлетел, руки прями выпрями, всё работает заебись', isAi: false }
+            ]));
         }
     }
 
@@ -338,24 +382,35 @@
         }
     }
 
-    // Обработка кнопки «попробуй сейчас»
     function handleTryNowClick() {
         if (!currentUser) {
-            // Если НЕ залогинен — показываем модалку со второй картинки (ошибка)
             setModalMode(false, "You must be logged-in to do that.");
             document.getElementById('authModal').style.display = 'flex';
         } else {
-            // Если залогинен — скрываем верхний экран витрины и открываем форум снизу
             document.getElementById('showcaseSection').style.display = 'none';
+            document.getElementById('shopSection').style.display = 'none';
             document.getElementById('forumWrapper').style.display = 'block';
             window.scrollTo(0, 0);
+            renderChatMessages();
         }
     }
 
     function showHome() {
         document.getElementById('forumWrapper').style.display = 'none';
+        document.getElementById('shopSection').style.display = 'none';
         document.getElementById('showcaseSection').style.display = 'flex';
         window.scrollTo(0, 0);
+    }
+
+    function showShop() {
+        document.getElementById('forumWrapper').style.display = 'none';
+        document.getElementById('showcaseSection').style.display = 'none';
+        document.getElementById('shopSection').style.display = 'block';
+        window.scrollTo(0, 0);
+    }
+
+    function buyProduct(name, price) {
+        alert(`Заказ "${name}" на сумму ${price} успешно оформлен! Подписка активирована.`);
     }
 
     function renderUserNav() {
@@ -407,15 +462,15 @@
             loginLabel.innerText = 'User name:';
             emailRow.style.display = 'flex'; 
             forgotBox.style.display = 'none'; 
-            switchPrompt.innerHTML = `Already have an account? <span class="auth-switch-link" onclick="setModalMode(false)">Log in</span>`;
+            switchProps = `Already have an account? <span class="auth-switch-link" onclick="setModalMode(false)">Log in</span>`;
         } else {
             title.innerText = 'Log in';
             btn.innerText = 'Log in';
             loginLabel.innerText = 'Your name or email address:';
             emailRow.style.display = 'none'; 
             forgotBox.style.display = 'block'; 
-            switchPrompt.innerHTML = `Don't have an account? <span class="auth-switch-link" onclick="setModalMode(true)">Register now</span>`;
         }
+        switchPrompt.innerHTML = isReg ? `Already have an account? <span class="auth-switch-link" onclick="setModalMode(false)">Log in</span>` : `Don't have an account? <span class="auth-switch-link" onclick="setModalMode(true)">Register now</span>`;
     }
 
     function toggleAuthMode() {
@@ -430,7 +485,7 @@
 
         if (isRegisterMode) {
             if (!usernameOrEmail || !password || !email) {
-                alert('Пожалуйста, заполните все поля, включая почту!');
+                alert('Пожалуйста, заполните все поля!');
                 return;
             }
             let existing = users.find(u => u.username.toLowerCase() === usernameOrEmail.toLowerCase() || (u.email && u.email.toLowerCase() === email.toLowerCase()));
@@ -443,7 +498,6 @@
             localStorage.setItem('aiware_users', JSON.stringify(users));
             currentUser = newUser.username;
             localStorage.setItem('aiware_user', currentUser);
-            alert('Регистрация прошла успешно!');
         } else {
             if (!usernameOrEmail || !password) {
                 alert('Заполните все поля!');
@@ -459,16 +513,97 @@
         }
         
         document.getElementById('authModal').style.display = 'none';
-        // Успешный вход — убираем витрину и показываем форум
         document.getElementById('showcaseSection').style.display = 'none';
         document.getElementById('forumWrapper').style.display = 'block';
         renderUserNav();
+        renderChatMessages();
     }
 
     function logout() {
         localStorage.removeItem('aiware_user');
         location.reload();
     }
+
+    /* Отрисовка чата */
+    function renderChatMessages() {
+        let chatContainer = document.getElementById('shoutboxContainer');
+        let messages = JSON.parse(localStorage.getItem('aiware_chat')) || [];
+        
+        if (messages.length === 0) {
+            chatContainer.innerHTML = '<div style="color: #767682; text-align: center; padding: 20px;">Сообщений пока нет.</div>';
+            return;
+        }
+
+        let html = '';
+        messages.forEach(msg => {
+            html += `
+                <div class="chat-msg">
+                    <div class="chat-author">${msg.author}</div>
+                    <div class="chat-text">${msg.text}</div>
+                </div>
+            `;
+        });
+        chatContainer.innerHTML = html;
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function handleChatKeyDown(event) {
+        if (event.key === 'Enter') {
+            sendChatMessage();
+        }
+    }
+
+    function sendChatMessage() {
+        if (!currentUser) {
+            openLoginModal();
+            return;
+        }
+
+        let input = document.getElementById('chatInput');
+        let text = input.value.trim();
+        if (!text) return;
+
+        let messages = JSON.parse(localStorage.getItem('aiware_chat')) || [];
+        messages.push({ author: currentUser, text: text });
+
+        input.value = '';
+        localStorage.setItem('aiware_chat', JSON.stringify(messages));
+        renderChatMessages();
+    }
+
+    // Рандомная симуляция споров участников в чате (спорят, матерятся, обсуждают софт)
+    function simulateRandomChat() {
+        let randomBots = ['Vortex_99', 'xX_Skillet_Xx', 'Bender_Rodr', 'Killa_Inst', 'Snegovik', 'DarkPhoenix', 'Cipsyy'];
+        let randomDialogues = [
+            "Бля, пацаны, в новом патче античит обновили, аккуратнее с рейдж ботом!",
+            "Да какой рейдж, выучите легит играть, раки ебаные 😂",
+            "Слышь ты, эксперт комнатный, зайди в лобби против меня на легитах",
+            "Хватит сраться, лучше скажите подписка на месяц стоит своих денег?",
+            "Стоит, бро, визуалы тут самые пиздатые на рынке",
+            "Та ну хз, мне саппорт три часа отвечал, я уже думал скам",
+            "Да нормальный софт, не пиздите тут зря",
+            "Алё, админ, когда обновление софта под новую версию винды подьедет?"
+        ];
+
+        let botName = randomBots[Math.floor(Math.random() * randomBots.length)];
+        let text = randomDialogues[Math.floor(Math.random() * randomDialogues.length)];
+
+        let messages = JSON.parse(localStorage.getItem('aiware_chat')) || [];
+        messages.push({ author: botName, text: text });
+        
+        // Ограничим историю 30 сообщениями чтобы чат не раздувался
+        if (messages.length > 30) messages.shift();
+
+        localStorage.setItem('aiware_chat', JSON.stringify(messages));
+        
+        // Обновляем чат только если пользователь находится на форуме
+        if (document.getElementById('forumWrapper').style.display === 'block') {
+            renderChatMessages();
+        }
+    }
+
+    // Каждые 8-15 секунд рандомный бот что-то пишет в чат
+    setInterval(simulateRandomChat, 10000);
 
     function createPost() {
         let title = document.getElementById('postTitle').value.trim();
@@ -526,6 +661,7 @@
 
     checkAuth();
     updateRealtimeData();
+    renderChatMessages();
     setInterval(updateRealtimeData, 10000);
 </script>
 </body>
