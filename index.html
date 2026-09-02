@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AIware</title>
+<title>AIware - Visuals Only</title>
 <style>
     body { background-color: #0b0b0e; color: #9f9fa8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
     
-    /* Верхний блок витрины */
     .showcase-section {
         position: relative;
         background: radial-gradient(circle at 50% 20%, rgba(130, 20, 20, 0.45) 0%, rgba(15, 12, 12, 0.9) 55%, #0b0b0e 100%), #0b0b0e;
@@ -56,7 +55,6 @@
     .feature-card h3 { color: #fff; font-size: 15px; margin-top: 0; margin-bottom: 10px; }
     .feature-card p { font-size: 12px; color: #767682; margin: 0; line-height: 1.5; }
 
-    /* Форум изначально скрыт */
     #forumWrapper { display: none; }
 
     header { background-color: #121217; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #23232c; }
@@ -75,7 +73,6 @@
     .box-header { padding: 12px 15px; border-bottom: 1px solid #23232c; font-size: 13px; color: #6e8bc3; display: flex; justify-content: space-between; align-items: center; }
     .box-content { padding: 15px; }
     
-    /* Стили для ЧАТА */
     .shoutbox-messages { font-size: 13px; height: 350px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
     .chat-msg { background: #16161c; padding: 8px 12px; border-radius: 4px; border-left: 3px solid #dc5b5b; }
     .chat-author { font-weight: bold; color: #fff; font-size: 12px; margin-bottom: 2px; }
@@ -101,25 +98,55 @@
     .stat-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
     .online-users { color: #d0d0d6; font-size: 13px; margin-bottom: 10px; }
     
-    /* Плашка CREATOR */
+    /* Нестандартные Привилегии / Беджи */
     .badge-creator { 
         background: linear-gradient(135deg, #ff416c, #ff4b2b); 
-        color: white; 
+        color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-left: 6px; 
+    }
+    .badge-headadmin { 
+        background: linear-gradient(135deg, #8b5cf6, #6d28d9); 
+        color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-left: 6px; 
+    }
+    .badge-admin { 
+        background: linear-gradient(135deg, #3b82f6, #1d4ed8); 
+        color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-left: 6px; 
+    }
+    .badge-moderator { 
+        background: linear-gradient(135deg, #f59e0b, #d97706); 
+        color: white; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; margin-left: 6px; 
+    }
+    /* Кастомная привилегия Кобра (зеленое свечение) */
+    .badge-cobra { 
+        background: #0f172a; 
+        color: #22c55e; 
+        border: 1px solid #22c55e;
         padding: 2px 8px; 
         border-radius: 4px; 
         font-size: 10px; 
-        font-weight: 800;
+        font-weight: 800; 
         margin-left: 6px; 
-        letter-spacing: 0.5px;
-        box-shadow: 0 0 10px rgba(255, 65, 108, 0.4);
+        box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
+        text-shadow: 0 0 5px rgba(34, 197, 94, 0.8);
+    }
+    /* Дефолтный статус для новых юзеров (английский, серый шрифт) */
+    .badge-default-user {
+        color: #767682;
+        font-size: 11px;
+        margin-left: 6px;
+        font-style: italic;
     }
 
     .admin-panel-box { background: #121217; border: 1px solid #ff416c; padding: 15px; border-radius: 4px; margin-bottom: 20px; display: none; }
     .admin-panel-box input, .admin-panel-box textarea, .admin-panel-box select { background: #16161c; border: 1px solid #23232c; color: #fff; padding: 8px; width: calc(100% - 18px); margin-bottom: 10px; border-radius: 3px; font-family: inherit; }
     .admin-btn { background: #ff416c; color: white; border: none; padding: 8px 15px; border-radius: 3px; cursor: pointer; font-weight: bold; }
     .admin-btn:hover { background: #e0355d; }
+
+    .users-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px; }
+    .users-table th, .users-table td { border: 1px solid #23232c; padding: 8px; text-align: left; color: #c0c0c8; }
+    .users-table th { background: #16161c; color: #6e8bc3; }
+    .user-action-btn { background: #23232c; color: #fff; border: 1px solid #363642; padding: 4px 8px; border-radius: 3px; cursor: pointer; font-size: 11px; margin-right: 4px; margin-bottom: 4px; }
+    .user-action-btn:hover { background: #dc5b5b; border-color: #dc5b5b; }
     
-    /* Магазин */
     #shopSection { display: none; padding: 40px 50px; max-width: 1200px; margin: 0 auto; }
     .shop-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; background: #121217; padding: 20px; border: 1px solid #23232c; border-radius: 8px; }
     .back-forum-btn { background: #dc5b5b; border: none; color: #fff; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.2s; text-decoration: none; display: flex; align-items: center; gap: 8px; }
@@ -133,7 +160,6 @@
     .buy-btn { background: #dc5b5b; color: white; border: none; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; text-align: center; }
     .buy-btn:hover { background: #c54a4a; }
 
-    /* Секция просмотра списка тем и конкретной темы */
     #topicListSection, #topicViewSection { display: none; }
     .topic-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #23232c; cursor: pointer; transition: 0.15s; }
     .topic-item:hover { background: #16161c; }
@@ -141,7 +167,6 @@
     .topic-title-link { color: #fff; font-size: 15px; font-weight: 500; margin-bottom: 4px; }
     .topic-meta { font-size: 12px; color: #767682; }
 
-    /* Модальные окна */
     .auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; }
     .auth-box { background: #121217; border: 1px solid #23232c; width: 450px; border-radius: 4px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
     .auth-header { padding: 15px 20px; font-size: 18px; color: #d0d0d6; border-bottom: 1px solid #23232c; display: flex; justify-content: space-between; align-items: center; }
@@ -150,14 +175,12 @@
     .auth-input-row { display: flex; margin-bottom: 15px; align-items: center; justify-content: space-between; }
     .auth-input-row span { font-size: 13px; color: #9f9fa8; width: 150px; text-align: right; padding-right: 15px; }
     .auth-input { background: #16161c; border: 1px solid #23232c; color: #fff; padding: 8px 12px; border-radius: 3px; flex: 1; outline: none; font-size: 13px; }
-    .auth-input:focus { border-color: #6e8bc3; }
     .auth-footer-row { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; font-size: 12px; color: #767682; }
     .auth-submit-btn { background: #23232c; color: #d0d0d6; border: 1px solid #363642; padding: 6px 15px; border-radius: 3px; cursor: pointer; font-weight: bold; }
     .auth-submit-btn:hover { background: #2e2e3b; color: #fff; }
     .auth-switch-link { color: #6e8bc3; cursor: pointer; text-decoration: none; }
     .auth-switch-link:hover { text-decoration: underline; }
 
-    /* Меню профиля */
     .user-profile-wrapper { position: relative; display: inline-block; }
     .user-profile-btn { display: flex; align-items: center; gap: 8px; cursor: pointer; background: #16161c; padding: 6px 12px; border-radius: 4px; border: 1px solid #23232c; }
     .user-profile-btn:hover { border-color: #6e8bc3; }
@@ -173,73 +196,70 @@
 </head>
 <body>
 
-<!-- 1. Главная витрина -->
 <div class="showcase-section" id="showcaseSection">
     <div class="showcase-preview-box">
         <h1>AIware</h1>
-        <button class="showcase-btn" onclick="handleTryNowClick()">попробуй сейчас</button>
+        <button class="showcase-btn" onclick="handleTryNowClick()">Try Now</button>
     </div>
-    <div class="showcase-title">основные возможности продукта</div>
+    <div class="showcase-title">Visuals Core Features</div>
     <div class="features-grid">
         <div class="feature-card">
-            <h3>legit & rage</h3>
-            <p>точная настройка параметров для скрытного или агрессивного стиля игры.</p>
+            <h3>ESP & Chams</h3>
+            <p>Precise enemy positioning indicators, skeleton outlines, and custom model shaders.</p>
         </div>
         <div class="feature-card">
-            <h3>визуальные эффекты</h3>
-            <p>отображение позиций противников и объектов на карте.</p>
+            <h3>Visual Customization</h3>
+            <p>Advanced overlay styling, radar adjustments, and fully configurable visual rendering elements.</p>
         </div>
     </div>
 </div>
 
-<!-- 2. Магазин -->
 <div id="shopSection">
     <div class="shop-header-row">
         <div>
-            <h2 style="color: #fff; margin: 0 0 5px 0;">Магазин подписок</h2>
-            <p style="color: #9f9fa8; font-size: 14px; margin: 0;">Выберите подходящий продукт и срок подписки для активации доступа.</p>
+            <h2 style="color: #fff; margin: 0 0 5px 0;">Visuals Store</h2>
+            <p style="color: #9f9fa8; font-size: 14px; margin: 0;">Choose a product plan to activate visual software access.</p>
         </div>
-        <button class="back-forum-btn" onclick="showForumFromOther()" title="Вернуться на форум">
-            <span>⬅</span> Назад на форум
+        <button class="back-forum-btn" onclick="showForumFromOther()">
+            <span>⬅</span> Back to Forum
         </button>
     </div>
     <div class="shop-grid">
         <div class="product-card">
             <div>
-                <div class="product-title">AIware [30 Days]</div>
-                <div class="product-price">499 ₽</div>
-                <div class="product-desc">Полный доступ ко всем функциям legit & rage, визуальным эффектам и обновлениям на 30 дней.</div>
+                <div class="product-title">AIware Visuals [30 Days]</div>
+                <div class="product-price">399 ₽</div>
+                <div class="product-desc">Full access to ESP, Chams, and overlay configuration elements for 30 days.</div>
             </div>
-            <button class="buy-btn" onclick="buyProduct('AIware [30 Days]', '499 ₽')">Купить</button>
+            <button class="buy-btn" onclick="buyProduct('AIware Visuals [30 Days]', '399 ₽')">Buy Now</button>
         </div>
         <div class="product-card">
             <div>
-                <div class="product-title">AIware [90 Days]</div>
-                <div class="product-price">1199 ₽</div>
-                <div class="product-desc">Выгодный пакет подписки на 3 месяцев с приоритетной поддержкой в чате.</div>
+                <div class="product-title">AIware Visuals [90 Days]</div>
+                <div class="product-price">999 ₽</div>
+                <div class="product-desc">Extended visual package with priority configuration updates for 3 months.</div>
             </div>
-            <button class="buy-btn" onclick="buyProduct('AIware [90 Days]', '1199 ₽')">Купить</button>
+            <button class="buy-btn" onclick="buyProduct('AIware Visuals [90 Days]', '999 ₽')">Buy Now</button>
         </div>
         <div class="product-card">
             <div>
-                <div class="product-title">AIware [Lifetime]</div>
-                <div class="product-price">2999 ₽</div>
-                <div class="product-desc">Пожизненный доступ ко всем текущим и будущим функциям софта без ограничений.</div>
+                <div class="product-title">AIware Visuals [Lifetime]</div>
+                <div class="product-price">2499 ₽</div>
+                <div class="product-desc">Lifetime access to all current and future visual rendering tools without limitations.</div>
             </div>
-            <button class="buy-btn" onclick="buyProduct('AIware [Lifetime]', '2999 ₽')">Купить</button>
+            <button class="buy-btn" onclick="buyProduct('AIware Visuals [Lifetime]', '2499 ₽')">Buy Now</button>
         </div>
     </div>
 </div>
 
-<!-- 3. Форум / Главная страница форума -->
 <div id="forumWrapper">
     <header>
         <div class="header-left">
             <a href="#" onclick="showHome()" class="logo">AIware</a>
             <div class="nav-links">
-                <a href="#" onclick="showHome()">Главная</a>
-                <a href="#" onclick="showShop()">Магазин</a>
-                <a href="#" id="loaderTab" style="display: none; color: #dc5b5b; font-weight: bold;" onclick="downloadLoader()">Скачать лоадер</a>
+                <a href="#" onclick="showHome()">Home</a>
+                <a href="#" onclick="showShop()">Store</a>
+                <a href="#" id="loaderTab" style="display: none; color: #dc5b5b; font-weight: bold;" onclick="downloadLoader()">Download Visuals Loader</a>
             </div>
         </div>
         <div class="user-nav" id="userNavContainer"></div>
@@ -248,81 +268,93 @@
     <div class="container">
         <div class="main-content">
             
-            <!-- Панель Создателя -->
             <div id="adminPanel" class="admin-panel-box">
-                <h3 style="color: #ff416c; margin-top: 0; font-size: 14px;">Панель Создателя: Создать публикацию</h3>
-                <input type="text" id="postTitle" placeholder="Заголовок (например, Важное обновление v1.1)...">
-                <textarea id="postContent" placeholder="Текст новости или описания обновления..." rows="3"></textarea>
-                <select id="postCategory">
-                    <option value="news">Новости (News)</option>
-                    <option value="update">Обновления (Updates)</option>
-                </select><br>
-                <button class="admin-btn" onclick="createPost()">Опубликовать</button>
+                <h3 id="panelCreateTitle" style="color: #ff416c; margin-top: 0; font-size: 14px;">Management Panel: Create Publication</h3>
+                <div id="creatorPostSection">
+                    <input type="text" id="postTitle" placeholder="Title (e.g. Visual Overlay v2.0 Update)...">
+                    <textarea id="postContent" placeholder="Visual feature log or announcements..." rows="3"></textarea>
+                    <select id="postCategory">
+                        <option value="news">News</option>
+                        <option value="update">Updates</option>
+                    </select><br>
+                    <button class="admin-btn" onclick="createPost()">Publish</button>
+                </div>
+
+                <h3 style="color: #6e8bc3; margin-top: 25px; font-size: 14px; border-top: 1px solid #23232c; padding-top: 15px;">User Roles & Moderation (Ban, Mute, IP Ban, Assign Roles)</h3>
+                <div style="overflow-x: auto;">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Role / Privilege</th>
+                                <th>Sub</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminUsersTableBody">
+                            </tbody>
+                    </table>
+                </div>
             </div>
 
-            <!-- Раздел списка тем (Новости / Обновления) -->
             <div class="box" id="topicListSection">
                 <div class="box-header">
-                    <span id="topicListHeaderTitle">Список тем</span>
-                    <button class="back-forum-btn" style="padding: 4px 10px; font-size: 12px;" onclick="backToForumMain()">К категориям</button>
+                    <span id="topicListHeaderTitle">Topic List</span>
+                    <button class="back-forum-btn" style="padding: 4px 10px; font-size: 12px;" onclick="backToForumMain()">To Categories</button>
                 </div>
-                <div class="box-content" id="topicListContainer" style="padding: 0;">
-                    <!-- Сюда динамически выводятся темы -->
-                </div>
+                <div class="box-content" id="topicListContainer" style="padding: 0;"></div>
             </div>
 
-            <!-- Раздел чтения конкретной темы -->
             <div class="box" id="topicViewSection">
                 <div class="box-header">
-                    <span id="viewTopicHeader">Просмотр темы</span>
-                    <button class="back-forum-btn" style="padding: 4px 10px; font-size: 12px;" onclick="backToTopicList()">Назад к списку</button>
+                    <span id="viewTopicHeader">View Topic</span>
+                    <button class="back-forum-btn" style="padding: 4px 10px; font-size: 12px;" onclick="backToTopicList()">Back to List</button>
                 </div>
                 <div class="box-content">
                     <h2 id="viewTopicTitle" style="color: #fff; margin-top: 0; font-size: 20px;"></h2>
                     <div style="font-size: 12px; color: #767682; margin-bottom: 15px; border-bottom: 1px solid #23232c; padding-bottom: 8px;">
-                        Автор: <span id="viewTopicAuthor" style="color: #6e8bc3; font-weight: bold;"></span>
+                        Author: <span id="viewTopicAuthor" style="color: #6e8bc3; font-weight: bold;"></span>
                     </div>
                     <div id="viewTopicContent" style="color: #d0d0d6; font-size: 14px; line-height: 1.6; white-space: pre-wrap;"></div>
                 </div>
             </div>
 
-            <!-- Главный контент форума (часть с категориями и чатом по умолчанию) -->
             <div id="forumMainContent">
-                <!-- Живой чат -->
                 <div class="box">
                     <div class="box-header">
-                        <span>📢 Чат сообщества (Живое обсуждение)</span>
+                        <span>📢 Community Live Chat</span>
                     </div>
                     <div class="box-content shoutbox-messages" id="shoutboxContainer"></div>
                     <div class="shoutbox-input-container">
-                        <input type="text" id="chatInput" class="shoutbox-input" placeholder="Написать сообщение..." onkeydown="handleChatKeyDown(event)">
-                        <button class="send-chat-btn" onclick="sendChatMessage()">Отправить</button>
+                        <input type="text" id="chatInput" class="shoutbox-input" placeholder="Type a message..." onkeydown="handleChatKeyDown(event)">
+                        <button class="send-chat-btn" onclick="sendChatMessage()">Send</button>
                     </div>
                 </div>
 
-                <div class="category-title">Публичные разделы</div>
+                <div class="category-title">Public Sections</div>
                 <div class="box">
                     <div class="forum-row" onclick="openCategory('news')">
                         <div class="forum-icon">📺</div>
                         <div class="forum-info">
-                            <div class="forum-title">Новости</div>
-                            <div class="forum-desc">Последние новости, анонсы и важные события форума.</div>
+                            <div class="forum-title">News</div>
+                            <div class="forum-desc">Latest visual overlays announcements and updates.</div>
                         </div>
                         <div class="forum-stats">
-                            <div>Темы <span class="stat-val" id="countNewsThreads">0</span></div>
-                            <div>Сообщения <span class="stat-val" id="countNewsMsgs">0</span></div>
+                            <div>Topics <span class="stat-val" id="countNewsThreads">0</span></div>
+                            <div>Posts <span class="stat-val" id="countNewsMsgs">0</span></div>
                         </div>
                     </div>
                     
                     <div class="forum-row" onclick="openCategory('update')">
                         <div class="forum-icon">🔔</div>
                         <div class="forum-info">
-                            <div class="forum-title">Обновления</div>
-                            <div class="forum-desc">Логи обновлений и патчноуты софта.</div>
+                            <div class="forum-title">Updates</div>
+                            <div class="forum-desc">Software visual configurations change logs and patch notes.</div>
                         </div>
                         <div class="forum-stats">
-                            <div>Темы <span class="stat-val" id="countUpdateThreads">0</span></div>
-                            <div>Сообщения <span class="stat-val" id="countUpdateMsgs">0</span></div>
+                            <div>Topics <span class="stat-val" id="countUpdateThreads">0</span></div>
+                            <div>Posts <span class="stat-val" id="countUpdateMsgs">0</span></div>
                         </div>
                     </div>
                 </div>
@@ -332,21 +364,21 @@
 
         <div class="sidebar">
             <div class="box sidebar-box">
-                <div class="box-header">Пользователи онлайн</div>
+                <div class="box-header">Online Users</div>
                 <div class="box-content">
-                    <div class="online-users" id="onlineUsers">Загрузка...</div>
-                    <div style="font-size: 12px;" id="onlineCounter">Всего: 0</div>
+                    <div class="online-users" id="onlineUsers">Loading...</div>
+                    <div style="font-size: 12px;" id="onlineCounter">Total: 0</div>
                 </div>
             </div>
 
             <div class="box sidebar-box">
-                <div class="box-header">Статистика форума</div>
+                <div class="box-header">Forum Statistics</div>
                 <div class="box-content">
-                    <div class="stat-row"><span>Всего тем:</span> <span id="statThreads">0</span></div>
-                    <div class="stat-row"><span>Сообщений:</span> <span id="statMessages">0</span></div>
-                    <div class="stat-row"><span>Участников:</span> <span id="statMembers">0</span></div>
+                    <div class="stat-row"><span>Total Topics:</span> <span id="statThreads">0</span></div>
+                    <div class="stat-row"><span>Messages:</span> <span id="statMessages">0</span></div>
+                    <div class="stat-row"><span>Members:</span> <span id="statMembers">0</span></div>
                     <div class="stat-row" style="margin-top: 10px;">
-                        <span>Последний участник:</span> 
+                        <span>Latest Member:</span> 
                         <span style="color: #6e8bc3;" id="statLatest">-</span>
                     </div>
                 </div>
@@ -355,7 +387,6 @@
     </div>
 </div>
 
-<!-- Модальное окно авторизации / сброса пароля -->
 <div id="authModal" class="auth-overlay" style="display: none;">
     <div class="auth-box">
         <div class="auth-header" id="authModalTitle">Log in</div>
@@ -364,7 +395,7 @@
         </div>
         <div class="auth-body">
             <div class="auth-input-row" id="authUsernameRow">
-                <span id="loginFieldLabel">Ваш ник или почта:</span>
+                <span id="loginFieldLabel">Username or Email:</span>
                 <input type="text" id="authUsername" class="auth-input">
             </div>
             <div class="auth-input-row" id="authEmailRow" style="display: none;">
@@ -372,53 +403,51 @@
                 <input type="email" id="authEmail" class="auth-input">
             </div>
             <div class="auth-input-row" id="authPasswordRow">
-                <span>Пароль:</span>
+                <span>Password:</span>
                 <input type="password" id="authPassword" class="auth-input">
             </div>
             
-            <!-- Блок восстановления пароля через почту -->
             <div id="forgotPasswordContainer" style="display: none; background: #16161c; padding: 12px; border-radius: 4px; margin-bottom: 15px; border: 1px solid #23232c;">
-                <p style="margin: 0 0 8px 0; font-size: 12px; color: #9f9fa8;" id="forgotStepText">Введите почту, указанную при регистрации, чтобы получить код сброса.</p>
-                <input type="email" id="forgotEmailInput" class="auth-input" placeholder="Ваш email..." style="width: 100%; box-sizing: border-box; margin-bottom: 8px; display: block;">
-                <input type="text" id="forgotCodeInput" class="auth-input" placeholder="Введите 4-значный код..." style="width: 100%; box-sizing: border-box; margin-bottom: 8px; display: none;">
-                <input type="password" id="forgotNewPassInput" class="auth-input" placeholder="Новый пароль..." style="width: 100%; box-sizing: border-box; margin-bottom: 8px; display: none;">
-                <button class="auth-submit-btn" id="forgotActionBtn" onclick="handleForgotStep()" style="width: 100%;">Отправить код</button>
+                <p style="margin: 0 0 8px 0; font-size: 12px; color: #9f9fa8;" id="forgotStepText">Enter your registration email to receive a reset code.</p>
+                <input type="email" id="forgotEmailInput" class="auth-input" placeholder="Your email..." style="width: 100%; box-sizing: border-box; margin-bottom: 8px; display: block;">
+                <input type="text" id="forgotCodeInput" class="auth-input" placeholder="4-digit code..." style="width: 100%; box-sizing: border-box; margin-bottom: 8px; display: none;">
+                <input type="password" id="forgotNewPassInput" class="auth-input" placeholder="New password..." style="width: 100%; box-sizing: border-box; margin-bottom: 8px; display: none;">
+                <button class="auth-submit-btn" id="forgotActionBtn" onclick="handleForgotStep()" style="width: 100%;">Send Code</button>
             </div>
 
             <div id="forgotPasswordBox" style="text-align: right; font-size: 12px; margin-bottom: 10px;">
-                <span class="auth-switch-link" onclick="openForgotMode()">Забыли пароль?</span>
+                <span class="auth-switch-link" onclick="openForgotMode()">Forgot password?</span>
             </div>
             
             <div style="font-size: 13px; display: flex; align-items: center; gap: 8px;" id="stayLoggedRow">
                 <input type="checkbox" id="stayLogged" checked> <label for="stayLogged">Stay logged in</label>
             </div>
             <div class="auth-footer-row">
-                <span id="authSwitchPrompt">Нет аккаунта? <span class="auth-switch-link" onclick="toggleAuthMode()">Зарегистрироваться</span></span>
+                <span id="authSwitchPrompt">Don't have an account? <span class="auth-switch-link" onclick="toggleAuthMode()">Register</span></span>
                 <button class="auth-submit-btn" onclick="submitAuth()" id="authSubmitBtn">Log in</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Модальное окно редактирования профиля -->
 <div id="editProfileModal" class="auth-overlay" style="display: none;">
     <div class="auth-box">
         <div class="auth-header">
-            <span>Редактировать профиль</span>
+            <span>Edit Profile</span>
             <span style="cursor: pointer; font-size: 16px;" onclick="closeEditProfileModal()">✕</span>
         </div>
         <div class="auth-body">
             <div class="auth-input-row">
-                <span>Новый ник:</span>
+                <span>New Username:</span>
                 <input type="text" id="editProfileUsername" class="auth-input">
             </div>
             <div class="auth-input-row">
-                <span>Новая почта:</span>
+                <span>New Email:</span>
                 <input type="email" id="editProfileEmail" class="auth-input">
             </div>
             <div class="auth-footer-row" style="justify-content: flex-end; gap: 10px;">
-                <button class="auth-submit-btn" onclick="closeEditProfileModal()" style="background: #16161c;">Отмена</button>
-                <button class="auth-submit-btn" onclick="saveProfileChanges()" style="background: #dc5b5b; border-color: #dc5b5b;">Сохранить</button>
+                <button class="auth-submit-btn" onclick="closeEditProfileModal()" style="background: #16161c;">Cancel</button>
+                <button class="auth-submit-btn" onclick="saveProfileChanges()" style="background: #dc5b5b; border-color: #dc5b5b;">Save</button>
             </div>
         </div>
     </div>
@@ -427,29 +456,31 @@
 <script>
     function initStorage() {
         let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
-        let adminIndex = users.findIndex(u => u.username === '0_Artyr4ik_0' || u.role === 'creator');
+        let creatorIndex = users.findIndex(u => u.username === '0_Artyr4ik_0' || u.role === 'creator');
         let creatorData = { 
             username: '0_Artyr4ik_0', 
             email: 'artyr4ik@creator.com', 
             role: 'creator', 
             pass: 'k9#mP!2$vX8L', 
+            status: 'Active',
             lastActive: Date.now() 
         };
 
-        if (adminIndex === -1) {
+        if (creatorIndex === -1) {
             users.unshift(creatorData);
         } else {
-            users[adminIndex].username = creatorData.username;
-            users[adminIndex].email = creatorData.email || 'artyr4ik@creator.com';
-            users[adminIndex].role = 'creator';
-            users[adminIndex].pass = creatorData.pass;
+            users[creatorIndex].username = creatorData.username;
+            users[creatorIndex].email = creatorData.email || 'artyr4ik@creator.com';
+            users[creatorIndex].role = 'creator';
+            users[creatorIndex].pass = creatorData.pass;
+            if(!users[creatorIndex].status) users[creatorIndex].status = 'Active';
         }
 
         let defaultBots = [
-            { username: 'Vortex_99', email: 'vortex@mail.com', role: 'user', pass: '123', lastActive: Date.now() },
-            { username: 'xX_Skillet_Xx', email: 'skillet@mail.com', role: 'user', pass: '123', lastActive: Date.now() },
-            { username: 'Bender_Rodr', email: 'bender@mail.com', role: 'user', pass: '123', lastActive: Date.now() },
-            { username: 'Killa_Inst', email: 'killa@mail.com', role: 'user', pass: '123', lastActive: Date.now() }
+            { username: 'Vortex_99', email: 'vortex@mail.com', role: 'user', status: 'Active', pass: '123', lastActive: Date.now() },
+            { username: 'xX_Skillet_Xx', email: 'skillet@mail.com', role: 'cobra', status: 'Active', pass: '123', lastActive: Date.now() },
+            { username: 'Bender_Rodr', email: 'bender@mail.com', role: 'moderator', status: 'Active', pass: '123', lastActive: Date.now() },
+            { username: 'Killa_Inst', email: 'killa@mail.com', role: 'admin', status: 'Active', pass: '123', lastActive: Date.now() }
         ];
 
         defaultBots.forEach(bot => {
@@ -462,22 +493,21 @@
 
         if (!localStorage.getItem('AIware_posts')) {
             localStorage.setItem('AIware_posts', JSON.stringify([
-                { id: 1, title: 'Добро пожаловать в AIware v1.0', content: 'Рады приветствовать вас на официальном форуме проекта AIware! Здесь вы найдете всю актуальную информацию по софту, конфиги и обновления.', category: 'news', author: '0_Artyr4ik_0' },
-                { id: 2, title: 'Патчноут обновления v1.1', content: '- Оптимизирован обход защит античита.\n- Улучшена работа визуальных эффектов.\n- Исправлены краши при сворачивании игры.', category: 'update', author: '0_Artyr4ik_0' }
+                { id: 1, title: 'Welcome to AIware Visuals v1.0', content: 'Welcome to the official AIware visuals forum! Here you will find all custom ESP shaders, chams, and configurations.', category: 'news', author: '0_Artyr4ik_0' },
+                { id: 2, title: 'Visual Overlay v1.1 Patch Notes', content: '- Optimized color rendering speeds.\n- Improved custom chams visibility.\n- Fixed overlay minor tearing bugs.', category: 'update', author: '0_Artyr4ik_0' }
             ]));
         }
 
         if (!localStorage.getItem('AIware_chat')) {
             localStorage.setItem('AIware_chat', JSON.stringify([
-                { author: 'Vortex_99', text: 'Пацаны, какой чит сейчас реально без детекта?' },
-                { author: 'xX_Skillet_Xx', text: 'Да AIware же имба, третий месяц катаю и нулевой бан' }
+                { author: 'Vortex_99', text: 'Hey, what ESP color preset looks best on dark maps?' },
+                { author: 'xX_Skillet_Xx', text: 'The neon green chams look amazing and super clear.' }
             ]));
         }
     }
 
     initStorage();
 
-    /* Управление меню профиля */
     function toggleProfileMenu() {
         let menu = document.getElementById('profileDropdownMenu');
         if (menu) {
@@ -498,7 +528,7 @@
         let loaderTab = document.getElementById('loaderTab');
         if (!loaderTab) return;
 
-        if (activeUserObj && (activeUserObj.role === 'creator' || activeUserObj.hasSubscription)) {
+        if (activeUserObj && (activeUserObj.role === 'creator' || activeUserObj.role === 'headadmin' || activeUserObj.role === 'admin' || activeUserObj.role === 'moderator' || activeUserObj.role === 'cobra' || activeUserObj.hasSubscription)) {
             loaderTab.style.display = 'inline-block';
         } else {
             loaderTab.style.display = 'none';
@@ -508,21 +538,30 @@
     function downloadLoader() {
         let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
         let activeUserObj = users.find(u => u.username === currentUser);
-        if (activeUserObj && (activeUserObj.role === 'creator' || activeUserObj.hasSubscription)) {
-            alert('Загрузка официального лоадера AIware начата! Проверьте папку Загрузки.');
+        if (activeUserObj && (activeUserObj.role === 'creator' || activeUserObj.role === 'headadmin' || activeUserObj.role === 'admin' || activeUserObj.role === 'moderator' || activeUserObj.role === 'cobra' || activeUserObj.hasSubscription)) {
+            alert('Official AIware Visuals loader download started! Check your Downloads folder.');
         } else {
-            alert('Доступ недоступен! У вас нет активной подписки.');
+            alert('Access denied! You do not have an active visual subscription.');
             showShop();
         }
     }
 
     let currentUser = localStorage.getItem('AIware_user');
     let isRegisterMode = false;
-    let forgotStep = 1; // 1: ввод почты, 2: ввод кода, 3: ввод нового пароля
+    let forgotStep = 1;
     let generatedResetCode = "";
     let resetTargetEmail = "";
 
     function checkAuth() {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+
+        if (activeUserObj && activeUserObj.status && activeUserObj.status.includes('Banned')) {
+            alert('Your account has been banned!');
+            logout();
+            return;
+        }
+
         if (!currentUser || currentUser === "null" || currentUser === "undefined") {
             localStorage.removeItem('AIware_user');
             currentUser = null;
@@ -578,17 +617,16 @@
         renderChatMessages();
     }
 
-    /* Открытие категорий (Новости / Обновления) */
     function openCategory(catType) {
         let posts = JSON.parse(localStorage.getItem('AIware_posts')) || [];
         let filtered = posts.filter(p => p.category === catType);
         
-        let titleText = catType === 'news' ? 'Новости' : 'Обновления';
-        document.getElementById('topicListHeaderTitle').innerText = `Раздел: ${titleText}`;
+        let titleText = catType === 'news' ? 'News' : 'Updates';
+        document.getElementById('topicListHeaderTitle').innerText = `Section: ${titleText}`;
         
         let container = document.getElementById('topicListContainer');
         if (filtered.length === 0) {
-            container.innerHTML = '<div style="padding: 20px; color: #767682; text-align: center;">В этом разделе пока нет тем.</div>';
+            container.innerHTML = '<div style="padding: 20px; color: #767682; text-align: center;">No topics in this section yet.</div>';
         } else {
             let html = '';
             filtered.forEach(topic => {
@@ -596,9 +634,9 @@
                     <div class="topic-item" onclick="openTopic(${topic.id})">
                         <div>
                             <div class="topic-title-link">${topic.title}</div>
-                            <div class="topic-meta">Автор: ${topic.author}</div>
+                            <div class="topic-meta">Author: ${topic.author}</div>
                         </div>
-                        <div style="font-size: 12px; color: #6e8bc3;">Открыть ➔</div>
+                        <div style="font-size: 12px; color: #6e8bc3;">Open ➔</div>
                     </div>
                 `;
             });
@@ -616,7 +654,6 @@
     }
 
     function backToTopicList() {
-        let posts = JSON.parse(localStorage.getItem('AIware_posts')) || [];
         document.getElementById('topicViewSection').style.display = 'none';
         document.getElementById('topicListSection').style.display = 'block';
     }
@@ -639,14 +676,12 @@
         let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
         let activeUserObj = users.find(u => u.username === currentUser);
         
-        if (activeUserObj && activeUserObj.role === 'creator') {
+        if (activeUserObj) {
             activeUserObj.hasSubscription = true;
             localStorage.setItem('AIware_users', JSON.stringify(users));
-            alert(`Заказ "${name}" на сумму ${price} успешно оформлен! Подписка активирована.`);
+            alert(`Order "${name}" for ${price} successfully processed! Visual subscription activated.`);
             renderUserNav();
             updateLoaderTab();
-        } else {
-            alert('Недоступно: Интеграция платежной системы в разработку. Обычным пользователям покупка пока недоступна.');
         }
     }
 
@@ -654,28 +689,48 @@
         let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
         let activeUserObj = users.find(u => u.username === currentUser);
         let role = activeUserObj ? activeUserObj.role : 'user';
-        let hasSub = activeUserObj && (role === 'creator' || activeUserObj.hasSubscription);
+        let hasSub = activeUserObj && (['creator', 'headadmin', 'admin', 'moderator', 'cobra'].includes(role) || activeUserObj.hasSubscription);
 
-        if (role === "creator") {
+        // Права на отображение панели управления (Создатель, Главный Админ, Админ, Модератор)
+        let canAccessPanel = ['creator', 'headadmin', 'admin', 'moderator'].includes(role);
+        if (canAccessPanel) {
             document.getElementById('adminPanel').style.display = 'block';
+            
+            // Только Creator и Head Admin могут постить новости, модераторы и админы — только модерировать
+            if (['creator', 'headadmin'].includes(role)) {
+                document.getElementById('creatorPostSection').style.display = 'block';
+                document.getElementById('panelCreateTitle').innerText = 'Management Panel: Create Publication';
+            } else {
+                document.getElementById('creatorPostSection').style.display = 'none';
+                document.getElementById('panelCreateTitle').innerText = 'Moderation Panel: User Control';
+            }
+            renderAdminUsersTable();
         } else {
             document.getElementById('adminPanel').style.display = 'none';
         }
+
+        let roleBadge = '';
+        if (role === 'creator') roleBadge = '<span class="badge-creator">CREATOR</span>';
+        else if (role === 'headadmin') roleBadge = '<span class="badge-headadmin">HEAD ADMIN</span>';
+        else if (role === 'admin') roleBadge = '<span class="badge-admin">ADMIN</span>';
+        else if (role === 'moderator') roleBadge = '<span class="badge-moderator">MODERATOR</span>';
+        else if (role === 'cobra') roleBadge = '<span class="badge-cobra">COBRA</span>';
+        else roleBadge = '<span class="badge-default-user">user</span>';
 
         let userNavHtml = `
             <div class="user-profile-wrapper">
                 <div class="user-profile-btn" onclick="toggleProfileMenu()">
                     <span>👤 ${currentUser}</span>
-                    ${role === 'creator' ? '<span class="badge-creator">CREATOR</span>' : ''}
+                    ${roleBadge}
                     <span style="font-size: 10px; opacity: 0.6;">▼</span>
                 </div>
                 <div id="profileDropdownMenu" class="profile-dropdown-menu">
                     <div class="profile-username">${currentUser}</div>
-                    <p>Роль: <b style="color: #ff416c;">${role.toUpperCase()}</b></p>
-                    <p>Подписка: <span style="color: ${hasSub ? '#48bb78' : '#dc5b5b'}; font-weight: bold;">${hasSub ? 'Активна' : 'Не активна'}</span></p>
+                    <p>Privilege: <b style="color: ${role==='cobra'?'#22c55e':'#ff416c'};">${role.toUpperCase()}</b></p>
+                    <p>Visual Sub: <span style="color: ${hasSub ? '#48bb78' : '#dc5b5b'}; font-weight: bold;">${hasSub ? 'Active' : 'Inactive'}</span></p>
                     <hr>
-                    <button class="profile-menu-action" onclick="openEditProfileModal()">Редактировать</button>
-                    <button class="profile-logout-btn" onclick="logout()">Выйти</button>
+                    <button class="profile-menu-action" onclick="openEditProfileModal()">Edit Profile</button>
+                    <button class="profile-logout-btn" onclick="logout()">Log out</button>
                 </div>
             </div>
         `;
@@ -683,7 +738,108 @@
         updateLoaderTab();
     }
 
-    /* Редактирование профиля */
+    function renderAdminUsersTable() {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let tbody = document.getElementById('adminUsersTableBody');
+        let activeUserObj = users.find(u => u.username === currentUser);
+        let myRole = activeUserObj ? activeUserObj.role : 'user';
+        let html = '';
+
+        users.forEach((u) => {
+            // Проверка прав на выдачу ролей:
+            // Только Создатель может выдавать Head Admin и Admin.
+            // Создатель и Head Admin могут выдавать Moderator, Cobra и обычного пользователя.
+            let assignButtonsHtml = '';
+            if (myRole === 'creator' || myRole === 'headadmin') {
+                assignButtonsHtml += `
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'headadmin')">HeadAdmin</button>
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'admin')">Admin</button>
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'moderator')">Moderator</button>
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'cobra')">Cobra</button>
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'user')">User</button>
+                `;
+            } else if (myRole === 'admin') {
+                assignButtonsHtml += `
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'moderator')">Moderator</button>
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'cobra')">Cobra</button>
+                    <button class="user-action-btn" onclick="adminChangeRole('${u.username}', 'user')">User</button>
+                `;
+            } else {
+                assignButtonsHtml = '<span style="font-size:11px; color:#767682;">No role assign rights</span>';
+            }
+
+            html += `
+                <tr>
+                    <td><b>${u.username}</b><br><span style="font-size:10px; color:#767682;">${u.email || 'no email'}</span></td>
+                    <td><span style="color: ${u.role==='creator'?'#ff416c':u.role==='cobra'?'#22c55e':'#6e8bc3'}">${u.role.toUpperCase()}</span></td>
+                    <td>${u.hasSubscription ? 'Yes' : 'No'}</td>
+                    <td><span style="color:${u.status && u.status.includes('Banned')?'#dc5b5b':'#48bb78'}">${u.status || 'Active'}</span></td>
+                    <td>
+                        <button class="user-action-btn" onclick="adminToggleBan('${u.username}')">Ban/Unban</button>
+                        <button class="user-action-btn" onclick="adminToggleMute('${u.username}')">Mute/Unmute</button>
+                        <button class="user-action-btn" onclick="adminIpBan('${u.username}')">IP Ban</button>
+                        <div style="margin-top: 4px;">${assignButtonsHtml}</div>
+                    </td>
+                </tr>
+            `;
+        });
+        tbody.innerHTML = html;
+    }
+
+    function adminToggleBan(username) {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let target = users.find(u => u.username === username);
+        if(!target) return;
+        if(target.role === 'creator') { alert("Cannot ban the creator!"); return; }
+
+        target.status = (target.status === 'Banned') ? 'Active' : 'Banned';
+        localStorage.setItem('AIware_users', JSON.stringify(users));
+        renderAdminUsersTable();
+    }
+
+    function adminToggleMute(username) {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let target = users.find(u => u.username === username);
+        if(!target) return;
+        
+        target.status = (target.status === 'Muted') ? 'Active' : 'Muted';
+        localStorage.setItem('AIware_users', JSON.stringify(users));
+        renderAdminUsersTable();
+        alert(`User ${username} status updated to: ${target.status}`);
+    }
+
+    function adminIpBan(username) {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let target = users.find(u => u.username === username);
+        if(!target) return;
+        if(target.role === 'creator') { alert("Cannot IP ban creator!"); return; }
+
+        target.status = 'IP Banned';
+        localStorage.setItem('AIware_users', JSON.stringify(users));
+        renderAdminUsersTable();
+        alert(`IP Ban applied to ${username} successfully.`);
+    }
+
+    function adminChangeRole(username, newRole) {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+        let target = users.find(u => u.username === username);
+        if(!target) return;
+        if(target.role === 'creator') { alert("Cannot modify creator role!"); return; }
+
+        // Иерархическая проверка безопасности выдачи ролей
+        if (activeUserObj.role === 'admin' && (newRole === 'headadmin' || newRole === 'admin')) {
+            alert("Admins cannot assign HeadAdmin or Admin roles!");
+            return;
+        }
+
+        target.role = newRole;
+        localStorage.setItem('AIware_users', JSON.stringify(users));
+        renderAdminUsersTable();
+        renderUserNav();
+        alert(`User ${username} role successfully updated to ${newRole.toUpperCase()}!`);
+    }
+
     function openEditProfileModal() {
         document.getElementById('profileDropdownMenu').style.display = 'none';
         let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
@@ -703,14 +859,14 @@
         let newEmail = document.getElementById('editProfileEmail').value.trim();
         
         if (!newName) {
-            alert('Имя пользователя не может быть пустым!');
+            alert('Username cannot be empty!');
             return;
         }
 
         let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
         let existing = users.find(u => u.username.toLowerCase() === newName.toLowerCase() && u.username !== currentUser);
         if (existing) {
-            alert('Пользователь с таким ником уже существует!');
+            alert('User with this name already exists!');
             return;
         }
 
@@ -720,7 +876,6 @@
             if (newEmail) activeUserObj.email = newEmail;
         }
 
-        // Обновляем автора в постах и чате для консистентности
         let posts = JSON.parse(localStorage.getItem('AIware_posts')) || [];
         posts.forEach(p => { if(p.author === currentUser) p.author = newName; });
         localStorage.setItem('AIware_posts', JSON.stringify(posts));
@@ -736,10 +891,9 @@
         closeEditProfileModal();
         renderUserNav();
         renderChatMessages();
-        alert('Профиль успешно обновлен!');
+        alert('Profile successfully updated!');
     }
 
-    /* Модалка входа и сброса пароля */
     function openLoginModal() {
         closeForgotMode();
         setModalMode(false);
@@ -772,17 +926,17 @@
         if (isReg) {
             title.innerText = 'Register';
             btn.innerText = 'Register';
-            loginLabel.innerText = 'User name:';
+            loginLabel.innerText = 'Username:';
             emailRow.style.display = 'flex'; 
             forgotBox.style.display = 'none'; 
         } else {
             title.innerText = 'Log in';
             btn.innerText = 'Log in';
-            loginLabel.innerText = 'Ваш ник или почта:';
+            loginLabel.innerText = 'Username or Email:';
             emailRow.style.display = 'none'; 
             forgotBox.style.display = 'block'; 
         }
-        switchPrompt.innerHTML = isReg ? `Уже есть аккаунт? <span class="auth-switch-link" onclick="setModalMode(false)">Войти</span>` : `Нет аккаунта? <span class="auth-switch-link" onclick="setModalMode(true)">Зарегистрироваться</span>`;
+        switchPrompt.innerHTML = isReg ? `Already have an account? <span class="auth-switch-link" onclick="setModalMode(false)">Log in</span>` : `Don't have an account? <span class="auth-switch-link" onclick="setModalMode(true)">Register</span>`;
     }
 
     function toggleAuthMode() {
@@ -792,22 +946,22 @@
 
     function openForgotMode() {
         forgotStep = 1;
-        document.getElementById('authModalTitle').innerText = 'Сброс пароля';
+        document.getElementById('authModalTitle').innerText = 'Password Reset';
         document.getElementById('authUsernameRow').style.display = 'none';
         document.getElementById('authPasswordRow').style.display = 'none';
         document.getElementById('forgotPasswordBox').style.display = 'none';
         document.getElementById('stayLoggedRow').style.display = 'none';
         document.getElementById('authSubmitBtn').style.display = 'none';
-        document.getElementById('authSwitchPrompt').innerHTML = `<span class="auth-switch-link" onclick="openLoginModal()">Назад ко входу</span>`;
+        document.getElementById('authSwitchPrompt').innerHTML = `<span class="auth-switch-link" onclick="openLoginModal()">Back to Login</span>`;
 
         let box = document.getElementById('forgotPasswordContainer');
         box.style.display = 'block';
-        document.getElementById('forgotStepText').innerText = 'Введите почту, указанную при регистрации, чтобы получить код сброса.';
+        document.getElementById('forgotStepText').innerText = 'Enter your registration email to receive a reset code.';
         document.getElementById('forgotEmailInput').style.display = 'block';
         document.getElementById('forgotEmailInput').value = '';
         document.getElementById('forgotCodeInput').style.display = 'none';
         document.getElementById('forgotNewPassInput').style.display = 'none';
-        document.getElementById('forgotActionBtn').innerText = 'Отправить код';
+        document.getElementById('forgotActionBtn').innerText = 'Send Code';
     }
 
     function closeForgotMode() {
@@ -825,45 +979,44 @@
         if (forgotStep === 1) {
             let emailVal = document.getElementById('forgotEmailInput').value.trim();
             if (!emailVal) {
-                alert('Введите почту!');
+                alert('Enter your email!');
                 return;
             }
             let user = users.find(u => u.email && u.email.toLowerCase() === emailVal.toLowerCase());
             if (!user) {
-                alert('Пользователь с такой почтой не найден!');
+                alert('User with this email not found!');
                 return;
             }
             resetTargetEmail = emailVal;
             generatedResetCode = Math.floor(1000 + Math.random() * 9000).toString();
             
-            // Имитация отправки кода на почту
-            alert(`[ИМИТАЦИЯ ПОЧТЫ] На адрес ${emailVal} отправлен код подтверждения: ${generatedResetCode}`);
+            alert(`[MAIL SIMULATION] Confirmation code sent to ${emailVal}: ${generatedResetCode}`);
 
             forgotStep = 2;
-            document.getElementById('forgotStepText').innerText = `Код отправлен на ${emailVal}. Введите его ниже:`;
+            document.getElementById('forgotStepText').innerText = `Code sent to ${emailVal}. Enter it below:`;
             document.getElementById('forgotEmailInput').style.display = 'none';
             document.getElementById('forgotCodeInput').style.display = 'block';
             document.getElementById('forgotCodeInput').value = '';
-            document.getElementById('forgotActionBtn').innerText = 'Подтвердить код';
+            document.getElementById('forgotActionBtn').innerText = 'Confirm Code';
         } 
         else if (forgotStep === 2) {
             let codeVal = document.getElementById('forgotCodeInput').value.trim();
             if (codeVal !== generatedResetCode) {
-                alert('Неверный код подтверждения!');
+                alert('Invalid verification code!');
                 return;
             }
 
             forgotStep = 3;
-            document.getElementById('forgotStepText').innerText = 'Код подтвержден! Введите новый пароль:';
+            document.getElementById('forgotStepText').innerText = 'Code verified! Enter your new password:';
             document.getElementById('forgotCodeInput').style.display = 'none';
             document.getElementById('forgotNewPassInput').style.display = 'block';
             document.getElementById('forgotNewPassInput').value = '';
-            document.getElementById('forgotActionBtn').innerText = 'Сменить пароль';
+            document.getElementById('forgotActionBtn').innerText = 'Change Password';
         }
         else if (forgotStep === 3) {
             let newPass = document.getElementById('forgotNewPassInput').value.trim();
             if (!newPass) {
-                alert('Введите новый пароль!');
+                alert('Enter a new password!');
                 return;
             }
 
@@ -871,7 +1024,7 @@
             if (user) {
                 user.pass = newPass;
                 localStorage.setItem('AIware_users', JSON.stringify(users));
-                alert('Пароль успешно изменен! Теперь вы можете войти.');
+                alert('Password successfully changed! You can now log in.');
                 openLoginModal();
             }
         }
@@ -885,27 +1038,31 @@
 
         if (isRegisterMode) {
             if (!usernameOrEmail || !password || !email) {
-                alert('Пожалуйста, заполните все поля!');
+                alert('Please fill in all fields!');
                 return;
             }
             let existing = users.find(u => u.username.toLowerCase() === usernameOrEmail.toLowerCase() || (u.email && u.email.toLowerCase() === email.toLowerCase()));
             if (existing) {
-                alert('Пользователь с таким именем или почтой уже существует!');
+                alert('User with this name or email already exists!');
                 return;
             }
-            let newUser = { username: usernameOrEmail, email: email, role: 'user', pass: password, lastActive: Date.now() };
+            let newUser = { username: usernameOrEmail, email: email, role: 'user', status: 'Active', pass: password, lastActive: Date.now() };
             users.push(newUser);
             localStorage.setItem('AIware_users', JSON.stringify(users));
             currentUser = newUser.username;
             localStorage.setItem('AIware_user', currentUser);
         } else {
             if (!usernameOrEmail || !password) {
-                alert('Заполните все поля!');
+                alert('Fill in all fields!');
                 return;
             }
             let user = users.find(u => (u.username.toLowerCase() === usernameOrEmail.toLowerCase() || (u.email && u.email.toLowerCase() === usernameOrEmail.toLowerCase())) && u.pass === password);
             if (!user) {
-                alert('Неверное имя пользователя или пароль!');
+                alert('Incorrect username or password!');
+                return;
+            }
+            if (user.status && user.status.includes('Banned')) {
+                alert('Your account is banned!');
                 return;
             }
             currentUser = user.username;
@@ -923,13 +1080,12 @@
         location.reload();
     }
 
-    /* Отрисовка чата */
     function renderChatMessages() {
         let chatContainer = document.getElementById('shoutboxContainer');
         let messages = JSON.parse(localStorage.getItem('AIware_chat')) || [];
         
         if (messages.length === 0) {
-            chatContainer.innerHTML = '<div style="color: #767682; text-align: center; padding: 20px;">Сообщений пока нет.</div>';
+            chatContainer.innerHTML = '<div style="color: #767682; text-align: center; padding: 20px;">No messages yet.</div>';
             return;
         }
 
@@ -958,6 +1114,13 @@
             return;
         }
 
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+        if (activeUserObj && activeUserObj.status === 'Muted') {
+            alert('You are muted and cannot send messages!');
+            return;
+        }
+
         let input = document.getElementById('chatInput');
         let text = input.value.trim();
         if (!text) return;
@@ -977,7 +1140,7 @@
     function triggerContextualBotReply(userText) {
         let randomBots = ['Vortex_99', 'xX_Skillet_Xx', 'Bender_Rodr', 'Killa_Inst'];
         let botName = randomBots[Math.floor(Math.random() * randomBots.length)];
-        let replyText = `Интересно, ${currentUser}, но я считаю иначе!`;
+        let replyText = `I use the custom shader overlay and it looks extremely clean, ${currentUser}!`;
 
         let messages = JSON.parse(localStorage.getItem('AIware_chat')) || [];
         messages.push({ author: botName, text: replyText });
@@ -995,7 +1158,7 @@
         let category = document.getElementById('postCategory').value;
 
         if (!title || !content) {
-            alert('Пожалуйста, заполните заголовок и содержание!');
+            alert('Please fill in title and content!');
             return;
         }
 
@@ -1005,7 +1168,7 @@
 
         document.getElementById('postTitle').value = '';
         document.getElementById('postContent').value = '';
-        alert('Публикация успешно создана!');
+        alert('Publication successfully created!');
         updateRealtimeData();
     }
 
@@ -1024,8 +1187,8 @@
         let now = Date.now();
         let onlineList = users.filter(u => u.lastActive && (now - u.lastActive) < 180000);
         
-        document.getElementById('onlineUsers').innerText = onlineList.length > 0 ? onlineList.map(u => u.username).join(', ') : 'Нет пользователей онлайн';
-        document.getElementById('onlineCounter').innerText = `Всего: ${onlineList.length} (участников: ${onlineList.length}, гостей: 0)`;
+        document.getElementById('onlineUsers').innerText = onlineList.length > 0 ? onlineList.map(u => u.username).join(', ') : 'No online users';
+        document.getElementById('onlineCounter').innerText = `Total: ${onlineList.length} (members: ${onlineList.length}, guests: 0)`;
 
         let newsCount = posts.filter(p => p.category === 'news').length;
         let updateCount = posts.filter(p => p.category === 'update').length;
