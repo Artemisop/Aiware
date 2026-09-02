@@ -228,6 +228,7 @@
             <div class="nav-links">
                 <a href="#" onclick="showHome()">Главная</a>
                 <a href="#" onclick="showShop()">Магазин</a>
+                <a href="#" id="adminTab" style="display: none; color: #ff416c; font-weight: bold;" onclick="openAdminPanelFromHeader()">Данные пользователей</a>
                 <a href="#" id="loaderTab" style="display: none; color: #dc5b5b; font-weight: bold;" onclick="downloadLoader()">Скачать лоадер</a>
             </div>
         </div>
@@ -237,7 +238,6 @@
     <div class="container">
         <div class="main-content">
             
-            <!-- Панель администратора теперь внутри .main-content и не вытесняет сайдбар -->
             <div id="adminPanel" class="admin-panel-box">
                 <h3 id="panelCreateTitle" style="color: #ff416c; margin-top: 0; font-size: 14px;">Панель управления: Создать публикацию</h3>
                 <div id="creatorPostSection">
@@ -458,6 +458,9 @@
             }
         });
 
+        // Убираем случайные тестовые аккаунты с цифрами вроде 2414 / 45646 если они есть
+        users = users.filter(u => u.username !== '2414' && u.username !== '45646');
+
         localStorage.setItem('AIware_users', JSON.stringify(users));
 
         if (!localStorage.getItem('AIware_posts')) {
@@ -491,23 +494,47 @@
         }
     });
 
-    function updateLoaderTab() {
+    function openAdminPanelFromHeader() {
+        showForumMain();
+        let panel = document.getElementById('adminPanel');
+        if (panel) {
+            panel.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    function updateNavTabs() {
         let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
         let activeUserObj = users.find(u => u.username === currentUser);
         let loaderTab = document.getElementById('loaderTab');
-        if (!loaderTab) return;
+        let adminTab = document.getElementById('adminTab');
+        if (!loaderTab || !adminTab) return;
 
-        if (activeUserObj && (activeUserObj.role === 'creator' || activeUserObj.role === 'headadmin' || activeUserObj.role === 'admin' || activeUserObj.role === 'moderator' || activeUserObj.role === 'cobra' || activeUserObj.hasSubscription)) {
-            loaderTab.style.display = 'inline-block';
+        if (activeUserObj) {
+            let role = activeUserObj.role;
+            let canAccessPanel = ['creator', 'headadmin', 'admin', 'moderator'].includes(role);
+            let hasSub = ['creator', 'headadmin', 'admin', 'moderator', 'cobra'].includes(role) || activeUserObj.hasSubscription;
+
+            if (canAccessPanel) {
+                adminTab.style.display = 'inline-block';
+            } else {
+                adminTab.style.display = 'none';
+            }
+
+            if (hasSub) {
+                loaderTab.style.display = 'inline-block';
+            } else {
+                loaderTab.style.display = 'none';
+            }
         } else {
             loaderTab.style.display = 'none';
+            adminTab.style.display = 'none';
         }
     }
 
     function downloadLoader() {
         let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
         let activeUserObj = users.find(u => u.username === currentUser);
-        if (activeUserObj && (activeUserObj.role === 'creator' || activeUserObj.role === 'headadmin' || activeUserObj.role === 'admin' || activeUserObj.role === 'moderator' || activeUserObj.role === 'cobra' || activeUserObj.hasSubscription)) {
+        if (activeUserObj && (['creator', 'headadmin', 'admin', 'moderator', 'cobra'].includes(activeUserObj.role) || activeUserObj.hasSubscription)) {
             alert('Загрузка официального лоадера AIware Visuals началась! Проверьте папку Загрузки.');
         } else {
             alert('Доступ запрещен! У вас нет активной подписки на визуалы.');
@@ -538,6 +565,7 @@
                 <a href="#" onclick="openLoginModal()">Войти</a>
                 <a href="#" onclick="openRegisterModal()">Регистрация</a>
             `;
+            updateNavTabs();
         } else {
             renderUserNav();
         }
@@ -650,7 +678,6 @@
             localStorage.setItem('AIware_users', JSON.stringify(users));
             alert(`Заказ "${name}" на сумму ${price} успешно оформлен! Подписка активирована.`);
             renderUserNav();
-            updateLoaderTab();
         }
     }
 
@@ -702,7 +729,7 @@
             </div>
         `;
         document.getElementById('userNavContainer').innerHTML = userNavHtml;
-        updateLoaderTab();
+        updateNavTabs();
     }
 
     function renderAdminUsersTable() {
