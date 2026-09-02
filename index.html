@@ -25,7 +25,7 @@
     .shoutbox-input-container { display: flex; gap: 10px; background: #16161c; padding: 10px; border-top: 1px solid #23232c;}
     .shoutbox-input { width: 100%; background: transparent; border: none; color: #fff; outline: none;}
     .category-title { color: #6e8bc3; font-size: 14px; margin-bottom: 10px; margin-top: 30px; font-weight: normal; }
-    .forum-row { display: flex; padding: 15px; border-bottom: 1px solid #23232c; align-items: center; }
+    .forum-row { display: flex; padding: 15px; border-bottom: 1px solid #23232c; align-items: center; cursor: pointer; }
     .forum-row:last-child { border-bottom: none; }
     .forum-icon { font-size: 28px; margin-right: 15px; opacity: 0.5; }
     .forum-info { flex: 1; }
@@ -39,31 +39,35 @@
     .online-users { color: #d0d0d6; font-size: 13px; margin-bottom: 10px; }
     .badge-admin { background: #dc5b5b; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px; }
     
-    /* Стили для красного фона витрины интерфейса софта (как на скриншоте nixware, но в красных тонах) */
+    /* Стили красного фона на весь экран */
     .showcase-section {
         position: relative;
-        background: radial-gradient(circle at 50% 30%, rgba(120, 20, 20, 0.4) 0%, rgba(15, 12, 12, 0.8) 60%, #0b0b0e 100%), #0b0b0e;
-        padding: 60px 20px;
+        background: radial-gradient(circle at 50% 20%, rgba(130, 20, 20, 0.45) 0%, rgba(15, 12, 12, 0.9) 55%, #0b0b0e 100%), #0b0b0e;
+        padding: 80px 20px 60px 20px;
         text-align: center;
         border-bottom: 1px solid #23232c;
-        margin-bottom: 30px;
-        overflow: hidden;
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
     }
     .showcase-preview-box {
-        max-width: 700px;
-        margin: 0 auto 30px auto;
+        width: 100%;
+        max-width: 750px;
         background: #121217;
         border: 1px solid #361b1b;
-        box-shadow: 0 20px 50px rgba(220, 91, 91, 0.15);
+        box-shadow: 0 25px 60px rgba(220, 91, 91, 0.18);
         border-radius: 8px;
-        padding: 40px;
-        position: relative;
+        padding: 50px 20px;
+        margin-bottom: 40px;
     }
     .showcase-preview-box h1 {
         color: #ffffff;
-        font-size: 42px;
+        font-size: 48px;
         letter-spacing: 2px;
-        margin: 0 0 20px 0;
+        margin: 0 0 25px 0;
         font-weight: 800;
         text-transform: lowercase;
     }
@@ -71,11 +75,11 @@
         background: #ffffff;
         color: #0b0b0e;
         border: none;
-        padding: 10px 25px;
+        padding: 12px 30px;
         border-radius: 20px;
         font-weight: bold;
         cursor: pointer;
-        font-size: 13px;
+        font-size: 14px;
         transition: 0.2s;
     }
     .showcase-btn:hover {
@@ -85,13 +89,13 @@
         color: #ffffff;
         font-size: 22px;
         font-weight: 500;
-        margin-bottom: 30px;
+        margin-bottom: 25px;
     }
     .features-grid {
         display: flex;
         gap: 20px;
-        max-width: 700px;
-        margin: 0 auto;
+        width: 100%;
+        max-width: 750px;
         text-align: left;
     }
     .feature-card {
@@ -148,11 +152,11 @@
     <div class="user-nav" id="userNavContainer"></div>
 </header>
 
-<!-- Блок с красивым красным градиентным задним фоном в стиле витрины софта -->
+<!-- Главный красный экран на весь сайт (витрина) -->
 <div class="showcase-section">
     <div class="showcase-preview-box">
         <h1>aiware</h1>
-        <button class="showcase-btn" onclick="alert('Переход к покупке/загрузке')">попробуй сейчас</button>
+        <button class="showcase-btn" onclick="handleTryNowClick()">попробуй сейчас</button>
     </div>
     <div class="showcase-title">основные возможности продукта</div>
     <div class="features-grid">
@@ -314,8 +318,6 @@
         if (!currentUser || currentUser === "null" || currentUser === "undefined") {
             localStorage.removeItem('aiware_user');
             currentUser = null;
-            document.getElementById('authModal').style.display = 'flex';
-            setModalMode(false, "You must be logged-in to do that.");
             document.getElementById('userNavContainer').innerHTML = `
                 <a href="#" onclick="openLoginModal()">Log in</a>
                 <a href="#" onclick="openRegisterModal()">Register</a>
@@ -326,10 +328,25 @@
         }
     }
 
+    // Обработка кнопки «попробуй сейчас»
+    function handleTryNowClick() {
+        if (!currentUser) {
+            // Если НЕ залогинен — открываем окно входа с ошибкой (как на вашем втором фото)
+            setModalMode(false, "You must be logged-in to do that.");
+            document.getElementById('authModal').style.display = 'flex';
+        } else {
+            // Если залогинен — плавно прокручиваем страницу вниз к форуму/контенту
+            window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+            });
+        }
+    }
+
     function checkInteraction() {
         if (!currentUser) {
-            document.getElementById('authModal').style.display = 'flex';
             setModalMode(false, "You must be logged-in to do that.");
+            document.getElementById('authModal').style.display = 'flex';
         }
     }
 
