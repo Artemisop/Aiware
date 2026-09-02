@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>aiware - Dashboard</title>
+<style>
+    body { background-color: #0b0b0e; color: #9f9fa8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+    header { background-color: #121217; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #23232c; }
+    .header-left { display: flex; align-items: center; gap: 30px; }
+    .logo { font-size: 22px; color: #dc5b5b; font-weight: bold; letter-spacing: 1px; text-decoration: none;}
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { color: #9f9fa8; text-decoration: none; font-size: 14px; }
+    .nav-links a:hover { color: #ffffff; }
+    .user-nav { display: flex; gap: 15px; font-size: 14px; align-items: center; color: #d0d0d6; }
+    .user-nav span { cursor: pointer; }
+    .user-nav span:hover { color: #ffffff; }
+    .container { display: flex; padding: 30px 50px; gap: 20px; max-width: 1400px; margin: 0 auto; }
+    .main-content { flex: 3; }
+    .sidebar { flex: 1; }
+    .box { background-color: #121217; border: 1px solid #23232c; border-radius: 4px; margin-bottom: 20px; }
+    .box-header { padding: 12px 15px; border-bottom: 1px solid #23232c; font-size: 13px; color: #6e8bc3; display: flex; justify-content: space-between; }
+    .box-content { padding: 15px; }
+    .shoutbox-messages { font-size: 13px; min-height: 150px; }
+    .shoutbox-input-container { display: flex; gap: 10px; background: #16161c; padding: 10px; border-top: 1px solid #23232c;}
+    .shoutbox-input { width: 100%; background: transparent; border: none; color: #fff; outline: none;}
+    .category-title { color: #6e8bc3; font-size: 14px; margin-bottom: 10px; margin-top: 30px; font-weight: normal; }
+    .forum-row { display: flex; padding: 15px; border-bottom: 1px solid #23232c; align-items: center; }
+    .forum-row:last-child { border-bottom: none; }
+    .forum-icon { font-size: 28px; margin-right: 15px; opacity: 0.5; }
+    .forum-info { flex: 1; }
+    .forum-title { color: #d0d0d6; font-size: 15px; margin-bottom: 4px; font-weight: 500; }
+    .forum-desc { font-size: 12px; color: #767682; }
+    .forum-stats { display: flex; gap: 30px; font-size: 12px; color: #767682; text-align: left; width: 150px; }
+    .stat-val { color: #d0d0d6; display: block; margin-top: 2px; }
+    .sidebar-box { margin-bottom: 20px; }
+    .stat-row { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 10px; border-bottom: 1px dashed #23232c; padding-bottom: 5px;}
+    .stat-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
+    .online-users { color: #d0d0d6; font-size: 13px; margin-bottom: 10px; }
+    .badge-admin { background: #dc5b5b; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px; }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="header-left">
+        <a href="index.html" class="logo">aiware</a>
+        <div class="nav-links">
+            <a href="index.html">Members</a>
+            <a href="store.html">Store</a>
+        </div>
+    </div>
+    <div class="user-nav">
+        <span id="userDisplay">👤 Загрузка...</span>
+        <span>✉️</span>
+        <span>🔔</span>
+        <span onclick="switchUser()" style="color: #6e8bc3; font-size: 12px; border: 1px solid #6e8bc3; padding: 2px 6px; border-radius: 3px;">Сменить аккаунт</span>
+    </div>
+</header>
+
+<div class="container">
+    <div class="main-content">
+        <div class="box">
+            <div class="box-header">
+                <span>📢 Shoutbox</span>
+                <span>↑↓</span>
+            </div>
+            <div class="box-content shoutbox-messages">
+                No shouts have been posted yet.
+            </div>
+            <div class="shoutbox-input-container">
+                <input type="text" class="shoutbox-input" placeholder="What's on your mind?">
+                <span>😀</span>
+                <span>📣</span>
+            </div>
+        </div>
+
+        <div class="category-title">Public</div>
+        <div class="box">
+            <div class="forum-row">
+                <div class="forum-icon">📺</div>
+                <div class="forum-info">
+                    <div class="forum-title">News</div>
+                    <div class="forum-desc">Latest news, announcements, and important events.</div>
+                </div>
+                <div class="forum-stats">
+                    <div>Threads <span class="stat-val">5</span></div>
+                    <div>Messages <span class="stat-val">281</span></div>
+                </div>
+            </div>
+            
+            <div class="forum-row">
+                <div class="forum-icon">🔔</div>
+                <div class="forum-info">
+                    <div class="forum-title">Updates</div>
+                    <div class="forum-desc">Update logs for software.</div>
+                </div>
+                <div class="forum-stats">
+                    <div>Threads <span class="stat-val">18</span></div>
+                    <div>Messages <span class="stat-val">18</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="box sidebar-box">
+            <div class="box-header">Members online</div>
+            <div class="box-content">
+                <div class="online-users" id="onlineUsers">Artemisop, Exec7t3r, Cipsyy</div>
+                <div style="font-size: 12px;">Total: 6 (members: 4, guests: 2)</div>
+            </div>
+        </div>
+
+        <div class="box sidebar-box">
+            <div class="box-header">Forum statistics</div>
+            <div class="box-content">
+                <div class="stat-row"><span>Threads:</span> <span>3,565</span></div>
+                <div class="stat-row"><span>Messages:</span> <span>17,498</span></div>
+                <div class="stat-row"><span>Members:</span> <span>110,213</span></div>
+                <div class="stat-row" style="margin-top: 10px;">
+                    <span>Latest member:</span> 
+                    <span style="color: #6e8bc3;">kostyaognev16052014</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Проверка текущего пользователя (по умолчанию создаем ваш админ-аккаунт Artemisop)
+    let currentUser = localStorage.getItem('aiware_user');
+    let userSub = localStorage.getItem('aiware_sub') || 0;
+
+    if (!currentUser) {
+        currentUser = "Artemisop"; // Ваш отдельный главный аккаунт
+        localStorage.setItem('aiware_user', currentUser);
+        localStorage.setItem('aiware_sub', '999'); // Вечная подписка для админа
+    }
+
+    let userHtml = `👤 ${currentUser}`;
+    if (currentUser === "Artemisop") {
+        userHtml += ` <span class="badge-admin">ADMIN</span>`;
+        if (userSub > 0) {
+            userHtml += ` <span style="color: #6e8bc3; font-size: 11px;">(Подписка активна)</span>`;
+        }
+    }
+    document.getElementById('userDisplay').innerHTML = userHtml;
+
+    function switchUser() {
+        let name = prompt("Введите имя аккаунта (введите Artemisop для получения админки):", currentUser);
+        if (name) {
+            localStorage.setItem('aiware_user', name);
+            if (name === "Artemisop") {
+                localStorage.setItem('aiware_sub', '999');
+            } else {
+                localStorage.setItem('aiware_sub', '0');
+            }
+            location.reload();
+        }
+    }
+</script>
+</body>
+</html>
