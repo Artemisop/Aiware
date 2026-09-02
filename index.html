@@ -64,7 +64,7 @@
     .header-left { display: flex; align-items: center; gap: 30px; }
     .logo { font-size: 22px; color: #dc5b5b; font-weight: bold; letter-spacing: 1px; text-decoration: none;}
     .nav-links { display: flex; gap: 20px; }
-    .nav-links a { color: #9f9fa8; text-decoration: none; font-size: 14px; }
+    .nav-links a { color: #9f9fa8; text-decoration: none; font-size: 14px; cursor: pointer; }
     .nav-links a:hover { color: #ffffff; }
     .user-nav { display: flex; gap: 15px; font-size: 14px; align-items: center; color: #d0d0d6; }
     .user-nav span, .user-nav a { cursor: pointer; color: #9f9fa8; text-decoration: none; font-size: 14px; }
@@ -77,7 +77,7 @@
     .box-content { padding: 15px; }
     
     /* Стили для ЧАТА */
-    .shoutbox-messages { font-size: 13px; height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+    .shoutbox-messages { font-size: 13px; height: 250px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
     .chat-msg { background: #16161c; padding: 8px 12px; border-radius: 4px; border-left: 3px solid #dc5b5b; }
     .chat-msg.ai-msg { border-left-color: #6e8bc3; background: #141721; }
     .chat-author { font-weight: bold; color: #fff; font-size: 12px; margin-bottom: 2px; }
@@ -181,7 +181,7 @@
             <div>
                 <div class="product-title">aiware [Lifetime]</div>
                 <div class="product-price">2999 ₽</div>
-                <div class="product-desc">Пожизненныйдоступ ко всем текущим и будущим функциям софта без ограничений.</div>
+                <div class="product-desc">Пожизненный доступ ко всем текущим и будущим функциям софта без ограничений.</div>
             </div>
             <button class="buy-btn" onclick="buyProduct('aiware [Lifetime]', '2999 ₽')">Купить</button>
         </div>
@@ -214,11 +214,11 @@
                 <button class="admin-btn" onclick="createPost()">Опубликовать</button>
             </div>
 
-            <!-- Живой чат с симуляцией споров участников, матов и обсуждения читов -->
+            <!-- Живой чат с кучей разнообразных и живых фраз (споры, мат, обсуждения читов) -->
             <div class="box">
                 <div class="box-header">
                     <span>📢 Чат сообщества (Живое обсуждение)</span>
-                    <span style="font-size: 11px; color: #767682;">Участники спорят о софте</span>
+                    <span style="font-size: 11px; color: #767682;">Участники спорят и общаются</span>
                 </div>
                 <div class="box-content shoutbox-messages" id="shoutboxContainer"></div>
                 <div class="shoutbox-input-container">
@@ -333,13 +333,17 @@
             users[adminIndex].pass = adminData.pass;
         }
 
-        // Добавим рандомных ботов-участников для живости
         let defaultBots = [
             { username: 'Vortex_99', role: 'user', lastActive: Date.now() },
             { username: 'xX_Skillet_Xx', role: 'user', lastActive: Date.now() },
             { username: 'Bender_Rodr', role: 'user', lastActive: Date.now() },
             { username: 'Killa_Inst', role: 'user', lastActive: Date.now() },
-            { username: 'Snegovik', role: 'user', lastActive: Date.now() }
+            { username: 'Snegovik', role: 'user', lastActive: Date.now() },
+            { username: 'DarkPhoenix', role: 'user', lastActive: Date.now() },
+            { username: 'Cipsyy', role: 'user', lastActive: Date.now() },
+            { username: 'NukeMaster', role: 'user', lastActive: Date.now() },
+            { username: 'Zxc_Dead_Insid', role: 'user', lastActive: Date.now() },
+            { username: 'CyberGHOST', role: 'user', lastActive: Date.now() }
         ];
 
         defaultBots.forEach(bot => {
@@ -356,10 +360,12 @@
 
         if (!localStorage.getItem('aiware_chat')) {
             localStorage.setItem('aiware_chat', JSON.stringify([
-                { author: 'Vortex_99', text: 'Пацаны, какой чит сейчас реально без детекта?', isAi: false },
-                { author: 'xX_Skillet_Xx', text: 'Да aiware же имба, епта, вы чё гоните, третий месяц катаю и нулевой бан', isAi: false },
-                { author: 'Killa_Inst', text: 'Та ну нахуй, твой aiware вчера на обходе отлетел, вака не было, но софт крашит', isAi: false },
-                { author: 'Bender_Rodr', text: 'Сам ты отлетел, руки прями выпрями, всё работает заебись', isAi: false }
+                { author: 'Vortex_99', text: 'Пацаны, какой чит сейчас реально без детекта? Midnight или aiware брать?' },
+                { author: 'xX_Skillet_Xx', text: 'Да aiware же имба, епта, вы чё гоните, третий месяц катаю и нулевой бан' },
+                { author: 'Killa_Inst', text: 'Та ну нахуй, твой aiware вчера на обходе отлетел, вака не было, но софт крашит каждые 2 катки' },
+                { author: 'Bender_Rodr', text: 'Сам ты отлетел, руки прями выпрями, у меня всё работает заебись' },
+                { author: 'Zxc_Dead_Insid', text: 'челы, у меня вак бан прилетел после вашей херни, пиздаболы ебаные' },
+                { author: 'CyberGHOST', text: 'Zxc_Dead_Insid, потому что играть без мозггов надо в легит режиме, а не крутиться как долбоёб по реюжу' }
             ]));
         }
     }
@@ -425,7 +431,7 @@
         } else {
             document.getElementById('adminPanel').style.display = 'none';
         }
-        userNavHtml += `<span onclick="logout()" style="color: #dc5b5b; font-size: 12px; border: 1px solid #dc5b5b; padding: 2px 6px; border-radius: 3px; cursor:pointer;">Выйти</span>`;
+        userNavHtml += `<span onclick="logout()" style="color: #dc5b5b; font-size: 12px; border: 1px solid #dc5b5b; padding: 2px 6px; border-radius: 3px; cursor:pointer; margin-left: 10px;">Выйти</span>`;
         document.getElementById('userNavContainer').innerHTML = userNavHtml;
     }
 
@@ -462,7 +468,6 @@
             loginLabel.innerText = 'User name:';
             emailRow.style.display = 'flex'; 
             forgotBox.style.display = 'none'; 
-            switchProps = `Already have an account? <span class="auth-switch-link" onclick="setModalMode(false)">Log in</span>`;
         } else {
             title.innerText = 'Log in';
             btn.innerText = 'Log in';
@@ -571,9 +576,9 @@
         renderChatMessages();
     }
 
-    // Рандомная симуляция споров участников в чате (спорят, матерятся, обсуждают софт)
+    // Множество разнообразных фраз для имитации живого общения, споров, матов и обсуждения софта
     function simulateRandomChat() {
-        let randomBots = ['Vortex_99', 'xX_Skillet_Xx', 'Bender_Rodr', 'Killa_Inst', 'Snegovik', 'DarkPhoenix', 'Cipsyy'];
+        let randomBots = ['Vortex_99', 'xX_Skillet_Xx', 'Bender_Rodr', 'Killa_Inst', 'Snegovik', 'DarkPhoenix', 'Cipsyy', 'NukeMaster', 'Zxc_Dead_Insid', 'CyberGHOST'];
         let randomDialogues = [
             "Бля, пацаны, в новом патче античит обновили, аккуратнее с рейдж ботом!",
             "Да какой рейдж, выучите легит играть, раки ебаные 😂",
@@ -582,7 +587,17 @@
             "Стоит, бро, визуалы тут самые пиздатые на рынке",
             "Та ну хз, мне саппорт три часа отвечал, я уже думал скам",
             "Да нормальный софт, не пиздите тут зря",
-            "Алё, админ, когда обновление софта под новую версию винды подьедет?"
+            "Алё, админ, когда обновление софта под новую версию винды подьедет?",
+            "Кто в пати на глобалах? Только с софтом!",
+            "Блядь, меня вак забанил за старый инжектор, аккуратнее епта",
+            "Лол, челик думал что через текстуры не видно, а у меня вх работало идеально",
+            "У кого есть кфг нормальный на скаут? Скиньте в лс пж",
+            "Пиздец у вас тут аудитория токсичная, слова не скажи",
+            "Норм всё, пацаны. Читы топ, саппорт помогает",
+            "Дайте промокод на скидку кто-нибудь, жду зарплату",
+            "Кто со мной в мм? Ищу нормальных типов без вылетов",
+            "Бля, обнова валоранта всё ломает, хорошо что в кс играю",
+            "Уебки на разработчиках, почините уже баг с оверлеем в полноэкранном режиме!"
         ];
 
         let botName = randomBots[Math.floor(Math.random() * randomBots.length)];
@@ -591,19 +606,16 @@
         let messages = JSON.parse(localStorage.getItem('aiware_chat')) || [];
         messages.push({ author: botName, text: text });
         
-        // Ограничим историю 30 сообщениями чтобы чат не раздувался
-        if (messages.length > 30) messages.shift();
+        if (messages.length > 50) messages.shift();
 
         localStorage.setItem('aiware_chat', JSON.stringify(messages));
         
-        // Обновляем чат только если пользователь находится на форуме
         if (document.getElementById('forumWrapper').style.display === 'block') {
             renderChatMessages();
         }
     }
 
-    // Каждые 8-15 секунд рандомный бот что-то пишет в чат
-    setInterval(simulateRandomChat, 10000);
+    setInterval(simulateRandomChat, 6000);
 
     function createPost() {
         let title = document.getElementById('postTitle').value.trim();
@@ -652,7 +664,7 @@
         document.getElementById('countUpdateMsgs').innerText = updateCount > 0 ? updateCount * 3 : 0;
 
         document.getElementById('statThreads').innerText = posts.length;
-        document.getElementById('statMessages').innerText = posts.length > 0 ? posts.length * 3 : 0;
+        document.getElementById('statMessages').innerText = posts.length > 0 ? posts.length * 3: 0;
         document.getElementById('statMembers').innerText = users.length;
         
         let latestUser = users[users.length - 1];
