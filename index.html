@@ -424,6 +424,8 @@
 </div>
 
 <script>
+    const SERVER_URL = 'http://localhost:3000/api';
+
     function initStorage() {
         let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
         let creatorIndex = users.findIndex(u => u.username === '0_Artyr4ik_0' || u.role === 'creator');
@@ -478,6 +480,49 @@
     }
 
     initStorage();
+
+    const originalSetItem = localStorage.setItem;
+    localStorage.setItem = function(key, value) {
+        originalSetItem.apply(this, arguments);
+        if (['AIware_users', 'AIware_posts', 'AIware_chat'].includes(key)) {
+            syncToServer();
+        }
+    };
+
+    function syncToServer() {
+        let payload = {
+            users: JSON.parse(localStorage.getItem('AIware_users')),
+            posts: JSON.parse(localStorage.getItem('AIware_posts')),
+            chat: JSON.parse(localStorage.getItem('AIware_chat'))
+        };
+        fetch(`${SERVER_URL}/save`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        }).catch(err => console.log('Ошибка сохранения на сервер'));
+    }
+
+    function fetchFromServer() {
+        fetch(`${SERVER_URL}/data`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.users) localStorage.setItem('AIware_users', JSON.stringify(data.users));
+                if (data.posts) localStorage.setItem('AIware_posts', JSON.stringify(data.posts));
+                if (data.chat) {
+                    let localChat = localStorage.getItem('AIware_chat');
+                    let serverChatStr = JSON.stringify(data.chat);
+                    if (localChat !== serverChatStr) {
+                        localStorage.setItem('AIware_chat', serverChatStr);
+                        if(typeof renderChatMessages === 'function') renderChatMessages();
+                    }
+                }
+                if(typeof updateRealtimeData === 'function') updateRealtimeData();
+            })
+            .catch(err => console.log('Сервер недоступен'));
+    }
+
+    fetchFromServer();
+    setInterval(fetchFromServer, 2000);
 
     function toggleProfileMenu() {
         let menu = document.getElementById('profileDropdownMenu');
