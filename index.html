@@ -38,12 +38,87 @@
     .stat-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
     .online-users { color: #d0d0d6; font-size: 13px; margin-bottom: 10px; }
     .badge-admin { background: #dc5b5b; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px; }
+    
+    /* Стили для красного фона витрины интерфейса софта (как на скриншоте nixware, но в красных тонах) */
+    .showcase-section {
+        position: relative;
+        background: radial-gradient(circle at 50% 30%, rgba(120, 20, 20, 0.4) 0%, rgba(15, 12, 12, 0.8) 60%, #0b0b0e 100%), #0b0b0e;
+        padding: 60px 20px;
+        text-align: center;
+        border-bottom: 1px solid #23232c;
+        margin-bottom: 30px;
+        overflow: hidden;
+    }
+    .showcase-preview-box {
+        max-width: 700px;
+        margin: 0 auto 30px auto;
+        background: #121217;
+        border: 1px solid #361b1b;
+        box-shadow: 0 20px 50px rgba(220, 91, 91, 0.15);
+        border-radius: 8px;
+        padding: 40px;
+        position: relative;
+    }
+    .showcase-preview-box h1 {
+        color: #ffffff;
+        font-size: 42px;
+        letter-spacing: 2px;
+        margin: 0 0 20px 0;
+        font-weight: 800;
+        text-transform: lowercase;
+    }
+    .showcase-btn {
+        background: #ffffff;
+        color: #0b0b0e;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 13px;
+        transition: 0.2s;
+    }
+    .showcase-btn:hover {
+        background: #e0e0e0;
+    }
+    .showcase-title {
+        color: #ffffff;
+        font-size: 22px;
+        font-weight: 500;
+        margin-bottom: 30px;
+    }
+    .features-grid {
+        display: flex;
+        gap: 20px;
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: left;
+    }
+    .feature-card {
+        background: #121217;
+        border: 1px solid #23232c;
+        border-radius: 6px;
+        padding: 20px;
+        flex: 1;
+    }
+    .feature-card h3 {
+        color: #fff;
+        font-size: 15px;
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+    .feature-card p {
+        font-size: 12px;
+        color: #767682;
+        margin: 0;
+        line-height: 1.5;
+    }
+
     .admin-panel-box { background: #121217; border: 1px solid #dc5b5b; padding: 15px; border-radius: 4px; margin-bottom: 20px; display: none; }
     .admin-panel-box input, .admin-panel-box textarea, .admin-panel-box select { background: #16161c; border: 1px solid #23232c; color: #fff; padding: 8px; width: calc(100% - 18px); margin-bottom: 10px; border-radius: 3px; font-family: inherit; }
     .admin-btn { background: #dc5b5b; color: white; border: none; padding: 8px 15px; border-radius: 3px; cursor: pointer; font-weight: bold; }
     .admin-btn:hover { background: #c54a4a; }
     
-    /* Стили для модального окна входа / регистрации */
     .auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; }
     .auth-box { background: #121217; border: 1px solid #23232c; width: 450px; border-radius: 4px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
     .auth-header { padding: 15px 20px; font-size: 18px; color: #d0d0d6; border-bottom: 1px solid #23232c; display: flex; justify-content: space-between; align-items: center; }
@@ -70,14 +145,30 @@
             <a href="store.html">Магазин</a>
         </div>
     </div>
-    <div class="user-nav" id="userNavContainer">
-        <!-- Заполняется динамически -->
-    </div>
+    <div class="user-nav" id="userNavContainer"></div>
 </header>
+
+<!-- Блок с красивым красным градиентным задним фоном в стиле витрины софта -->
+<div class="showcase-section">
+    <div class="showcase-preview-box">
+        <h1>aiware</h1>
+        <button class="showcase-btn" onclick="alert('Переход к покупке/загрузке')">попробуй сейчас</button>
+    </div>
+    <div class="showcase-title">основные возможности продукта</div>
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>legit & rage</h3>
+            <p>точная настройка параметров для скрытного или агрессивного стиля игры.</p>
+        </div>
+        <div class="feature-card">
+            <h3>визуальные эффекты</h3>
+            <p>отображение позиций противников и объектов на карте.</p>
+        </div>
+    </div>
+</div>
 
 <div class="container">
     <div class="main-content">
-        <!-- Панель администратора -->
         <div id="adminPanel" class="admin-panel-box">
             <h3 style="color: #dc5b5b; margin-top: 0; font-size: 14px;">Панель администратора: Создать публикацию</h3>
             <input type="text" id="postTitle" placeholder="Заголовок (например, Важное обновление v1.1)...">
@@ -105,8 +196,8 @@
         </div>
 
         <div class="category-title">Публичные разделы</div>
-        <div class="box" onclick="checkInteraction()">
-            <div class="forum-row">
+        <div class="box">
+            <div class="forum-row" onclick="checkInteraction()">
                 <div class="forum-icon">📺</div>
                 <div class="forum-info">
                     <div class="forum-title">Новости</div>
@@ -156,7 +247,6 @@
     </div>
 </div>
 
-<!-- Модальное окно входа/регистрации -->
 <div id="authModal" class="auth-overlay" style="display: none;">
     <div class="auth-box">
         <div class="auth-header" id="authModalTitle">Log in</div>
@@ -164,23 +254,18 @@
             <span>❌</span> <span id="authErrorText">You must be logged-in to do that.</span>
         </div>
         <div class="auth-body">
-            
             <div class="auth-input-row">
                 <span id="loginFieldLabel">Your name or email address:</span>
                 <input type="text" id="authUsername" class="auth-input">
             </div>
-            
-            <!-- Поле Email (Отображается только при регистрации) -->
             <div class="auth-input-row" id="authEmailRow" style="display: none;">
                 <span>Email address:</span>
                 <input type="email" id="authEmail" class="auth-input">
             </div>
-
             <div class="auth-input-row">
                 <span>Password:</span>
                 <input type="password" id="authPassword" class="auth-input">
             </div>
-
             <div id="forgotPasswordBox" style="text-align: right; font-size: 12px; margin-bottom: 10px;">
                 <span class="auth-switch-link" onclick="alert('Функция восстановления пароля в разработке')">Forgot your password?</span>
             </div>
@@ -196,13 +281,25 @@
 </div>
 
 <script>
-    // Базовая инициализация базы данных
     function initStorage() {
-        if (!localStorage.getItem('aiware_users')) {
-            localStorage.setItem('aiware_users', JSON.stringify([
-                { username: 'Artemisop', email: 'admin@aiware.cc', role: 'admin', pass: 'admin123', lastActive: Date.now() }
-            ]));
+        let users = JSON.parse(localStorage.getItem('aiware_users')) || [];
+        let adminIndex = users.findIndex(u => u.role === 'admin');
+        let adminData = { 
+            username: 'Artemisop', 
+            email: 'grakon0303@gmail.com', 
+            role: 'admin', 
+            pass: 'admin123', 
+            lastActive: Date.now() 
+        };
+
+        if (adminIndex === -1) {
+            users.unshift(adminData);
+        } else {
+            users[adminIndex].email = adminData.email;
+            users[adminIndex].pass = adminData.pass;
         }
+        localStorage.setItem('aiware_users', JSON.stringify(users));
+
         if (!localStorage.getItem('aiware_posts')) {
             localStorage.setItem('aiware_posts', JSON.stringify([]));
         }
@@ -213,9 +310,10 @@
     let currentUser = localStorage.getItem('aiware_user');
     let isRegisterMode = false;
 
-    // Проверка авторизации при загрузке. Если не залогинен - выводим окно
     function checkAuth() {
-        if (!currentUser) {
+        if (!currentUser || currentUser === "null" || currentUser === "undefined") {
+            localStorage.removeItem('aiware_user');
+            currentUser = null;
             document.getElementById('authModal').style.display = 'flex';
             setModalMode(false, "You must be logged-in to do that.");
             document.getElementById('userNavContainer').innerHTML = `
@@ -228,7 +326,6 @@
         }
     }
 
-    // Для проверки, если пользователь пытается кликнуть по форумам без авторизации
     function checkInteraction() {
         if (!currentUser) {
             document.getElementById('authModal').style.display = 'flex';
@@ -237,14 +334,18 @@
     }
 
     function renderUserNav() {
+        let users = JSON.parse(localStorage.getItem('aiware_users')) || [];
+        let activeUserObj = users.find(u => u.username === currentUser);
+        let role = activeUserObj ? activeUserObj.role : 'user';
+
         let userNavHtml = `<span>👤 ${currentUser}</span>`;
-        if (currentUser === "Artemisop") {
+        if (role === "admin") {
             userNavHtml += ` <span class="badge-admin">ADMIN</span> <span style="color: #6e8bc3; font-size: 11px;">(Подписка активна)</span>`;
             document.getElementById('adminPanel').style.display = 'block';
         } else {
             document.getElementById('adminPanel').style.display = 'none';
         }
-        userNavHtml += `<span>✉️</span><span>🔔</span><span onclick="logout()" style="color: #dc5b5b; font-size: 12px; border: 1px solid #dc5b5b; padding: 2px 6px; border-radius: 3px; cursor:pointer;">Выйти</span>`;
+        userNavHtml += `<span onclick="logout()" style="color: #dc5b5b; font-size: 12px; border: 1px solid #dc5b5b; padding: 2px 6px; border-radius: 3px; cursor:pointer;">Выйти</span>`;
         document.getElementById('userNavContainer').innerHTML = userNavHtml;
     }
 
@@ -258,19 +359,16 @@
         document.getElementById('authModal').style.display = 'flex';
     }
 
-    // Переключение режимов Login / Register
     function setModalMode(isReg, customError = "") {
         isRegisterMode = isReg;
         const title = document.getElementById('authModalTitle');
         const btn = document.getElementById('authSubmitBtn');
         const switchPrompt = document.getElementById('authSwitchPrompt');
         const errorBox = document.getElementById('authErrorBox');
-        
         const loginLabel = document.getElementById('loginFieldLabel');
         const emailRow = document.getElementById('authEmailRow');
         const forgotBox = document.getElementById('forgotPasswordBox');
 
-        // Вывод ошибки
         if (customError) {
             errorBox.style.display = 'flex';
             document.getElementById('authErrorText').innerText = customError;
@@ -282,15 +380,15 @@
             title.innerText = 'Register';
             btn.innerText = 'Register';
             loginLabel.innerText = 'User name:';
-            emailRow.style.display = 'flex'; // Показываем почту
-            forgotBox.style.display = 'none'; // Убираем забыли пароль
+            emailRow.style.display = 'flex'; 
+            forgotBox.style.display = 'none'; 
             switchPrompt.innerHTML = `Already have an account? <span class="auth-switch-link" onclick="setModalMode(false)">Log in</span>`;
         } else {
             title.innerText = 'Log in';
             btn.innerText = 'Log in';
             loginLabel.innerText = 'Your name or email address:';
-            emailRow.style.display = 'none'; // Скрываем почту, так как она вводится в первое поле
-            forgotBox.style.display = 'block'; // Показываем забыли пароль
+            emailRow.style.display = 'none'; 
+            forgotBox.style.display = 'block'; 
             switchPrompt.innerHTML = `Don't have an account? <span class="auth-switch-link" onclick="setModalMode(true)">Register now</span>`;
         }
     }
@@ -299,12 +397,10 @@
         setModalMode(!isRegisterMode);
     }
 
-    // Обработка данных формы
     function submitAuth() {
         let usernameOrEmail = document.getElementById('authUsername').value.trim();
         let password = document.getElementById('authPassword').value.trim();
         let email = document.getElementById('authEmail').value.trim();
-
         let users = JSON.parse(localStorage.getItem('aiware_users'));
 
         if (isRegisterMode) {
@@ -312,59 +408,30 @@
                 alert('Пожалуйста, заполните все поля, включая почту!');
                 return;
             }
-            
-            // Проверка на существующий ник или почту
-            let existing = users.find(u => 
-                u.username.toLowerCase() === usernameOrEmail.toLowerCase() || 
-                (u.email && u.email.toLowerCase() === email.toLowerCase())
-            );
-            
+            let existing = users.find(u => u.username.toLowerCase() === usernameOrEmail.toLowerCase() || (u.email && u.email.toLowerCase() === email.toLowerCase()));
             if (existing) {
                 alert('Пользователь с таким именем или почтой уже существует!');
                 return;
             }
-
-            let newUser = {
-                username: usernameOrEmail,
-                email: email,
-                role: 'user',
-                pass: password,
-                lastActive: Date.now()
-            };
+            let newUser = { username: usernameOrEmail, email: email, role: 'user', pass: password, lastActive: Date.now() };
             users.push(newUser);
             localStorage.setItem('aiware_users', JSON.stringify(users));
             currentUser = newUser.username;
             localStorage.setItem('aiware_user', currentUser);
             alert('Регистрация прошла успешно!');
-
         } else {
             if (!usernameOrEmail || !password) {
                 alert('Заполните все поля!');
                 return;
             }
-            
-            // Вход по Нику ИЛИ Почте
-            let user = users.find(u => 
-                (u.username.toLowerCase() === usernameOrEmail.toLowerCase() || 
-                (u.email && u.email.toLowerCase() === usernameOrEmail.toLowerCase())) && 
-                u.pass === password
-            );
-
+            let user = users.find(u => (u.username.toLowerCase() === usernameOrEmail.toLowerCase() || (u.email && u.email.toLowerCase() === usernameOrEmail.toLowerCase())) && u.pass === password);
             if (!user) {
-                // Если база была очищена, пускаем админа для первичной настройки
-                if (usernameOrEmail === 'Artemisop') {
-                    user = { username: 'Artemisop', email: 'admin@aiware.cc', role: 'admin', pass: password };
-                    users.push(user);
-                    localStorage.setItem('aiware_users', JSON.stringify(users));
-                } else {
-                    alert('Неверное имя пользователя или пароль!');
-                    return;
-                }
+                alert('Неверное имя пользователя или пароль!');
+                return;
             }
             currentUser = user.username;
             localStorage.setItem('aiware_user', currentUser);
         }
-
         document.getElementById('authModal').style.display = 'none';
         location.reload();
     }
@@ -374,7 +441,6 @@
         location.reload();
     }
 
-    // Создание поста администратором
     function createPost() {
         let title = document.getElementById('postTitle').value.trim();
         let content = document.getElementById('postContent').value.trim();
@@ -386,13 +452,7 @@
         }
 
         let posts = JSON.parse(localStorage.getItem('aiware_posts'));
-        posts.unshift({
-            id: Date.now(),
-            title: title,
-            content: content,
-            category: category,
-            author: currentUser
-        });
+        posts.unshift({ id: Date.now(), title: title, content: content, category: category, author: currentUser });
         localStorage.setItem('aiware_posts', JSON.stringify(posts));
 
         document.getElementById('postTitle').value = '';
@@ -401,10 +461,9 @@
         updateRealtimeData();
     }
 
-    // Обновление статистики и онлайна
     function updateRealtimeData() {
-        let users = JSON.parse(localStorage.getItem('aiware_users'));
-        let posts = JSON.parse(localStorage.getItem('aiware_posts'));
+        let users = JSON.parse(localStorage.getItem('aiware_users')) || [];
+        let posts = JSON.parse(localStorage.getItem('aiware_posts')) || [];
 
         if (currentUser) {
             let activeUser = users.find(u => u.username === currentUser);
