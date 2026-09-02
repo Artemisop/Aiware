@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>aiware</title>
+<title>AIware</title>
 <style>
     body { background-color: #0b0b0e; color: #9f9fa8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
     
@@ -37,7 +37,7 @@
         letter-spacing: 2px;
         margin: 0 0 25px 0;
         font-weight: 800;
-        text-transform: lowercase;
+        text-transform: none;
     }
     .showcase-btn {
         background: #ffffff;
@@ -155,7 +155,7 @@
 <!-- 1. Главная витрина -->
 <div class="showcase-section" id="showcaseSection">
     <div class="showcase-preview-box">
-        <h1>aiware</h1>
+        <h1>AIware</h1>
         <button class="showcase-btn" onclick="handleTryNowClick()">попробуй сейчас</button>
     </div>
     <div class="showcase-title">основные возможности продукта</div>
@@ -185,27 +185,27 @@
     <div class="shop-grid">
         <div class="product-card">
             <div>
-                <div class="product-title">aiware [30 Days]</div>
+                <div class="product-title">AIware [30 Days]</div>
                 <div class="product-price">499 ₽</div>
                 <div class="product-desc">Полный доступ ко всем функциям legit & rage, визуальным эффектам и обновлениям на 30 дней.</div>
             </div>
-            <button class="buy-btn" onclick="buyProduct('aiware [30 Days]', '499 ₽')">Купить</button>
+            <button class="buy-btn" onclick="buyProduct('AIware [30 Days]', '499 ₽')">Купить</button>
         </div>
         <div class="product-card">
             <div>
-                <div class="product-title">aiware [90 Days]</div>
+                <div class="product-title">AIware [90 Days]</div>
                 <div class="product-price">1199 ₽</div>
                 <div class="product-desc">Выгодный пакет подписки на 3 месяцев с приоритетной поддержкой в чате.</div>
             </div>
-            <button class="buy-btn" onclick="buyProduct('aiware [90 Days]', '1199 ₽')">Купить</button>
+            <button class="buy-btn" onclick="buyProduct('AIware [90 Days]', '1199 ₽')">Купить</button>
         </div>
         <div class="product-card">
             <div>
-                <div class="product-title">aiware [Lifetime]</div>
+                <div class="product-title">AIware [Lifetime]</div>
                 <div class="product-price">2999 ₽</div>
                 <div class="product-desc">Пожизненный доступ ко всем текущим и будущим функциям софта без ограничений.</div>
             </div>
-            <button class="buy-btn" onclick="buyProduct('aiware [Lifetime]', '2999 ₽')">Купить</button>
+            <button class="buy-btn" onclick="buyProduct('AIware [Lifetime]', '2999 ₽')">Купить</button>
         </div>
     </div>
 </div>
@@ -214,7 +214,7 @@
 <div id="forumWrapper">
     <header>
         <div class="header-left">
-            <a href="#" onclick="showHome()" class="logo">aiware</a>
+            <a href="#" onclick="showHome()" class="logo">AIware</a>
             <div class="nav-links">
                 <a href="#" onclick="showHome()">Главная</a>
                 <a href="#" onclick="showShop()">Магазин</a>
@@ -338,7 +338,7 @@
 
 <script>
     function initStorage() {
-        let users = JSON.parse(localStorage.getItem('aiware_users')) || [];
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
         let adminIndex = users.findIndex(u => u.role === 'admin');
         let adminData = { 
             username: 'Artemisop', 
@@ -374,17 +374,17 @@
             }
         });
 
-        localStorage.setItem('aiware_users', JSON.stringify(users));
+        localStorage.setItem('AIware_users', JSON.stringify(users));
 
-        if (!localStorage.getItem('aiware_posts')) {
-            localStorage.setItem('aiware_posts', JSON.stringify([]));
+        if (!localStorage.getItem('AIware_posts')) {
+            localStorage.setItem('AIware_posts', JSON.stringify([]));
         }
 
-        if (!localStorage.getItem('aiware_chat')) {
-            localStorage.setItem('aiware_chat', JSON.stringify([
-                { author: 'Vortex_99', text: 'Пацаны, какой чит сейчас реально без детекта? Midnight или aiware брать?' },
-                { author: 'xX_Skillet_Xx', text: 'Да aiware же имба, епта, вы чё гоните, третий месяц катаю и нулевой бан' },
-                { author: 'Killa_Inst', text: 'Та ну нахуй, твой aiware вчера на обходе отлетел, вака не было, но софт крашит каждые 2 катки' },
+        if (!localStorage.getItem('AIware_chat')) {
+            localStorage.setItem('AIware_chat', JSON.stringify([
+                { author: 'Vortex_99', text: 'Пацаны, какой чит сейчас реально без детекта? Midnight или AIware брать?' },
+                { author: 'xX_Skillet_Xx', text: 'Да AIware же имба, епта, вы чё гоните, третий месяц катаю и нулевой бан' },
+                { author: 'Killa_Inst', text: 'Та ну нахуй, твой AIware вчера на обходе отлетел, вака не было, но софт крашит каждые 2 катки' },
                 { author: 'Bender_Rodr', text: 'Сам ты отлетел, руки прями выпрями, у меня всё работает заебись' },
                 { author: 'Zxc_Dead_Insid', text: 'челы, у меня вак бан прилетел после вашей херни, пиздаболы ебаные' },
                 { author: 'CyberGHOST', text: 'Zxc_Dead_Insid, потому что играть без мозггов надо в легит режиме, а не крутиться как долбоёб по рейжу' }
@@ -410,7 +410,7 @@
     });
 
     function updateLoaderTab() {
-        let users = JSON.parse(localStorage.getItem('aiware_users')) || [];
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
         let activeUserObj = users.find(u => u.username === currentUser);
         let loaderTab = document.getElementById('loaderTab');
         if (!loaderTab) return;
@@ -423,22 +423,22 @@
     }
 
     function downloadLoader() {
-        let users = JSON.parse(localStorage.getItem('aiware_users')) || [];
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
         let activeUserObj = users.find(u => u.username === currentUser);
         if (activeUserObj && (activeUserObj.role === 'admin' || activeUserObj.hasSubscription)) {
-            alert('Загрузка официального лоадера aiware начата! Проверьте папку Загрузки.');
+            alert('Загрузка официального лоадера AIware начата! Проверьте папку Загрузки.');
         } else {
             alert('У вас нет активной подписки! Сначала приобретите доступ в магазине.');
             showShop();
         }
     }
 
-    let currentUser = localStorage.getItem('aiware_user');
+    let currentUser = localStorage.getItem('AIware_user');
     let isRegisterMode = false;
 
     function checkAuth() {
         if (!currentUser || currentUser === "null" || currentUser === "undefined") {
-            localStorage.removeItem('aiware_user');
+            localStorage.removeItem('AIware_user');
             currentUser = null;
             document.getElementById('userNavContainer').innerHTML = `
                 <a href="#" onclick="openLoginModal()">Log in</a>
@@ -484,11 +484,11 @@
     }
 
     function buyProduct(name, price) {
-        let users = JSON.parse(localStorage.getItem('aiware_users')) || [];
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
         let activeUserObj = users.find(u => u.username === currentUser);
         if (activeUserObj) {
             activeUserObj.hasSubscription = true;
-            localStorage.setItem('aiware_users', JSON.stringify(users));
+            localStorage.setItem('AIware_users', JSON.stringify(users));
         }
         alert(`Заказ "${name}" на сумму ${price} успешно оформлен! Подписка активирована.`);
         renderUserNav();
@@ -496,7 +496,7 @@
     }
 
     function renderUserNav() {
-        let users = JSON.parse(localStorage.getItem('aiware_users')) || [];
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
         let activeUserObj = users.find(u => u.username === currentUser);
         let role = activeUserObj ? activeUserObj.role : 'user';
         let hasSub = activeUserObj && (role === 'admin' || activeUserObj.hasSubscription);
@@ -578,7 +578,7 @@
         let usernameOrEmail = document.getElementById('authUsername').value.trim();
         let password = document.getElementById('authPassword').value.trim();
         let email = document.getElementById('authEmail').value.trim();
-        let users = JSON.parse(localStorage.getItem('aiware_users'));
+        let users = JSON.parse(localStorage.getItem('AIware_users'));
 
         if (isRegisterMode) {
             if (!usernameOrEmail || !password || !email) {
@@ -592,9 +592,9 @@
             }
             let newUser = { username: usernameOrEmail, email: email, role: 'user', pass: password, lastActive: Date.now() };
             users.push(newUser);
-            localStorage.setItem('aiware_users', JSON.stringify(users));
+            localStorage.setItem('AIware_users', JSON.stringify(users));
             currentUser = newUser.username;
-            localStorage.setItem('aiware_user', currentUser);
+            localStorage.setItem('AIware_user', currentUser);
         } else {
             if (!usernameOrEmail || !password) {
                 alert('Заполните все поля!');
@@ -606,7 +606,7 @@
                 return;
             }
             currentUser = user.username;
-            localStorage.setItem('aiware_user', currentUser);
+            localStorage.setItem('AIware_user', currentUser);
         }
         
         document.getElementById('authModal').style.display = 'none';
@@ -617,14 +617,14 @@
     }
 
     function logout() {
-        localStorage.removeItem('aiware_user');
+        localStorage.removeItem('AIware_user');
         location.reload();
     }
 
     /* Отрисовка чата */
     function renderChatMessages() {
         let chatContainer = document.getElementById('shoutboxContainer');
-        let messages = JSON.parse(localStorage.getItem('aiware_chat')) || [];
+        let messages = JSON.parse(localStorage.getItem('AIware_chat')) || [];
         
         if (messages.length === 0) {
             chatContainer.innerHTML = '<div style="color: #767682; text-align: center; padding: 20px;">Сообщений пока нет.</div>';
@@ -660,11 +660,11 @@
         let text = input.value.trim();
         if (!text) return;
 
-        let messages = JSON.parse(localStorage.getItem('aiware_chat')) || [];
+        let messages = JSON.parse(localStorage.getItem('AIware_chat')) || [];
         messages.push({ author: currentUser, text: text });
 
         input.value = '';
-        localStorage.setItem('aiware_chat', JSON.stringify(messages));
+        localStorage.setItem('AIware_chat', JSON.stringify(messages));
         renderChatMessages();
 
         setTimeout(() => {
@@ -695,7 +695,7 @@
                 `Давай 1 на 1, я даже без софта тебя раскатаю, ${currentUser}`
             ];
             replyText = replies[Math.floor(Math.random() * replies.length)];
-        } else if (lowerText.includes('чит') || lowerText.includes('soft') || lowerText.includes('софт') || lowerText.includes('aiware')) {
+        } else if (lowerText.includes('чит') || lowerText.includes('soft') || lowerText.includes('софт') || lowerText.includes('AIware')) {
             let replies = [
                 `@${currentUser}, дак тут же самый лучший легит на рынке, чё ты сомневаешься`,
                 `Слышь, ${currentUser}, ты главное конфиг нормальный поставь, а то отлетишь с нубярским сетапом`,
@@ -729,11 +729,11 @@
             replyText = generalReplies[Math.floor(Math.random() * generalReplies.length)];
         }
 
-        let messages = JSON.parse(localStorage.getItem('aiware_chat')) || [];
+        let messages = JSON.parse(localStorage.getItem('AIware_chat')) || [];
         messages.push({ author: botName, text: replyText });
         if (messages.length > 200) messages.shift();
 
-        localStorage.setItem('aiware_chat', JSON.stringify(messages));
+        localStorage.setItem('AIware_chat', JSON.stringify(messages));
         if (document.getElementById('forumWrapper').style.display === 'block') {
             renderChatMessages();
         }
@@ -771,17 +771,17 @@
             "Всем ку, кто даст кфг на фастзум?",
             "Какой фастзум, ты сначала с калаша стрелять научись",
             "Опять на сервере одни софтеры, куда катится этот мир...",
-            "Добро пожаловать в aiware, бро, тут все такие)"
+            "Добро пожаловать в AIware, бро, тут все такие)"
         ];
 
         let botName = randomBots[Math.floor(Math.random() * randomBots.length)];
         let text = randomDialogues[Math.floor(Math.random() * randomDialogues.length)];
 
-        let messages = JSON.parse(localStorage.getItem('aiware_chat')) || [];
+        let messages = JSON.parse(localStorage.getItem('AIware_chat')) || [];
         messages.push({ author: botName, text: text });
         if (messages.length > 200) messages.shift();
 
-        localStorage.setItem('aiware_chat', JSON.stringify(messages));
+        localStorage.setItem('AIware_chat', JSON.stringify(messages));
         if (document.getElementById('forumWrapper').style.display === 'block') {
             renderChatMessages();
         }
@@ -799,9 +799,9 @@
             return;
         }
 
-        let posts = JSON.parse(localStorage.getItem('aiware_posts')) || [];
+        let posts = JSON.parse(localStorage.getItem('AIware_posts')) || [];
         posts.unshift({ id: Date.now(), title: title, content: content, category: category, author: currentUser });
-        localStorage.setItem('aiware_posts', JSON.stringify(posts));
+        localStorage.setItem('AIware_posts', JSON.stringify(posts));
 
         document.getElementById('postTitle').value = '';
         document.getElementById('postContent').value = '';
@@ -810,14 +810,14 @@
     }
 
     function updateRealtimeData() {
-        let users = JSON.parse(localStorage.getItem('aiware_users')) || [];
-        let posts = JSON.parse(localStorage.getItem('aiware_posts')) || [];
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let posts = JSON.parse(localStorage.getItem('AIware_posts')) || [];
 
         if (currentUser) {
             let activeUser = users.find(u => u.username === currentUser);
             if (activeUser) {
                 activeUser.lastActive = Date.now();
-                localStorage.setItem('aiware_users', JSON.stringify(users));
+                localStorage.setItem('AIware_users', JSON.stringify(users));
             }
         }
 
