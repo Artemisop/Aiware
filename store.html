@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Магазин — ECHO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="field"></div>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="index.html" class="brand"><span class="brand-mark"></span>ECHO</a>
+      <div class="nav-links">
+        <a href="index.html">Главная</a>
+        <a href="forum.html">Форум</a>
+        <a href="store.html" class="active">Магазин</a>
+        <a href="download.html">Скачать</a>
+      </div>
+      <div class="nav-cta">
+        <a href="#" class="btn btn-ghost">Войти</a>
+        <a href="download.html" class="btn btn-primary">Скачать лоадер</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="page-head wrap">
+    <div class="kicker">Тарифы</div>
+    <h1>Магазин</h1>
+    <p>Базовый набор HUD-модулей бесплатный, расширенные визуалы открываются в PRO и Studio.</p>
+  </div>
+
+  <section style="padding-top:0;">
+    <div class="wrap">
+      <div class="tiers">
+        <div class="tier">
+          <h3>Free</h3>
+          <div class="price">0 ₽</div>
+          <div class="desc">Стартовый набор для знакомства с интерфейсом.</div>
+          <ul>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Базовый HUD</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>3 темы интерфейса</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Доступ к форуму</li>
+          </ul>
+          <a href="download.html" class="btn btn-ghost">Скачать</a>
+        </div>
+        <div class="tier highlight">
+          <span class="tier-tag">Популярный</span>
+          <h3>Pro</h3>
+          <div class="price">299 ₽<span>/мес</span></div>
+          <div class="desc">Полный визуальный набор и приоритетные обновления.</div>
+          <ul>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Всё из Free</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Cape и particle-эффекты</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>ClickGUI с профилями</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Ранний доступ к сборкам</li>
+          </ul>
+          <a href="download.html" class="btn btn-accent">Скачать</a>
+        </div>
+        <div class="tier">
+          <h3>Studio</h3>
+          <div class="price">890 ₽<span>/мес</span></div>
+          <div class="desc">Для команд серверов, которым нужен свой визуальный стиль.</div>
+          <ul>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Всё из Pro</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Брендинг HUD под сервер</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Приоритетная поддержка</li>
+          </ul>
+          <a href="#" class="btn btn-ghost">Написать нам</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="community">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Частые вопросы</h2>
+        <p>Если ответа нет здесь — спроси в разделе «Помощь и поддержка» на форуме.</p>
+      </div>
+      <div class="faq-list" style="max-width:720px;">
+        <details class="faq-item" open>
+          <summary>Чем Pro отличается от Free?<span class="chev">+</span></summary>
+          <p>В Pro открываются cape-эффекты, полный набор ClickGUI-профилей и ранний доступ к новым визуальным сборкам до их публичного релиза.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Можно ли оплатить один месяц без подписки?<span class="chev">+</span></summary>
+          <p>Да, тарифы Pro и Studio продлеваются вручную — автосписание не включено по умолчанию.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Работает ли ECHO на серверах с закрытым списком модов?<span class="chev">+</span></summary>
+          <p>Это зависит от правил конкретного сервера. ECHO — визуальная надстройка, но перед использованием на конкретном сервере стоит свериться с его списком разрешённых модов.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <a href="index.html" class="brand" style="font-size:1rem;"><span class="brand-mark" style="width:20px;height:20px;"></span>ECHO</a>
+      <div class="footer-links">
+        <a href="index.html">Главная</a>
+        <a href="forum.html">Форум</a>
+        <a href="store.html">Магазин</a>
+        <a href="download.html">Скачать</a>
+      </div>
+    </div>
+    <p class="footer-note">ECHO — клиентская визуальная надстройка. Модули меняют только отображение интерфейса и не читают сетевые пакеты, память игры или состояние других игроков.</p>
+  </div>
+</footer>
+
+</body>
+</html>

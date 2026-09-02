@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Форум — ECHO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="field"></div>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="index.html" class="brand"><span class="brand-mark"></span>ECHO</a>
+      <div class="nav-links">
+        <a href="index.html">Главная</a>
+        <a href="forum.html" class="active">Форум</a>
+        <a href="store.html">Магазин</a>
+        <a href="download.html">Скачать</a>
+      </div>
+      <div class="nav-cta">
+        <a href="#" class="btn btn-ghost">Войти</a>
+        <a href="download.html" class="btn btn-primary">Скачать лоадер</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <div class="page-head wrap">
+    <div class="kicker">Сообщество</div>
+    <h1>Форум ECHO</h1>
+    <p>Общий чат, новости о визуальных оверлеях и история обновлений конфигураций.</p>
+  </div>
+
+  <div class="wrap" style="padding-bottom: 90px;">
+    <div class="console">
+      <div class="console-top">
+        <div class="console-tabs">
+          <a href="#" class="active">Общий чат</a>
+          <a href="#">Данные пользователей</a>
+        </div>
+        <div class="console-status"><span class="dot"></span>1 в сети</div>
+      </div>
+      <div class="console-grid">
+        <div class="chat-pane">
+          <div class="chat-msg">
+            <div class="chat-avatar"></div>
+            <div>
+              <span class="name">CyberGHOST</span>
+              <div class="body">кто-нибудь тестировал новый рендер HUD на 1.21?</div>
+            </div>
+            <span class="chat-time">14:02</span>
+          </div>
+          <div class="chat-msg">
+            <div class="chat-avatar"></div>
+            <div>
+              <span class="name mod">admin</span>
+              <div class="body">да, патчноут в разделе «Обновления» 🔥</div>
+            </div>
+            <span class="chat-time">14:05</span>
+          </div>
+          <div class="chat-msg">
+            <div class="chat-avatar"></div>
+            <div>
+              <span class="name">newbie_223</span>
+              <div class="body">спасибо за апдейт, стало гораздо плавнее</div>
+            </div>
+            <span class="chat-time">14:11</span>
+          </div>
+          <div class="chat-input">
+            <input type="text" placeholder="Написать сообщение…" disabled>
+            <span class="btn btn-accent" style="opacity:.6; pointer-events:none;">Отправить</span>
+          </div>
+        </div>
+        <div class="side-pane">
+          <div class="side-block">
+            <h4>Кто в сети</h4>
+            <div class="online-row"><span class="dot"></span>CyberGHOST</div>
+            <p style="color:var(--text-faint); font-size:0.78rem; margin-top:6px;">Всего пользователей: 1, гостей: 0</p>
+          </div>
+          <div class="side-block">
+            <h4>Статистика форума</h4>
+            <div class="stat-row"><span>Всего тем</span><b>1</b></div>
+            <div class="stat-row"><span>Сообщений</span><b>3</b></div>
+            <div class="stat-row"><span>Участников</span><b>11</b></div>
+            <div class="stat-row"><span>Новый участник</span><b>CyberGHOST</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="board-list">
+        <div class="board-row">
+          <div class="board-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="13" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
+          <div class="board-info"><h4>Новости</h4><p>Последние объявления о визуальных оверлеях</p></div>
+          <div class="board-counts"><div><b>1</b>темы</div><div><b>3</b>сообщ.</div></div>
+        </div>
+        <div class="board-row">
+          <div class="board-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.9 5.8H20l-4.9 3.6 1.9 5.8-4.9-3.6-4.9 3.6 1.9-5.8L4.1 8.8h6.1z"/></svg></div>
+          <div class="board-info"><h4>Обновления</h4><p>История изменений конфигураций и патчноуты ПО</p></div>
+          <div class="board-counts"><div><b>0</b>темы</div><div><b>0</b>сообщ.</div></div>
+        </div>
+        <div class="board-row">
+          <div class="board-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21c-4-3.5-8-7-8-11a8 8 0 0116 0c0 4-4 7.5-8 11z"/><circle cx="12" cy="10" r="2.4"/></svg></div>
+          <div class="board-info"><h4>Помощь и поддержка</h4><p>Вопросы по установке загрузчика и настройке HUD</p></div>
+          <div class="board-counts"><div><b>0</b>темы</div><div><b>0</b>сообщ.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <a href="index.html" class="brand" style="font-size:1rem;"><span class="brand-mark" style="width:20px;height:20px;"></span>ECHO</a>
+      <div class="footer-links">
+        <a href="index.html">Главная</a>
+        <a href="forum.html">Форум</a>
+        <a href="store.html">Магазин</a>
+        <a href="download.html">Скачать</a>
+      </div>
+    </div>
+    <p class="footer-note">ECHO — клиентская визуальная надстройка. Модули меняют только отображение интерфейса и не читают сетевые пакеты, память игры или состояние других игроков.</p>
+  </div>
+</footer>
+
+</body>
+</html>
