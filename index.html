@@ -428,7 +428,7 @@
         if (activeUserObj && (activeUserObj.role === 'admin' || activeUserObj.hasSubscription)) {
             alert('Загрузка официального лоадера AIware начата! Проверьте папку Загрузки.');
         } else {
-            alert('У вас нет активной подписки! Сначала приобретите доступ в магазине.');
+            alert('Доступ недоступен! У вас нет активной подписки.');
             showShop();
         }
     }
@@ -486,13 +486,17 @@
     function buyProduct(name, price) {
         let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
         let activeUserObj = users.find(u => u.username === currentUser);
-        if (activeUserObj) {
+        
+        // Покупка доступна только админу (тестовый режим). Обычным пользователям пишем, что недоступно.
+        if (activeUserObj && activeUserObj.role === 'admin') {
             activeUserObj.hasSubscription = true;
             localStorage.setItem('AIware_users', JSON.stringify(users));
+            alert(`Заказ "${name}" на сумму ${price} успешно оформлен! Подписка активирована.`);
+            renderUserNav();
+            updateLoaderTab();
+        } else {
+            alert('Недоступно: Интеграция платежной системы в разработке. Обычным пользователям покупка пока недоступна.');
         }
-        alert(`Заказ "${name}" на сумму ${price} успешно оформлен! Подписка активирована.`);
-        renderUserNav();
-        updateLoaderTab();
     }
 
     function renderUserNav() {
