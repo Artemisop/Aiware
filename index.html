@@ -5,46 +5,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>aiware</title>
 <style>
-    body { background-color: #0b0b0e; color: #9f9fa8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+    body { background-color: #0b0b0e; color: #9f9fa8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
     
-    /* Экран-приветствие (первое фото) на всю страницу */
-    .landing-screen {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: radial-gradient(circle at 50% 25%, rgba(130, 20, 20, 0.45) 0%, rgba(15, 12, 12, 0.95) 55%, #0b0b0e 100%), #0b0b0e;
+    /* Верхний блок витрины (как на вашем скриншоте) на весь экран */
+    .showcase-section {
+        position: relative;
+        background: radial-gradient(circle at 50% 20%, rgba(130, 20, 20, 0.45) 0%, rgba(15, 12, 12, 0.9) 55%, #0b0b0e 100%), #0b0b0e;
+        padding: 80px 20px 60px 20px;
+        text-align: center;
+        border-bottom: 1px solid #23232c;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        z-index: 999;
         box-sizing: border-box;
-        padding: 20px;
-        transition: opacity 0.4s ease, visibility 0.4s ease;
-    }
-    .landing-screen.hidden {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
     }
     .showcase-preview-box {
         width: 100%;
-        max-width: 650px;
+        max-width: 750px;
         background: #121217;
         border: 1px solid #361b1b;
         box-shadow: 0 25px 60px rgba(220, 91, 91, 0.18);
         border-radius: 8px;
-        padding: 40px 20px;
-        margin-bottom: 30px;
-        text-align: center;
+        padding: 50px 20px;
+        margin-bottom: 40px;
     }
     .showcase-preview-box h1 {
         color: #ffffff;
-        font-size: 42px;
+        font-size: 48px;
         letter-spacing: 2px;
-        margin: 0 0 20px 0;
+        margin: 0 0 25px 0;
         font-weight: 800;
         text-transform: lowercase;
     }
@@ -52,11 +43,11 @@
         background: #ffffff;
         color: #0b0b0e;
         border: none;
-        padding: 10px 25px;
+        padding: 12px 30px;
         border-radius: 20px;
         font-weight: bold;
         cursor: pointer;
-        font-size: 13px;
+        font-size: 14px;
         transition: 0.2s;
     }
     .showcase-btn:hover {
@@ -64,45 +55,40 @@
     }
     .showcase-title {
         color: #ffffff;
-        font-size: 18px;
+        font-size: 22px;
         font-weight: 500;
-        margin-bottom: 20px;
-        text-align: center;
+        margin-bottom: 25px;
     }
     .features-grid {
         display: flex;
         gap: 20px;
         width: 100%;
-        max-width: 650px;
+        max-width: 750px;
         text-align: left;
     }
     .feature-card {
         background: #121217;
         border: 1px solid #23232c;
         border-radius: 6px;
-        padding: 15px 20px;
+        padding: 20px;
         flex: 1;
     }
     .feature-card h3 {
         color: #fff;
-        font-size: 14px;
+        font-size: 15px;
         margin-top: 0;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
     }
     .feature-card p {
-        font-size: 11px;
+        font-size: 12px;
         color: #767682;
         margin: 0;
-        line-height: 1.4;
+        line-height: 1.5;
     }
 
-    /* Основной сайт (форум), который открывается при входе */
-    #mainWebsite {
-        opacity: 0;
-        transition: opacity 0.4s ease;
-    }
-    #mainWebsite.visible {
-        opacity: 1;
+    /* Форум изначально скрыт (появляется только после прокрутки/клика) */
+    #forumWrapper {
+        display: none;
     }
 
     header { background-color: #121217; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #23232c; }
@@ -143,7 +129,7 @@
     .admin-btn { background: #dc5b5b; color: white; border: none; padding: 8px 15px; border-radius: 3px; cursor: pointer; font-weight: bold; }
     .admin-btn:hover { background: #c54a4a; }
     
-    /* Модальное окно (второе фото с ошибкой) */
+    /* Модальное окно ошибки авторизации */
     .auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; }
     .auth-box { background: #121217; border: 1px solid #23232c; width: 450px; border-radius: 4px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
     .auth-header { padding: 15px 20px; font-size: 18px; color: #d0d0d6; border-bottom: 1px solid #23232c; display: flex; justify-content: space-between; align-items: center; }
@@ -162,8 +148,8 @@
 </head>
 <body>
 
-<!-- Экран-заставка (Первое фото на весь экран) -->
-<div id="landingScreen" class="landing-screen">
+<!-- 1. Главный экран витрины (как на втором вашем изображении) открывается по умолчанию при заходе на сайт -->
+<div class="showcase-section" id="showcaseSection">
     <div class="showcase-preview-box">
         <h1>aiware</h1>
         <button class="showcase-btn" onclick="handleTryNowClick()">попробуй сейчас</button>
@@ -181,14 +167,14 @@
     </div>
 </div>
 
-<!-- Основной сайт (Форум / Форма) -->
-<div id="mainWebsite">
+<!-- 2. Сам Форум (который находится СНИЗУ и появляется при нажатии, если пользователь авторизован) -->
+<div id="forumWrapper">
     <header>
         <div class="header-left">
-            <a href="#" onclick="showLanding()" class="logo">aiware</a>
+            <a href="#" onclick="showHome()" class="logo">aiware</a>
             <div class="nav-links">
-                <a href="#" onclick="showLanding()">Главная</a>
-                <a href="#" onclick="checkInteraction()">Участники</a>
+                <a href="#" onclick="showHome()">Главная</a>
+                <a href="#">Участники</a>
             </div>
         </div>
         <div class="user-nav" id="userNavContainer"></div>
@@ -224,7 +210,7 @@
 
             <div class="category-title">Публичные разделы</div>
             <div class="box">
-                <div class="forum-row" onclick="checkInteraction()">
+                <div class="forum-row">
                     <div class="forum-icon">📺</div>
                     <div class="forum-info">
                         <div class="forum-title">Новости</div>
@@ -236,7 +222,7 @@
                     </div>
                 </div>
                 
-                <div class="forum-row" onclick="checkInteraction()">
+                <div class="forum-row">
                     <div class="forum-icon">🔔</div>
                     <div class="forum-info">
                         <div class="forum-title">Обновления</div>
@@ -275,7 +261,7 @@
     </div>
 </div>
 
-<!-- Модальное окно авторизации (Второе фото с ошибкой) -->
+<!-- Модальное окно ошибки (второе фото) -->
 <div id="authModal" class="auth-overlay" style="display: none;">
     <div class="auth-box">
         <div class="auth-header" id="authModalTitle">Log in</div>
@@ -352,34 +338,24 @@
         }
     }
 
-    // Главная логика кнопки «попробуй сейчас» с первого фото:
+    // Обработка кнопки «попробуй сейчас»
     function handleTryNowClick() {
         if (!currentUser) {
-            // Если НЕ залогинен — перекидывает на второе фото (модалка с ошибкой)
+            // Если НЕ залогинен — показываем модалку со второй картинки (ошибка)
             setModalMode(false, "You must be logged-in to do that.");
             document.getElementById('authModal').style.display = 'flex';
         } else {
-            // Если залогинен — скрываем экран-заставку и открываем форму сайта
-            document.getElementById('landingScreen').classList.add('hidden');
-            let mainWeb = document.getElementById('mainWebsite');
-            mainWeb.style.display = 'block';
-            setTimeout(() => mainWeb.classList.add('visible'), 10);
+            // Если залогинен — скрываем верхний экран витрины и открываем форум снизу
+            document.getElementById('showcaseSection').style.display = 'none';
+            document.getElementById('forumWrapper').style.display = 'block';
+            window.scrollTo(0, 0);
         }
     }
 
-    function showLanding() {
-        document.getElementById('mainWebsite').classList.remove('visible');
-        setTimeout(() => {
-            document.getElementById('mainWebsite').style.display = 'none';
-            document.getElementById('landingScreen').classList.remove('hidden');
-        }, 300);
-    }
-
-    function checkInteraction() {
-        if (!currentUser) {
-            setModalMode(false, "You must be logged-in to do that.");
-            document.getElementById('authModal').style.display = 'flex';
-        }
+    function showHome() {
+        document.getElementById('forumWrapper').style.display = 'none';
+        document.getElementById('showcaseSection').style.display = 'flex';
+        window.scrollTo(0, 0);
     }
 
     function renderUserNav() {
@@ -481,13 +457,11 @@
             currentUser = user.username;
             localStorage.setItem('aiware_user', currentUser);
         }
-        document.getElementById('authModal').style.display = 'none';
         
-        // После успешного входа/регистрации сразу пускаем на сайт
-        document.getElementById('landingScreen').classList.add('hidden');
-        let mainWeb = document.getElementById('mainWebsite');
-        mainWeb.style.display = 'block';
-        setTimeout(() => mainWeb.classList.add('visible'), 10);
+        document.getElementById('authModal').style.display = 'none';
+        // Успешный вход — убираем витрину и показываем форум
+        document.getElementById('showcaseSection').style.display = 'none';
+        document.getElementById('forumWrapper').style.display = 'block';
         renderUserNav();
     }
 
