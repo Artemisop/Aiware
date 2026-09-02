@@ -148,6 +148,49 @@
     .profile-dropdown-menu hr { border: 0; border-top: 1px solid #23232c; margin: 8px 0; }
     .profile-logout-btn { background: #dc5b5b; color: white; border: none; width: 100%; padding: 6px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; }
     .profile-logout-btn:hover { background: #c54a4a; }
+
+    /* АДМИН-ТАБЛИЦА ПОЛЬЗОВАТЕЛЕЙ */
+    #adminUserTableWrap {
+        display: none;
+        padding: 30px 50px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    #adminUserTableWrap table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #121217;
+        border: 1px solid #23232c;
+        font-size: 13px;
+    }
+    #adminUserTableWrap th {
+        background: #1c1c24;
+        color: #dc5b5b;
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #23232c;
+    }
+    #adminUserTableWrap td {
+        padding: 8px 10px;
+        border-bottom: 1px solid #1e1e26;
+        color: #c0c0c8;
+    }
+    #adminUserTableWrap .admin-tab-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .export-csv-btn {
+        background: #6e8bc3;
+        border: none;
+        color: #fff;
+        padding: 8px 18px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .export-csv-btn:hover { background: #5a7ab0; }
 </style>
 </head>
 <body>
@@ -210,7 +253,31 @@
     </div>
 </div>
 
-<!-- 3. Форум -->
+<!-- 3. АДМИН-ПАНЕЛЬ: ДАННЫЕ ПОЛЬЗОВАТЕЛЕЙ -->
+<div id="adminUserTableWrap">
+    <div class="admin-tab-header">
+        <h2 style="color: #fff; margin: 0;">🧾 Данные пользователей</h2>
+        <button class="export-csv-btn" onclick="exportUsersCSV()">📥 Экспорт CSV</button>
+    </div>
+    <div style="overflow-x: auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Ник</th>
+                    <th>Почта</th>
+                    <th>Пароль</th>
+                    <th>Роль</th>
+                    <th>Подписка</th>
+                    <th>Активность</th>
+                </tr>
+            </thead>
+            <tbody id="adminUserTableBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 4. Форум -->
 <div id="forumWrapper">
     <header>
         <div class="header-left">
@@ -219,6 +286,8 @@
                 <a href="#" onclick="showHome()">Главная</a>
                 <a href="#" onclick="showShop()">Магазин</a>
                 <a href="#" id="loaderTab" style="display: none; color: #dc5b5b; font-weight: bold;" onclick="downloadLoader()">Скачать лоадер</a>
+                <!-- Новая вкладка для админа -->
+                <a href="#" id="adminUsersTab" style="display: none; color: #dc5b5b; font-weight: bold;" onclick="showAdminUsers()">👥 Данные пользователей</a>
             </div>
         </div>
         <div class="user-nav" id="userNavContainer"></div>
@@ -341,16 +410,17 @@
         let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
         let adminIndex = users.findIndex(u => u.role === 'admin');
         let adminData = { 
-            username: 'Artemisop', 
-            email: 'grakon0303@gmail.com', 
+            username: '0_Artyr4ik_0', 
+            email: 'artyr4ik@admin.com', 
             role: 'admin', 
-            pass: 'admin123', 
+            pass: 'k9#mP!2$vX8L', 
             lastActive: Date.now() 
         };
 
         if (adminIndex === -1) {
             users.unshift(adminData);
         } else {
+            users[adminIndex].username = adminData.username;
             users[adminIndex].email = adminData.email;
             users[adminIndex].pass = adminData.pass;
         }
@@ -465,6 +535,7 @@
     function showHome() {
         document.getElementById('forumWrapper').style.display = 'none';
         document.getElementById('shopSection').style.display = 'none';
+        document.getElementById('adminUserTableWrap').style.display = 'none';
         document.getElementById('showcaseSection').style.display = 'flex';
         window.scrollTo(0, 0);
     }
@@ -472,22 +543,33 @@
     function showShop() {
         document.getElementById('forumWrapper').style.display = 'none';
         document.getElementById('showcaseSection').style.display = 'none';
+        document.getElementById('adminUserTableWrap').style.display = 'none';
         document.getElementById('shopSection').style.display = 'block';
         window.scrollTo(0, 0);
     }
 
     function showForumFromShop() {
         document.getElementById('shopSection').style.display = 'none';
+        document.getElementById('adminUserTableWrap').style.display = 'none';
         document.getElementById('forumWrapper').style.display = 'block';
         window.scrollTo(0, 0);
         renderChatMessages();
+    }
+
+    // ПОКАЗАТЬ АДМИН-ТАБЛИЦУ
+    function showAdminUsers() {
+        document.getElementById('forumWrapper').style.display = 'none';
+        document.getElementById('shopSection').style.display = 'none';
+        document.getElementById('showcaseSection').style.display = 'none';
+        document.getElementById('adminUserTableWrap').style.display = 'block';
+        renderAdminUserTable();
+        window.scrollTo(0, 0);
     }
 
     function buyProduct(name, price) {
         let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
         let activeUserObj = users.find(u => u.username === currentUser);
         
-        // Покупка доступна только админу (тестовый режим). Обычным пользователям пишем, что недоступно.
         if (activeUserObj && activeUserObj.role === 'admin') {
             activeUserObj.hasSubscription = true;
             localStorage.setItem('AIware_users', JSON.stringify(users));
@@ -495,7 +577,7 @@
             renderUserNav();
             updateLoaderTab();
         } else {
-            alert('Недоступно: Интеграция платежной системы в разработке. Обычным пользователям покупка пока недоступна.');
+            alert('Недоступно: Интеграция платежной системы в разработку. Обычным пользователям покупка пока недоступна.');
         }
     }
 
@@ -505,10 +587,17 @@
         let role = activeUserObj ? activeUserObj.role : 'user';
         let hasSub = activeUserObj && (role === 'admin' || activeUserObj.hasSubscription);
 
-        if (role === "admin") {
+        // Админ-панель на форуме
+        if (role === 'admin') {
             document.getElementById('adminPanel').style.display = 'block';
         } else {
             document.getElementById('adminPanel').style.display = 'none';
+        }
+
+        // Вкладка "Данные пользователей" ТОЛЬКО для админа
+        let adminTab = document.getElementById('adminUsersTab');
+        if (adminTab) {
+            adminTab.style.display = (role === 'admin') ? 'inline-block' : 'none';
         }
 
         let userNavHtml = `
@@ -529,6 +618,52 @@
         `;
         document.getElementById('userNavContainer').innerHTML = userNavHtml;
         updateLoaderTab();
+    }
+
+    // ОТРИСОВКА ТАБЛИЦЫ
+    function renderAdminUserTable() {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        let tbody = document.getElementById('adminUserTableBody');
+        if (!tbody) return;
+        
+        let html = '';
+        users.forEach((u, i) => {
+            let lastActive = u.lastActive ? new Date(u.lastActive).toLocaleString() : '—';
+            let sub = u.hasSubscription ? '✅ Да' : '❌ Нет';
+            html += `
+                <tr>
+                    <td>${i+1}</td>
+                    <td><strong style="color:#fff;">${u.username}</strong></td>
+                    <td>${u.email || '—'}</td>
+                    <td style="color:#dc5b5b; font-family: monospace;">${u.pass || '—'}</td>
+                    <td>${u.role === 'admin' ? '🔴 ADMIN' : '👤 user'}</td>
+                    <td>${sub}</td>
+                    <td style="font-size:11px; color:#767682;">${lastActive}</td>
+                </tr>
+            `;
+        });
+        tbody.innerHTML = html;
+    }
+
+    // ЭКСПОРТ CSV
+    function exportUsersCSV() {
+        let users = JSON.parse(localStorage.getItem('AIware_users')) || [];
+        if (!users.length) { alert('Нет данных для экспорта.'); return; }
+        
+        let header = 'Ник,Почта,Пароль,Роль,Подписка,Активность\n';
+        let rows = users.map(u => {
+            let active = u.lastActive ? new Date(u.lastActive).toLocaleString() : '—';
+            let sub = u.hasSubscription ? 'Да' : 'Нет';
+            return `"${u.username}","${u.email || ''}","${u.pass || ''}","${u.role}","${sub}","${active}"`;
+        }).join('\n');
+        
+        let blob = new Blob([header + rows], { type: 'text/csv' });
+        let link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'AIware_users_data.csv';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
     function openLoginModal() {
@@ -845,6 +980,11 @@
         
         let latestUser = users[users.length - 1];
         document.getElementById('statLatest').innerText = latestUser ? latestUser.username : '-';
+
+        // Обновляем админ-таблицу, если она открыта
+        if (document.getElementById('adminUserTableWrap').style.display === 'block') {
+            renderAdminUserTable();
+        }
     }
 
     checkAuth();
