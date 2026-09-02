@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>aiware - Dashboard</title>
+<title>aiware - Форум</title>
 <style>
     body { background-color: #0b0b0e; color: #9f9fa8; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
     header { background-color: #121217; padding: 15px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #23232c; }
@@ -38,6 +38,10 @@
     .stat-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
     .online-users { color: #d0d0d6; font-size: 13px; margin-bottom: 10px; }
     .badge-admin { background: #dc5b5b; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px; }
+    .admin-panel-box { background: #121217; border: 1px solid #dc5b5b; padding: 15px; border-radius: 4px; margin-bottom: 20px; display: none; }
+    .admin-panel-box input, .admin-panel-box textarea, .admin-panel-box select { background: #16161c; border: 1px solid #23232c; color: #fff; padding: 8px; width: calc(100% - 18px); margin-bottom: 10px; border-radius: 3px; font-family: inherit; }
+    .admin-btn { background: #dc5b5b; color: white; border: none; padding: 8px 15px; border-radius: 3px; cursor: pointer; font-weight: bold; }
+    .admin-btn:hover { background: #c54a4a; }
 </style>
 </head>
 <body>
@@ -46,8 +50,8 @@
     <div class="header-left">
         <a href="index.html" class="logo">aiware</a>
         <div class="nav-links">
-            <a href="index.html">Members</a>
-            <a href="store.html">Store</a>
+            <a href="index.html">Участники</a>
+            <a href="store.html">Магазин</a>
         </div>
     </div>
     <div class="user-nav">
@@ -60,44 +64,56 @@
 
 <div class="container">
     <div class="main-content">
+        <!-- Панель администратора (видна только Artemisop) -->
+        <div id="adminPanel" class="admin-panel-box">
+            <h3 style="color: #dc5b5b; margin-top: 0; font-size: 14px;">Панель администратора: Создать публикацию</h3>
+            <input type="text" id="postTitle" placeholder="Заголовок (например, Важное обновление v1.1)...">
+            <textarea id="postContent" placeholder="Текст новости или описания обновления..." rows="3"></textarea>
+            <select id="postCategory">
+                <option value="news">Новости (News)</option>
+                <option value="update">Обновления (Updates)</option>
+            </select><br>
+            <button class="admin-btn" onclick="createPost()">Опубликовать</button>
+        </div>
+
         <div class="box">
             <div class="box-header">
-                <span>📢 Shoutbox</span>
+                <span>📢 Чат (Shoutbox)</span>
                 <span>↑↓</span>
             </div>
-            <div class="box-content shoutbox-messages">
-                No shouts have been posted yet.
+            <div class="box-content shoutbox-messages" id="shoutboxContainer">
+                Сообщений пока нет.
             </div>
             <div class="shoutbox-input-container">
-                <input type="text" class="shoutbox-input" placeholder="What's on your mind?">
+                <input type="text" class="shoutbox-input" placeholder="Что у вас на уме?">
                 <span>😀</span>
                 <span>📣</span>
             </div>
         </div>
 
-        <div class="category-title">Public</div>
+        <div class="category-title">Публичные разделы</div>
         <div class="box">
             <div class="forum-row">
                 <div class="forum-icon">📺</div>
                 <div class="forum-info">
-                    <div class="forum-title">News</div>
-                    <div class="forum-desc">Latest news, announcements, and important events.</div>
+                    <div class="forum-title">Новости</div>
+                    <div class="forum-desc">Последние новости, анонсы и важные события форума.</div>
                 </div>
                 <div class="forum-stats">
-                    <div>Threads <span class="stat-val">5</span></div>
-                    <div>Messages <span class="stat-val">281</span></div>
+                    <div>Темы <span class="stat-val" id="countNewsThreads">0</span></div>
+                    <div>Сообщения <span class="stat-val" id="countNewsMsgs">0</span></div>
                 </div>
             </div>
             
             <div class="forum-row">
                 <div class="forum-icon">🔔</div>
                 <div class="forum-info">
-                    <div class="forum-title">Updates</div>
-                    <div class="forum-desc">Update logs for software.</div>
+                    <div class="forum-title">Обновления</div>
+                    <div class="forum-desc">Логи обновлений и патчноуты софта.</div>
                 </div>
                 <div class="forum-stats">
-                    <div>Threads <span class="stat-val">18</span></div>
-                    <div>Messages <span class="stat-val">18</span></div>
+                    <div>Темы <span class="stat-val" id="countUpdateThreads">0</span></div>
+                    <div>Сообщения <span class="stat-val" id="countUpdateMsgs">0</span></div>
                 </div>
             </div>
         </div>
@@ -105,22 +121,22 @@
 
     <div class="sidebar">
         <div class="box sidebar-box">
-            <div class="box-header">Members online</div>
+            <div class="box-header">Пользователи онлайн</div>
             <div class="box-content">
-                <div class="online-users" id="onlineUsers">Artemisop, Exec7t3r, Cipsyy</div>
-                <div style="font-size: 12px;">Total: 6 (members: 4, guests: 2)</div>
+                <div class="online-users" id="onlineUsers">Загрузка...</div>
+                <div style="font-size: 12px;" id="onlineCounter">Всего: 0</div>
             </div>
         </div>
 
         <div class="box sidebar-box">
-            <div class="box-header">Forum statistics</div>
+            <div class="box-header">Статистика форума</div>
             <div class="box-content">
-                <div class="stat-row"><span>Threads:</span> <span>3,565</span></div>
-                <div class="stat-row"><span>Messages:</span> <span>17,498</span></div>
-                <div class="stat-row"><span>Members:</span> <span>110,213</span></div>
+                <div class="stat-row"><span>Всего тем:</span> <span id="statThreads">0</span></div>
+                <div class="stat-row"><span>Сообщений:</span> <span id="statMessages">0</span></div>
+                <div class="stat-row"><span>Участников:</span> <span id="statMembers">0</span></div>
                 <div class="stat-row" style="margin-top: 10px;">
-                    <span>Latest member:</span> 
-                    <span style="color: #6e8bc3;">kostyaognev16052014</span>
+                    <span>Последний участник:</span> 
+                    <span style="color: #6e8bc3;" id="statLatest">-</span>
                 </div>
             </div>
         </div>
@@ -128,29 +144,60 @@
 </div>
 
 <script>
-    // Проверка текущего пользователя (по умолчанию создаем ваш админ-аккаунт Artemisop)
+    // Инициализация базы данных в localStorage для реального времени
+    function initStorage() {
+        if (!localStorage.getItem('aiware_users')) {
+            localStorage.setItem('aiware_users', JSON.stringify([
+                { username: 'Artemisop', role: 'admin', lastActive: Date.now() },
+                { username: 'Exec7t3r', role: 'user', lastActive: Date.now() - 50000 },
+                { username: 'Cipsyy', role: 'user', lastActive: Date.now() - 100000 }
+            ]));
+        }
+        if (!localStorage.getItem('aiware_posts')) {
+            localStorage.setItem('aiware_posts', JSON.stringify([
+                { id: 1, title: 'Запуск форума', content: 'Форум успешно развернут.', category: 'news', author: 'Artemisop' },
+                { id: 2, title: 'Патч 1.0', content: 'Стабильная версия системы.', category: 'update', author: 'Artemisop' }
+            ]));
+        }
+    }
+
+    initStorage();
+
+    // Текущий пользователь
     let currentUser = localStorage.getItem('aiware_user');
     let userSub = localStorage.getItem('aiware_sub') || 0;
 
     if (!currentUser) {
-        currentUser = "Artemisop"; // Ваш отдельный главный аккаунт
+        currentUser = "Artemisop";
         localStorage.setItem('aiware_user', currentUser);
-        localStorage.setItem('aiware_sub', '999'); // Вечная подписка для админа
+        localStorage.setItem('aiware_sub', '999');
     }
 
+    // Рендер шапки профиля
     let userHtml = `👤 ${currentUser}`;
     if (currentUser === "Artemisop") {
         userHtml += ` <span class="badge-admin">ADMIN</span>`;
         if (userSub > 0) {
             userHtml += ` <span style="color: #6e8bc3; font-size: 11px;">(Подписка активна)</span>`;
         }
+        document.getElementById('adminPanel').style.display = 'block';
     }
     document.getElementById('userDisplay').innerHTML = userHtml;
 
+    // Функция смены аккаунта
     function switchUser() {
-        let name = prompt("Введите имя аккаунта (введите Artemisop для получения админки):", currentUser);
-        if (name) {
+        let name = prompt("Введите имя аккаунта (введите Artemisop для прав администратора):", currentUser);
+        if (name && name.trim() !== "") {
+            name = name.trim();
             localStorage.setItem('aiware_user', name);
+            
+            let users = JSON.parse(localStorage.getItem('aiware_users'));
+            let existing = users.find(u => u.username === name);
+            if (!existing) {
+                users.push({ username: name, role: name === 'Artemisop' ? 'admin' : 'user', lastActive: Date.now() });
+                localStorage.setItem('aiware_users', JSON.stringify(users));
+            }
+
             if (name === "Artemisop") {
                 localStorage.setItem('aiware_sub', '999');
             } else {
@@ -159,6 +206,75 @@
             location.reload();
         }
     }
+
+    // Создание поста администратором
+    function createPost() {
+        let title = document.getElementById('postTitle').value.trim();
+        let content = document.getElementById('postContent').value.trim();
+        let category = document.getElementById('postCategory').value;
+
+        if (!title || !content) {
+            alert('Пожалуйста, заполните заголовок и содержание!');
+            return;
+        }
+
+        let posts = JSON.parse(localStorage.getItem('aiware_posts'));
+        posts.unshift({
+            id: Date.now(),
+            title: title,
+            content: content,
+            category: category,
+            author: currentUser
+        });
+        localStorage.setItem('aiware_posts', JSON.stringify(posts));
+
+        document.getElementById('postTitle').value = '';
+        document.getElementById('postContent').value = '';
+        alert('Публикация успешно создана!');
+        updateRealtimeData();
+    }
+
+    // Обновление реальной статистики и онлайна
+    function updateRealtimeData() {
+        let users = JSON.parse(localStorage.getItem('aiware_users'));
+        let posts = JSON.parse(localStorage.getItem('aiware_posts'));
+
+        // Обновляем активность текущего пользователя
+        let activeUser = users.find(u => u.username === currentUser);
+        if (activeUser) {
+            activeUser.lastActive = Date.now();
+        } else {
+            users.push({ username: currentUser, role: currentUser === 'Artemisop' ? 'admin' : 'user', lastActive: Date.now() });
+        }
+        localStorage.setItem('aiware_users', JSON.stringify(users));
+
+        // Считаем активных в сети (кто заходил за последние 3 минуты)
+        let now = Date.now();
+        let onlineList = users.filter(u => (now - u.lastActive) < 180000);
+        
+        document.getElementById('onlineUsers').innerText = onlineList.map(u => u.username).join(', ');
+        document.getElementById('onlineCounter').innerText = `Всего: ${onlineList.length} (участников: ${onlineList.length}, гостей: 0)`;
+
+        // Статистика постов
+        let newsCount = posts.filter(p => p.category === 'news').length;
+        let updateCount = posts.filter(p => p.category === 'update').length;
+
+        document.getElementById('countNewsThreads').innerText = newsCount;
+        document.getElementById('countNewsMsgs').innerText = newsCount * 12; // примерный счетчик сообщений внутри тем
+        document.getElementById('countUpdateThreads').innerText = updateCount;
+        document.getElementById('countUpdateMsgs').innerText = updateCount * 5;
+
+        document.getElementById('statThreads').innerText = posts.length;
+        document.getElementById('statMessages').innerText = (newsCount * 12) + (updateCount * 5);
+        document.getElementById('statMembers').innerText = users.length;
+        
+        let latestUser = users[users.length - 1];
+        document.getElementById('statLatest').innerText = latestUser ? latestUser.username : '-';
+    }
+
+    // Запуск при загрузке и каждые 10 секунд для поддержания актуального онлайна
+    updateRealtimeData();
+    setInterval(updateRealtimeData, 10000);
 </script>
 </body>
 </html>
