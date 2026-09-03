@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Регистрация — ECHO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .auth-wrap{ max-width: 420px; margin: 0 auto; padding: 90px 32px 60px; }
+  .auth-card{ border: 1px solid var(--border); background: var(--panel); border-radius: 16px; padding: 32px; }
+  .auth-card h1{ font-size: 1.5rem; margin-bottom: 6px; }
+  .auth-card .sub{ color: var(--text-dim); font-size: 0.9rem; margin-bottom: 26px; }
+  .field{ margin-bottom: 16px; }
+  .field label{ display:block; font-size: 0.82rem; color: var(--text-dim); margin-bottom: 6px; }
+  .field input{
+    width:100%; background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 11px 14px; color: var(--text); font-size: 0.92rem; font-family: inherit;
+  }
+  .field input:focus{ outline: none; border-color: var(--accent); }
+  .auth-submit{ width:100%; margin-top: 8px; padding: 12px; font-size: 0.95rem; }
+  .auth-msg{ font-size: 0.84rem; margin-top: 14px; text-align:center; min-height: 18px; }
+  .auth-msg.err{ color: var(--accent); }
+  .auth-msg.ok{ color: var(--good); }
+  .auth-switch{ text-align:center; font-size: 0.86rem; color: var(--text-faint); margin-top: 20px; }
+  .auth-switch a{ color: var(--accent); font-weight:600; }
+</style>
+</head>
+<body>
+
+<div class="field" style="position:fixed;"></div>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="index.html" class="brand"><span class="brand-mark"></span>ECHO</a>
+      <div class="nav-links">
+        <a href="index.html">Главная</a>
+        <a href="forum.html">Форум</a>
+        <a href="store.html">Магазин</a>
+        <a href="download.html">Скачать</a>
+      </div>
+      <div class="nav-cta">
+        <a href="login.html" class="btn btn-ghost">Войти</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <h1>Создать аккаунт</h1>
+      <p class="sub">Регистрация только по инвайт-коду.</p>
+
+      <form id="register-form">
+        <div class="field">
+          <label for="username">Никнейм</label>
+          <input type="text" id="username" placeholder="0_Artyr4ik_0" required minlength="3" maxlength="24">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="password">Пароль</label>
+          <input type="password" id="password" placeholder="Минимум 8 символов" required minlength="8">
+        </div>
+        <div class="field">
+          <label for="invite">Инвайт-код</label>
+          <input type="text" id="invite" placeholder="XXXX-XXXX-XXXX" required>
+        </div>
+        <button type="submit" class="btn btn-accent auth-submit">Зарегистрироваться</button>
+        <div class="auth-msg" id="msg"></div>
+      </form>
+
+      <div class="auth-switch">Уже есть аккаунт? <a href="login.html">Войти</a></div>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+const form = document.getElementById('register-form');
+const msg = document.getElementById('msg');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  msg.textContent = '';
+  msg.className = 'auth-msg';
+
+  const username = document.getElementById('username').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const invite = document.getElementById('invite').value.trim();
+
+  const submitBtn = form.querySelector('button[type="submit"]');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Проверяем код…';
+
+  // 1. Проверяем, что инвайт-код существует и ещё не использован
+  const { data: codeRow, error: codeErr } = await supabaseClient
+    .from('invite_codes')
+    .select('code, used')
+    .eq('code', invite)
+    .maybeSingle();
+
+  if (codeErr || !codeRow) {
+    msg.textContent = 'Такого инвайт-кода не существует.';
+    msg.classList.add('err');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Зарегистрироваться';
+    return;
+  }
+  if (codeRow.used) {
+    msg.textContent = 'Этот инвайт-код уже использован.';
+    msg.classList.add('err');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Зарегистрироваться';
+    return;
+  }
+
+  // 2. Создаём аккаунт
+  submitBtn.textContent = 'Создаём аккаунт…';
+  const { data: signUpData, error: signUpErr } = await supabaseClient.auth.signUp({
+    email,
+    password,
+    options: { data: { username } }
+  });
+
+  if (signUpErr) {
+    msg.textContent = signUpErr.message.includes('already registered')
+      ? 'Этот email уже зарегистрирован.'
+      : 'Ошибка регистрации: ' + signUpErr.message;
+    msg.classList.add('err');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Зарегистрироваться';
+    return;
+  }
+
+  // 3. Помечаем инвайт-код использованным
+  await supabaseClient
+    .from('invite_codes')
+    .update({ used: true, used_by: signUpData.user.id, used_at: new Date().toISOString() })
+    .eq('code', invite);
+
+  msg.textContent = 'Готово! Проверь почту для подтверждения и войди.';
+  msg.classList.add('ok');
+  form.reset();
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Зарегистрироваться';
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кабинет — ECHO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .db-wrap{ max-width: 720px; margin: 0 auto; padding: 70px 32px 60px; }
+  .db-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom: 34px; }
+  .db-head h1{ font-size: 1.6rem; }
+  .db-head .who{ color: var(--text-dim); font-size: 0.9rem; margin-top: 4px; }
+  .role-badge{
+    display:inline-flex; align-items:center; gap:6px; font-size: 0.76rem; font-weight: 700;
+    padding: 5px 12px; border-radius: 100px; margin-top: 8px;
+  }
+  .role-badge.member{ background: var(--panel-2); color: var(--text-dim); border: 1px solid var(--border); }
+  .role-badge.creator{ background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #14051a; }
+
+  .card{ border: 1px solid var(--border); background: var(--panel); border-radius: 16px; padding: 26px; margin-bottom: 20px; }
+  .card h2{ font-size: 1.05rem; margin-bottom: 14px; }
+
+  .creator-panel{ border-color: var(--accent); background: linear-gradient(180deg, rgba(255,90,95,0.06), var(--panel) 40%); }
+  .creator-panel h2{ display:flex; align-items:center; gap: 8px; color: var(--accent); }
+
+  .invite-row{ display:flex; gap: 10px; margin-bottom: 16px; }
+  .invite-row input{
+    flex:1; background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 11px 14px; color: var(--text); font-family:'JetBrains Mono', monospace; font-size: 0.88rem;
+  }
+
+  .code-list{ border-top: 1px solid var(--border); }
+  .code-row{ display:flex; align-items:center; justify-content:space-between; padding: 11px 0; border-bottom: 1px solid var(--border); font-family:'JetBrains Mono', monospace; font-size: 0.85rem; }
+  .code-row:last-child{ border-bottom:none; }
+  .code-status{ font-family:'Inter',sans-serif; font-size: 0.76rem; padding: 3px 10px; border-radius: 100px; }
+  .code-status.free{ background: rgba(87,230,161,0.12); color: var(--good); }
+  .code-status.used{ background: rgba(102,95,120,0.2); color: var(--text-faint); }
+
+  #loading, #need-login{ text-align:center; padding: 80px 32px; color: var(--text-dim); }
+</style>
+</head>
+<body>
+
+<div class="field" style="position:fixed;"></div>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="index.html" class="brand"><span class="brand-mark"></span>ECHO</a>
+      <div class="nav-links">
+        <a href="index.html">Главная</a>
+        <a href="forum.html">Форум</a>
+        <a href="store.html">Магазин</a>
+        <a href="download.html">Скачать</a>
+      </div>
+      <div class="nav-cta">
+        <a href="#" id="logout-btn" class="btn btn-ghost" style="display:none;">Выйти</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div id="loading" class="db-wrap">Загрузка…</div>
+
+  <div id="need-login" class="db-wrap" style="display:none;">
+    <p>Нужно войти, чтобы увидеть кабинет.</p>
+    <br>
+    <a href="login.html" class="btn btn-primary">Войти</a>
+  </div>
+
+  <div id="dashboard" class="db-wrap" style="display:none;">
+    <div class="db-head">
+      <div>
+        <h1>Личный кабинет</h1>
+        <div class="who" id="who">—</div>
+        <span class="role-badge" id="role-badge"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Твой аккаунт</h2>
+      <p style="color:var(--text-dim); font-size:0.9rem;">Здесь появятся настройки профиля, привязка конфигов и история покупок.</p>
+    </div>
+
+    <!-- Появляется только для role = creator -->
+    <div class="card creator-panel" id="creator-panel" style="display:none;">
+      <h2>⚡ Панель Creator</h2>
+      <div class="invite-row">
+        <input type="text" id="new-code" readonly placeholder="Нажми «Сгенерировать»">
+        <button class="btn btn-accent" id="generate-btn">Сгенерировать код</button>
+      </div>
+      <div id="gen-msg" style="font-size:0.82rem; color:var(--text-dim); margin-bottom:16px;"></div>
+      <div class="code-list" id="code-list"></div>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script>
+const loadingEl = document.getElementById('loading');
+const needLoginEl = document.getElementById('need-login');
+const dashEl = document.getElementById('dashboard');
+const logoutBtn = document.getElementById('logout-btn');
+
+function randomCode() {
+  const seg = () => Math.random().toString(36).slice(2, 6).toUpperCase();
+  return `${seg()}-${seg()}-${seg()}`;
+}
+
+async function init() {
+  const { data: { session } } = await supabaseClient.auth.getSession();
+
+  if (!session) {
+    loadingEl.style.display = 'none';
+    needLoginEl.style.display = 'block';
+    return;
+  }
+
+  const user = session.user;
+  logoutBtn.style.display = 'inline-flex';
+
+  const { data: profile } = await supabaseClient
+    .from('profiles')
+    .select('username, role')
+    .eq('id', user.id)
+    .single();
+
+  loadingEl.style.display = 'none';
+  dashEl.style.display = 'block';
+
+  document.getElementById('who').textContent = `${profile?.username ?? user.email} · ${user.email}`;
+
+  const badge = document.getElementById('role-badge');
+  if (profile?.role === 'creator') {
+    badge.textContent = 'Creator';
+    badge.classList.add('creator');
+    document.getElementById('creator-panel').style.display = 'block';
+    loadCodes();
+  } else {
+    badge.textContent = 'Участник';
+    badge.classList.add('member');
+  }
+}
+
+async function loadCodes() {
+  const { data: codes } = await supabaseClient
+    .from('invite_codes')
+    .select('code, used')
+    .order('created_at', { ascending: false })
+    .limit(20);
+
+  const list = document.getElementById('code-list');
+  list.innerHTML = '';
+  (codes ?? []).forEach(c => {
+    const row = document.createElement('div');
+    row.className = 'code-row';
+    row.innerHTML = `<span>${c.code}</span><span class="code-status ${c.used ? 'used' : 'free'}">${c.used ? 'использован' : 'свободен'}</span>`;
+    list.appendChild(row);
+  });
+}
+
+document.getElementById('generate-btn').addEventListener('click', async () => {
+  const { data: { session } } = await supabaseClient.auth.getSession();
+  const code = randomCode();
+  const genMsg = document.getElementById('gen-msg');
+
+  const { error } = await supabaseClient
+    .from('invite_codes')
+    .insert({ code, created_by: session.user.id });
+
+  if (error) {
+    genMsg.textContent = 'Не удалось создать код: ' + error.message;
+    genMsg.style.color = 'var(--accent)';
+    return;
+  }
+
+  document.getElementById('new-code').value = code;
+  genMsg.textContent = 'Код создан и добавлен в список ниже.';
+  genMsg.style.color = 'var(--good)';
+  loadCodes();
+});
+
+logoutBtn.addEventListener('click', async (e) => {
+  e.preventDefault();
+  await supabaseClient.auth.signOut();
+  window.location.href = 'login.html';
+});
+
+init();
+</script>
+
+</body>
+</html>
